@@ -206,7 +206,7 @@ export function EarningsHome({
           {sessions.filter(s => s.date === viewDate).length > 0 && (
             <>
               {currentLocation === 'halo' ? (
-                <HaloPayrollSummary sessions={sessions.filter(s => s.date === viewDate)} />
+                <HaloPayrollSummary sessions={sessions.filter(s => s.date === viewDate)} selectedDate={viewDate} />
               ) : (
                 <EarningsSummary sessions={sessions.filter(s => s.date === viewDate)} />
               )}
