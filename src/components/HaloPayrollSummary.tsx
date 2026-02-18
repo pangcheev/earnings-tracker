@@ -16,6 +16,9 @@ export function HaloPayrollSummary({ sessions, selectedDate }: HaloPayrollSummar
     return null
   }
 
+  // Use selectedDate or fall back to first session's date
+  const dateToDisplay = selectedDate || sessions[0]?.date
+
   // Calculate session-by-session breakdown
   const sessionBreakdowns = sessions.map(session => ({
     session,
@@ -48,7 +51,7 @@ export function HaloPayrollSummary({ sessions, selectedDate }: HaloPayrollSummar
 
   // Format payroll for manager - with detailed session breakdown
   const payrollText = `HALO THERAPIES - DAILY TALLY
-${selectedDate ? `Date: ${format(parseLocalDateString(selectedDate), 'MMMM d, yyyy')}` : 'Daily Summary'}
+${dateToDisplay ? `Date: ${format(parseLocalDateString(dateToDisplay), 'MMMM d, yyyy')}` : 'Daily Summary'}
 
 SESSION BREAKDOWN:
 ${sessionBreakdowns
@@ -79,7 +82,7 @@ TOTAL: $${totals.grandTotal.toFixed(2)}`
 
   // Format totals only for quick text - simple version
   const totalsOnlyText = `HALO THERAPIES - PANG VANG
-DATE: ${selectedDate ? format(parseLocalDateString(selectedDate), 'MMMM d, yyyy') : format(new Date(), 'MMMM d, yyyy')}
+DATE: ${dateToDisplay ? format(parseLocalDateString(dateToDisplay), 'MMMM d, yyyy') : format(new Date(), 'MMMM d, yyyy')}
 Sessions: ${sessions.length}
 
 SESSION BREAKDOWN:
