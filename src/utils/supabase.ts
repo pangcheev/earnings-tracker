@@ -8,7 +8,7 @@ const supabaseAnonKey = (import.meta.env as any).VITE_SUPABASE_ANON_KEY
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn(
     '⚠️  Supabase credentials not configured. Using localStorage fallback.\n' +
-    'Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env.local to enable cloud sync.'
+    'Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to environment for cloud sync.'
   )
 }
 
