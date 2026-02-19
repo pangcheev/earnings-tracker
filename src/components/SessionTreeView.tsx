@@ -48,7 +48,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
   }
 
   return (
-    <div className="bg-slate-800 rounded-lg p-6 border border-slate-600">
+    <div className="bg-green-800 rounded-lg p-6 border border-green-600">
       <h3 className="text-xl font-bold text-white mb-6">📋 Session History</h3>
 
       <div className="space-y-4">
@@ -75,15 +75,15 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
           }, 0)
 
           return (
-            <div key={dayKey} className={`rounded-lg border ${isExpanded ? 'border-teal-500 bg-slate-750' : 'border-amber-700 hover:border-slate-500'} transition-colors`}>
+            <div key={dayKey} className={`rounded-lg border ${isExpanded ? 'border-green-400 bg-green-750' : 'border-green-600 hover:border-green-400'} transition-colors`}>
               {/* Date header */}
               <button
                 onClick={() => toggleExpanded(dayKey)}
-                className="w-full flex items-center justify-between p-4 hover:bg-slate-700 transition-colors"
+                className="w-full flex items-center justify-between p-4 hover:bg-green-700 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   {isExpanded ? (
-                    <ChevronDown className="w-5 h-5 text-blue-400" />
+                    <ChevronDown className="w-5 h-5 text-green-400" />
                   ) : (
                     <ChevronRight className="w-5 h-5 text-slate-400" />
                   )}
@@ -93,7 +93,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className={`font-bold text-lg ${isHalo ? 'text-blue-400' : 'text-amber-400'}`}>
+                  <p className={`font-bold text-lg ${isHalo ? 'text-green-400' : 'text-amber-400'}`}>
                     ${dayTotal.toFixed(2)}
                   </p>
                 </div>
@@ -101,7 +101,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
 
               {/* Sessions list */}
               {isExpanded && (
-                <div className="border-t border-amber-700 p-4 bg-slate-900 space-y-3">
+                <div className="border-t border-green-700 p-4 bg-green-900 space-y-3">
                   {daySessionList.map((session, idx) => {
                     let sessionTotal: number
                     let breakdown: any = null
@@ -144,7 +144,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             )}
                           </div>
                           <div className="text-right">
-                            <p className={`font-bold text-sm ${isHalo ? 'text-blue-700' : 'text-blue-700'}`}>
+                            <p className={`font-bold text-sm ${isHalo ? 'text-green-700' : 'text-green-700'}`}>
                               ${sessionTotal.toFixed(2)}
                             </p>
                           </div>

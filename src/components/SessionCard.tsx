@@ -36,7 +36,7 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
   }
 
   return (
-    <div className={`rounded-lg p-6 hover:shadow-lg transition-all ${isHalo ? 'bg-blue-700 hover:bg-blue-600' : 'bg-slate-700 hover:bg-slate-600'}`}>
+    <div className={`rounded-lg p-6 hover:shadow-lg transition-all ${isHalo ? 'bg-green-700 hover:bg-green-600' : 'bg-slate-700 hover:bg-slate-600'}`}>
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-lg font-semibold text-white">
@@ -60,7 +60,7 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
           {onEdit && (
             <button
               onClick={() => onEdit(session)}
-              className={`transition-colors ${isHalo ? 'text-blue-600 hover:text-blue-200' : 'text-amber-400 hover:text-amber-300'}`}
+              className={`transition-colors ${isHalo ? 'text-green-600 hover:text-green-200' : 'text-amber-400 hover:text-amber-300'}`}
             >
               <Edit2 className="w-5 h-5" />
             </button>
@@ -111,7 +111,7 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
       )}
 
       {/* Total */}
-      <div className={`border-t pt-4 mt-4 flex justify-between items-center ${isHalo ? 'border-blue-600' : 'border-amber-700'}`}>
+      <div className={`border-t pt-4 mt-4 flex justify-between items-center ${isHalo ? 'border-green-600' : 'border-amber-700'}`}>
         <span className="opacity-90">{isHalo ? 'Total Payout' : 'Total Earnings'}:</span>
         <span className={`text-xl font-bold ${isHalo ? 'text-yellow-300' : 'text-amber-400'}`}>
           ${grandTotal.toFixed(2)}

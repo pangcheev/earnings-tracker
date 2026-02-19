@@ -398,7 +398,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
               )}
               <div className="border-t border-amber-700 mt-2 pt-2 flex justify-between text-lg">
                 <span>Total:</span>
-                <span className={`font-bold ${isHalo ? 'text-blue-400' : 'text-amber-400'}`}>
+                <span className={`font-bold ${isHalo ? 'text-green-400' : 'text-amber-400'}`}>
                   ${grandTotal.toFixed(2)}
                 </span>
               </div>
