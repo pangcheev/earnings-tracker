@@ -123,7 +123,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                     return (
                       <div
                         key={session.id}
-                        className={`p-3 rounded border ${isHalo ? 'bg-teal-50 border-amber-700 hover:border-teal-500' : 'bg-slate-800 border-amber-700 hover:border-slate-500'} transition-colors`}
+                        className={`p-3 rounded border ${isHalo ? 'bg-blue-950 border-blue-700 hover:border-blue-500' : 'bg-slate-800 border-slate-600 hover:border-slate-500'} transition-colors`}
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <div className="flex-1">
@@ -144,14 +144,14 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             )}
                           </div>
                           <div className="text-right">
-                            <p className={`font-bold text-sm ${isHalo ? 'text-blue-600' : 'text-amber-300'}`}>
+                            <p className={`font-bold text-sm ${isHalo ? 'text-blue-300' : 'text-amber-300'}`}>
                               ${sessionTotal.toFixed(2)}
                             </p>
                           </div>
                         </div>
 
                         {/* Breakdown details */}
-                        <div className="text-xs text-slate-400 space-y-1 mb-3 pl-3 border-l border-amber-700">
+                        <div className="text-xs text-slate-400 space-y-1 mb-3 pl-3 border-l border-slate-600">
                           {isHalo ? (
                             <>
                               {breakdown.massage > 0 && <div>Massage: ${breakdown.massage.toFixed(2)}</div>}
