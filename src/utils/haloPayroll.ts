@@ -35,10 +35,10 @@ export const HALO_ADDONS = [
   { id: 'vetiver-guasha', name: 'Vetiver Guasha Treatment', price: 10.00 },
 ]
 
-export function calculateHaloServicePayout(
-  serviceType: string,
-  duration: number,
-): number {
+/**
+ * Calculate the base massage payout for a given duration (without service type surcharges)
+ */
+export function calculateHaloBaseMassagePrice(duration: number): number {
   let basePayout = 0
 
   // Find matching base pricing tier (exact or next lower)
@@ -59,6 +59,15 @@ export function calculateHaloServicePayout(
     const closestHourly = closestPayout / (closestRate / 60)
     basePayout = (closestHourly / 60) * duration
   }
+
+  return basePayout
+}
+
+export function calculateHaloServicePayout(
+  serviceType: string,
+  duration: number,
+): number {
+  let basePayout = calculateHaloBaseMassagePrice(duration)
 
   // Add service-type bonus
   if (serviceType === 'deep-tissue') {

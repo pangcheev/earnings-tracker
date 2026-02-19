@@ -38,10 +38,31 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
     
     // Convert database format to SessionData format
     const sessions = (data || []).map((row: any) => {
-      // Reconstruct add-ons array if there's a total
-      const addOnsArray: any[] = row.add_ons && row.add_ons > 0 
-        ? [{ id: `addon-${row.id}`, name: 'Add-ons', price: row.add_ons }]
-        : []
+      // Reconstruct add-ons array from database columns
+      const addOnsArray: any[] = []
+      
+      // Add non-surcharge add-ons
+      if (row.add_ons && row.add_ons > 0) {
+        addOnsArray.push({ id: `addon-${row.id}`, name: 'Add-ons', price: row.add_ons })
+      }
+      
+      // Reconstruct surcharge add-ons from the surcharge columns
+      if (row.deep_tissue_surcharge && row.deep_tissue_surcharge > 0) {
+        addOnsArray.push({
+          id: `deep-tissue-${row.id}`,
+          name: 'Deep Tissue / Sports / Lymphatic',
+          price: row.deep_tissue_surcharge,
+          haloCode: 'deep-tissue'
+        })
+      }
+      if (row.advanced_bodywork_surcharge && row.advanced_bodywork_surcharge > 0) {
+        addOnsArray.push({
+          id: `advanced-bodywork-${row.id}`,
+          name: 'Advanced Bodywork',
+          price: row.advanced_bodywork_surcharge,
+          haloCode: 'advanced-bodywork'
+        })
+      }
       
       return {
         id: row.id,
@@ -79,16 +100,12 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
       const firstService = session.services[0]
       const serviceType = firstService?.type || 'massage'
       
-      // Sum all add-ons (in case there are multiple)
-      const totalAddOns = session.addOns.reduce((sum, addon) => sum + Number(addon.price || 0), 0)
-      
-      // Calculate total payout for halo sessions: base_price + add_ons + review + tips
+      // Calculate base price and surcharges
       const basePrice = Number(firstService?.rate || 0)
       const review = Number(session.review || 0)
       const tips = Number(session.tips || 0)
-      const haloTotal = session.location === 'halo' ? basePrice + totalAddOns + review + tips : null
       
-      // Set surcharge columns based on service type + add-ons
+      // Set surcharge columns based on service type
       let deepTissueSurcharge = 0
       let advancedBodyworkSurcharge = 0
       
@@ -99,15 +116,24 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
         advancedBodyworkSurcharge = 12.50
       }
       
-      // Add surcharges from add-ons
+      // Separate add-ons: surcharges go to their columns, others to add_ons total
+      let totalAddOns = 0
       session.addOns.forEach(addon => {
         const checkId = (addon as any).haloCode || addon.id
         if (checkId === 'deep-tissue') {
           deepTissueSurcharge += addon.price
         } else if (checkId === 'advanced-bodywork') {
           advancedBodyworkSurcharge += addon.price
+        } else {
+          // Only non-surcharge add-ons count toward add_ons total
+          totalAddOns += Number(addon.price || 0)
         }
       })
+      
+      // Calculate total payout: base + surcharges + other add-ons + review + tips
+      const haloTotal = session.location === 'halo' 
+        ? basePrice + deepTissueSurcharge + advancedBodyworkSurcharge + totalAddOns + review + tips 
+        : null
       
       return {
         id: session.id,

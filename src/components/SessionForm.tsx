@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Plus, X } from 'lucide-react'
 import { SessionData, ServiceEntry, AddOn } from '../types'
-import { HALO_ADDONS, calculateHaloServicePayout, getLocalDateString } from '../utils/haloPayroll'
+import { HALO_ADDONS, calculateHaloServicePayout, calculateHaloBaseMassagePrice, getLocalDateString } from '../utils/haloPayroll'
 
 interface SessionFormProps {
   onSubmit: (session: SessionData) => void
@@ -48,15 +48,16 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
         return
       }
       const durationNum = typeof haloDuration === 'number' ? haloDuration : parseInt(haloDuration)
-      const payout = calculateHaloServicePayout(haloServiceType, durationNum)
+      // Store ONLY the base massage price, not the full payout with surcharges
+      const basePrice = calculateHaloBaseMassagePrice(durationNum)
       setServices([
         ...services,
         {
           id: Date.now().toString(),
           type: haloServiceType as 'massage' | 'deep-tissue' | 'advanced-bodywork',
           duration: durationNum,
-          rate: payout,
-          haloBasePrice: payout,
+          rate: basePrice,
+          haloBasePrice: basePrice,
         },
       ])
       setHaloDuration('')
@@ -118,15 +119,16 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
     
     if (selectedDuration) {
       // Auto-add service when duration is selected
-      const payout = calculateHaloServicePayout(haloServiceType, selectedDuration as number)
+      // Store ONLY the base massage price, not the full payout with surcharges
+      const basePrice = calculateHaloBaseMassagePrice(selectedDuration as number)
       setServices([
         ...services,
         {
           id: Date.now().toString(),
           type: haloServiceType as 'massage' | 'deep-tissue' | 'advanced-bodywork',
           duration: selectedDuration as number,
-          rate: payout,
-          haloBasePrice: payout,
+          rate: basePrice,
+          haloBasePrice: basePrice,
         },
       ])
       // Reset for next service
@@ -193,7 +195,17 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
   }
 
   const totalEarnings = isHalo 
-    ? services.reduce((acc, s) => acc + (s.haloBasePrice || s.rate), 0)
+    ? services.reduce((acc, s) => {
+        const basePrice = s.haloBasePrice || s.rate
+        // Add service-type surcharges for display
+        let serviceTotal = basePrice
+        if (s.type === 'deep-tissue') {
+          serviceTotal += 7.50
+        } else if (s.type === 'advanced-bodywork') {
+          serviceTotal += 12.50
+        }
+        return acc + serviceTotal
+      }, 0)
     : services.reduce((acc, s) => acc + (s.rate / 60) * s.duration, 0)
   const addOnsTotal = addOns.reduce((acc, a) => acc + a.price, 0)
   const grandTotal = totalEarnings + addOnsTotal + tips
