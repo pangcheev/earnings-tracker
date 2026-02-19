@@ -21,9 +21,7 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
 
   // Update date when defaultDate changes
   useEffect(() => {
-    console.log('📋 SessionForm useEffect - defaultDate changed', { defaultDate, currentDate: date })
     if (defaultDate) {
-      console.log(`🔄 Updating form date from ${date} to ${defaultDate}`)
       setDate(defaultDate)
     }
   }, [defaultDate])
@@ -184,7 +182,6 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
     return (
       <button
         onClick={() => {
-          console.log('🔘 Add Session button clicked', { date, defaultDate })
           setIsOpen(true)
         }}
         className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-colors"
@@ -221,14 +218,11 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
             <input
               type="date"
               value={date}
-              onChange={(e) => {
-                console.log('📅 Date changed in form input', { newDate: e.target.value, oldDate: date })
-                setDate(e.target.value)
-              }}
+              onChange={(e) => setDate(e.target.value)}
               className="w-full bg-slate-700 border border-amber-700 rounded px-2 py-1 text-sm text-white"
               required
             />
-            <div className="text-xs text-slate-400 mt-1">Debug: {date}</div>
+            <div className="text-xs text-red-400 mt-2 font-bold">DEBUG - Form date: {date} | Prop defaultDate: {defaultDate}</div>
           </div>
 
           {/* Services */}
