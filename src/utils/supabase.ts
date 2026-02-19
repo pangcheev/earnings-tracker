@@ -201,48 +201,64 @@ export async function getClosedDatesFromCloud(): Promise<Record<string, boolean>
 
 // Mark a date as closed in Supabase
 export async function setDateClosedInCloud(date: string): Promise<boolean> {
-  if (!supabase) return false
+  if (!supabase) {
+    console.warn('❌ Supabase not configured')
+    return false
+  }
 
   try {
     const closedAt = new Date().toISOString()
     
-    const { error } = await supabase
+    const { data, error, status } = await supabase
       .from('sessions')
       .update({ closed_date: closedAt })
       .eq('date', date)
 
     if (error) {
-      console.warn('❌ Failed to close date:', error.message)
+      console.error('❌ Supabase error closing date:', {
+        message: error.message,
+        code: error.code,
+        status,
+        date
+      })
       return false
     }
 
-    console.log('☁️  Closed date', date, 'in Supabase')
+    console.log('☁️  Closed date', date, 'in Supabase', { data, status })
     return true
   } catch (err) {
-    console.warn('❌ Failed to close date in cloud:', err)
+    console.error('❌ Exception closing date in cloud:', err)
     return false
   }
 }
 
 // Mark a date as open in Supabase
 export async function setDateOpenInCloud(date: string): Promise<boolean> {
-  if (!supabase) return false
+  if (!supabase) {
+    console.warn('❌ Supabase not configured')
+    return false
+  }
 
   try {
-    const { error } = await supabase
+    const { data, error, status } = await supabase
       .from('sessions')
       .update({ closed_date: null })
       .eq('date', date)
 
     if (error) {
-      console.warn('❌ Failed to reopen date:', error.message)
+      console.error('❌ Supabase error reopening date:', {
+        message: error.message,
+        code: error.code,
+        status,
+        date
+      })
       return false
     }
 
-    console.log('☁️  Reopened date', date, 'in Supabase')
+    console.log('☁️  Reopened date', date, 'in Supabase', { data, status })
     return true
   } catch (err) {
-    console.warn('❌ Failed to reopen date in cloud:', err)
+    console.error('❌ Exception reopening date in cloud:', err)
     return false
   }
 }
