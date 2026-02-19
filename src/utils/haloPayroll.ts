@@ -129,22 +129,18 @@ export function calculateHaloTotalPayout(
     }
   })
 
-  // Determine the service types that are already covered
-  const hasDeepTissueService = services.some(s => s.type === 'deep-tissue')
-  const hasAdvancedBodyworkService = services.some(s => s.type === 'advanced-bodywork')
-
-  // Separate add-ons: service type surcharges go to their respective line ONLY if that service type isn't already in services
+  // Separate add-ons: service type surcharges go to their respective breakdown lines
   addOns.forEach(addon => {
     // Check both id and haloCode for backwards compatibility
     const checkId = (addon as any).haloCode || addon.id
-    if (checkId === 'deep-tissue' && hasDeepTissueService) {
-      // Deep Tissue surcharges go to deep tissue breakdown only if service is already deep-tissue
+    if (checkId === 'deep-tissue') {
+      // All deep-tissue add-ons (surcharges) go to deep tissue breakdown
       deepTissueTotal += addon.price
-    } else if (checkId === 'advanced-bodywork' && hasAdvancedBodyworkService) {
-      // Advanced Bodywork surcharges go to advanced bodywork breakdown only if service is already advanced-bodywork
+    } else if (checkId === 'advanced-bodywork') {
+      // All advanced-bodywork add-ons (surcharges) go to advanced bodywork breakdown
       advancedBodyworkTotal += addon.price
     } else {
-      // All other add-ons (including service type add-ons when service type doesn't match) go to add-ons total
+      // All other add-ons go to add-ons total
       addOnsTotal += addon.price
     }
   })
