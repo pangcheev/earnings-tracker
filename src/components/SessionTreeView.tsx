@@ -144,7 +144,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             )}
                           </div>
                           <div className="text-right">
-                            <p className={`font-bold text-sm ${isHalo ? 'text-amber-700' : 'text-amber-300'}`}>
+                            <p className={`font-bold text-sm ${isHalo ? 'text-blue-600' : 'text-amber-300'}`}>
                               ${sessionTotal.toFixed(2)}
                             </p>
                           </div>
@@ -184,8 +184,8 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             onClick={() => onEdit(session)}
                             className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded text-sm font-semibold transition-colors ${
                               isHalo
-                                ? 'bg-amber-700 hover:bg-amber-600 text-white'
-                                : 'bg-stone-700 hover:bg-amber-700 text-white'
+                                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                                : 'bg-stone-700 hover:bg-blue-600 text-white'
                             }`}
                           >
                             <Edit2 className="w-4 h-4" />

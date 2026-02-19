@@ -147,8 +147,8 @@ export function EarningsHome({
               onClick={() => setShowTreeView(!showTreeView)}
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
                 showTreeView
-                  ? 'bg-amber-700 text-white'
-                  : 'bg-stone-700 hover:bg-amber-700 text-slate-300'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-stone-700 hover:bg-blue-600 text-slate-300'
               }`}
               title="Show/hide sessions"
             >
@@ -165,7 +165,7 @@ export function EarningsHome({
             </button>
             <button
               onClick={onImportSessions}
-              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-amber-700 hover:bg-amber-600 text-white transition-colors text-sm lg:text-base"
+              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors text-sm lg:text-base"
               title="Upload backup"
             >
               <Upload className="w-4 lg:w-5 h-4 lg:h-5" />
@@ -178,7 +178,7 @@ export function EarningsHome({
               onClick={() => toggleDateClosed(viewDate)}
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
                 isDateClosed(viewDate)
-                  ? 'bg-amber-700 hover:bg-slate-500 text-slate-100'
+                  ? 'bg-blue-600 hover:bg-slate-500 text-slate-100'
                   : 'bg-green-700 hover:bg-green-600 text-white'
               }`}
               title={isDateClosed(viewDate) ? 'Click to reopen day' : 'Mark this day as complete'}
@@ -238,10 +238,10 @@ export function EarningsHome({
                       <p className="text-3xl font-bold text-white">{sessions.filter(s => s.date === viewDate).length}</p>
                     </div>
                     <div className={`rounded-lg p-4 border ${currentLocation === 'halo' ? 'bg-blue-900 border-amber-700' : 'bg-amber-900 border-amber-700'}`}>
-                      <p className={`text-sm mb-1 ${currentLocation === 'halo' ? 'text-amber-100' : 'text-amber-200'}`}>
+                      <p className={`text-sm mb-1 ${currentLocation === 'halo' ? 'text-blue-200' : 'text-amber-200'}`}>
                         Total {currentLocation === 'halo' ? 'Payout' : 'Earnings'}
                       </p>
-                      <p className={`text-3xl font-bold ${currentLocation === 'halo' ? 'text-white' : 'text-amber-100'}`}>
+                      <p className={`text-3xl font-bold ${currentLocation === 'halo' ? 'text-white' : 'text-blue-200'}`}>
                         ${sessions.filter(s => s.date === viewDate).reduce((sum, session) => {
                           if (currentLocation === 'halo') {
                             const breakdown = calculateHaloTotalPayout(session.services, session.addOns, session.tips, session.hasClientReview)
@@ -274,7 +274,7 @@ export function EarningsHome({
 
           {sessions.filter(s => s.date === viewDate).length === 0 && (
             <div className="text-center py-12">
-              <Calendar className="w-16 h-16 text-amber-700 mx-auto mb-4" />
+              <Calendar className="w-16 h-16 text-blue-600 mx-auto mb-4" />
               <p className="text-slate-400 text-lg">No sessions for this day</p>
               <p className="text-slate-500 text-sm mt-2">Add your first session to get started tracking earnings</p>
             </div>

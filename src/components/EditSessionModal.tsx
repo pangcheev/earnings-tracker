@@ -178,7 +178,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   </div>
 
                   <div className="bg-stone-700 p-3 rounded">
-                    <p className="text-sm text-amber-700">
+                    <p className="text-sm text-blue-600">
                       Payout: <span className="font-semibold text-white">${calculateHaloServicePayout(haloServiceType, haloDuration).toFixed(2)}</span>
                     </p>
                   </div>
@@ -229,8 +229,8 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                 onClick={handleAddService}
                 className={`w-full text-white px-4 py-2 rounded font-semibold transition-colors ${
                   isHalo
-                    ? 'bg-amber-600 hover:bg-amber-700'
-                    : 'bg-stone-700 hover:bg-amber-700'
+                    ? 'bg-blue-700 hover:bg-blue-600'
+                    : 'bg-stone-700 hover:bg-blue-600'
                 }`}
               >
                 + Add Service
@@ -271,7 +271,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
               <div className="space-y-4 mb-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 bg-stone-700 p-4 rounded">
                   {HALO_ADDONS.map(addon => (
-                    <label key={addon.id} className="flex items-center gap-2 cursor-pointer hover:bg-amber-700 p-2 rounded">
+                    <label key={addon.id} className="flex items-center gap-2 cursor-pointer hover:bg-blue-600 p-2 rounded">
                       <input
                         type="checkbox"
                         checked={selectedHaloAddOns.includes(addon.id)}
@@ -294,7 +294,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   type="button"
                   onClick={handleAddAddOns}
                   disabled={selectedHaloAddOns.length === 0}
-                  className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-stone-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-blue-700 hover:bg-blue-600 disabled:bg-stone-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Selected Add-ons ({selectedHaloAddOns.length})
                 </button>
@@ -411,8 +411,8 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
               type="submit"
               className={`flex-1 text-white px-6 py-3 rounded-lg font-semibold transition-colors ${
                 isHalo
-                  ? 'bg-amber-600 hover:bg-amber-700'
-                  : 'bg-stone-9000 hover:bg-amber-600'
+                  ? 'bg-blue-700 hover:bg-blue-600'
+                  : 'bg-stone-9000 hover:bg-blue-700'
               }`}
             >
               Save Changes
@@ -420,7 +420,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 bg-stone-700 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+              className="flex-1 bg-stone-700 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
             >
               Cancel
             </button>

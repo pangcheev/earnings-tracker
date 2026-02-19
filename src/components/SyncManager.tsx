@@ -79,7 +79,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
       {/* Floating Sync Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-3 rounded-full shadow-lg transition-all hover:shadow-xl z-40"
+        className="fixed bottom-6 right-6 flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg transition-all hover:shadow-xl z-40"
         title="WiFi Sync"
       >
         <Wifi className="w-5 h-5" />
@@ -148,7 +148,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
               <button
                 onClick={handleUpload}
                 disabled={status !== 'idle'}
-                className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 disabled:bg-amber-700 text-white px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 disabled:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 <Upload className="w-5 h-5" />
                 Upload (Push from here)
@@ -157,7 +157,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
               <button
                 onClick={handleDownload}
                 disabled={status !== 'idle'}
-                className="w-full flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 disabled:bg-amber-700 text-white px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-600 disabled:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 <Download className="w-5 h-5" />
                 Download (Pull from server)
@@ -165,7 +165,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
 
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full bg-stone-700 hover:bg-amber-700 text-white px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full bg-stone-700 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 Close
               </button>

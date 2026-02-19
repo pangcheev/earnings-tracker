@@ -253,7 +253,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
 
                 {haloDuration && (
                   <div className="bg-stone-700 p-3 rounded">
-                    <p className="text-sm text-amber-700">
+                    <p className="text-sm text-blue-600">
                       Payout: <span className="font-semibold text-white">${calculateHaloServicePayout(haloServiceType, haloDuration as number).toFixed(2)}</span>
                     </p>
                   </div>
@@ -302,7 +302,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                 <button
                   type="button"
                   onClick={addService}
-                  className="w-full bg-stone-700 hover:bg-amber-700 text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-stone-700 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Service
                 </button>
@@ -347,7 +347,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
               <div className="space-y-4 mb-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 bg-stone-700 p-4 rounded">
                   {HALO_ADDONS.map(addon => (
-                    <label key={addon.id} className="flex items-center gap-2 cursor-pointer hover:bg-amber-700 p-2 rounded transition-colors">
+                    <label key={addon.id} className="flex items-center gap-2 cursor-pointer hover:bg-blue-600 p-2 rounded transition-colors">
                       <input
                         type="checkbox"
                         checked={selectedHaloAddOns.includes(addon.id)}
@@ -364,7 +364,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                   type="button"
                   onClick={addAddOn}
                   disabled={selectedHaloAddOns.length === 0}
-                  className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-stone-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-blue-700 hover:bg-blue-600 disabled:bg-stone-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Selected Add-ons ({selectedHaloAddOns.length})
                 </button>
@@ -399,7 +399,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                 <button
                   type="button"
                   onClick={addAddOn}
-                  className="w-full bg-stone-700 hover:bg-amber-700 text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-stone-700 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Add-on
                 </button>
@@ -485,7 +485,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                 />
                 <span className="text-white font-semibold">Client Left a Review? (+$5)</span>
               </label>
-              <p className="text-xs text-amber-700 mt-2">Check if the client submitted a review</p>
+              <p className="text-xs text-blue-600 mt-2">Check if the client submitted a review</p>
             </div>
           )}
 
@@ -521,14 +521,14 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
           <div className="flex gap-4 pt-6">
             <button
               type="submit"
-              className={`flex-1 ${isHalo ? 'bg-amber-600 hover:bg-amber-700' : 'bg-stone-9000 hover:bg-amber-600'} text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
+              className={`flex-1 ${isHalo ? 'bg-blue-700 hover:bg-blue-600' : 'bg-stone-9000 hover:bg-blue-700'} text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
             >
               Save Session
             </button>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="flex-1 bg-stone-700 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+              className="flex-1 bg-stone-700 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
             >
               Cancel
             </button>
