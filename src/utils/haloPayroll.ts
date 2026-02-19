@@ -87,13 +87,34 @@ export function calculateHaloTotalPayout(
   let deepTissueTotal = 0
   let addOnsTotal = 0
 
-  // Separate services by type
+  // Separate base pay from surcharges
   services.forEach(service => {
-    const payout = calculateHaloServicePayout(service.type, service.duration)
-    if (service.type === 'deep-tissue' || service.type === 'advanced-bodywork') {
-      deepTissueTotal += payout
+    // Calculate base payout (without service type bonus)
+    let basePayout = 0
+    const rates = Object.keys(HALO_SERVICE_PRICING.basePricing)
+      .map(Number)
+      .sort((a, b) => a - b)
+    
+    const matchingRate = rates.find(rate => service.duration === rate)
+    if (matchingRate) {
+      basePayout = HALO_SERVICE_PRICING.basePricing[matchingRate as keyof typeof HALO_SERVICE_PRICING.basePricing]
     } else {
-      massageTotal += payout
+      const closestRate = rates.reduce((prev, curr) => {
+        return Math.abs(curr - service.duration) < Math.abs(prev - service.duration) ? curr : prev
+      })
+      const closestPayout = HALO_SERVICE_PRICING.basePricing[closestRate as keyof typeof HALO_SERVICE_PRICING.basePricing]
+      const closestHourly = closestPayout / (closestRate / 60)
+      basePayout = (closestHourly / 60) * service.duration
+    }
+
+    // Add base to massage total
+    massageTotal += basePayout
+
+    // Add service-type surcharge to deep tissue total
+    if (service.type === 'deep-tissue') {
+      deepTissueTotal += HALO_SERVICE_PRICING.serviceAdditions['deep-tissue']
+    } else if (service.type === 'advanced-bodywork') {
+      deepTissueTotal += HALO_SERVICE_PRICING.serviceAdditions['advanced-bodywork']
     }
   })
 
