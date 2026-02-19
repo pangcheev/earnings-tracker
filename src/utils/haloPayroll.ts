@@ -72,7 +72,7 @@ export function calculateHaloServicePayout(
 
 export function calculateHaloTotalPayout(
   services: Array<{ type: string; duration: number }>,
-  addOns: Array<{ name: string; price: number }>,
+  addOns: Array<{ id?: string; name: string; price: number }>,
   tips: number,
   hasClientReview?: boolean,
 ): {
@@ -118,8 +118,16 @@ export function calculateHaloTotalPayout(
     }
   })
 
-  // Add-ons total
-  addOnsTotal = addOns.reduce((sum, addon) => sum + addon.price, 0)
+  // Separate add-ons: service type surcharges go to deep tissue, others go to add-ons
+  addOns.forEach(addon => {
+    if (addon.id === 'deep-tissue' || addon.id === 'advanced-bodywork') {
+      // Service type surcharges go to deep tissue breakdown
+      deepTissueTotal += addon.price
+    } else {
+      // All other add-ons go to add-ons total
+      addOnsTotal += addon.price
+    }
+  })
 
   // Client review bonus
   const reviewBonus = hasClientReview ? HALO_SERVICE_PRICING.fiveStarBonus : 0
