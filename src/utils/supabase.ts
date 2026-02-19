@@ -165,3 +165,84 @@ export async function deleteSessionFromCloud(sessionId: string): Promise<boolean
     return false
   }
 }
+
+// Get all closed dates from Supabase
+export async function getClosedDatesFromCloud(): Promise<Record<string, boolean> | null> {
+  if (!supabase) return null
+
+  try {
+    const { data, error } = await supabase
+      .from('sessions')
+      .select('date, closed_date')
+      .not('closed_date', 'is', null)
+
+    if (error) {
+      console.warn('❌ Failed to load closed dates:', error.message)
+      return null
+    }
+
+    const closedDatesMap: Record<string, boolean> = {}
+    const seenDates = new Set<string>()
+    
+    data?.forEach((row: any) => {
+      if (row.closed_date && !seenDates.has(row.date)) {
+        closedDatesMap[row.date] = true
+        seenDates.add(row.date)
+      }
+    })
+
+    console.log('☁️  Loaded closed dates from Supabase:', Object.keys(closedDatesMap))
+    return closedDatesMap
+  } catch (err) {
+    console.warn('❌ Failed to fetch closed dates:', err)
+    return null
+  }
+}
+
+// Mark a date as closed in Supabase
+export async function setDateClosedInCloud(date: string): Promise<boolean> {
+  if (!supabase) return false
+
+  try {
+    const closedAt = new Date().toISOString()
+    
+    const { error } = await supabase
+      .from('sessions')
+      .update({ closed_date: closedAt })
+      .eq('date', date)
+
+    if (error) {
+      console.warn('❌ Failed to close date:', error.message)
+      return false
+    }
+
+    console.log('☁️  Closed date', date, 'in Supabase')
+    return true
+  } catch (err) {
+    console.warn('❌ Failed to close date in cloud:', err)
+    return false
+  }
+}
+
+// Mark a date as open in Supabase
+export async function setDateOpenInCloud(date: string): Promise<boolean> {
+  if (!supabase) return false
+
+  try {
+    const { error } = await supabase
+      .from('sessions')
+      .update({ closed_date: null })
+      .eq('date', date)
+
+    if (error) {
+      console.warn('❌ Failed to reopen date:', error.message)
+      return false
+    }
+
+    console.log('☁️  Reopened date', date, 'in Supabase')
+    return true
+  } catch (err) {
+    console.warn('❌ Failed to reopen date in cloud:', err)
+    return false
+  }
+}

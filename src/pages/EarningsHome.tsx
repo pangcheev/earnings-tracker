@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { SessionData } from '../types'
 import { SessionForm } from '../components/SessionForm'
 import { SessionCard } from '../components/SessionCard'
@@ -7,6 +7,7 @@ import { HaloPayrollSummary } from '../components/HaloPayrollSummary'
 import { EditSessionModal } from '../components/EditSessionModal'
 import { Calendar, TrendingUp, List, Download, Upload, Check, ChevronDown } from 'lucide-react'
 import { calculateHaloTotalPayout, getLocalDateString, parseLocalDateString } from '../utils/haloPayroll'
+import { getClosedDatesFromCloud, setDateClosedInCloud, setDateOpenInCloud } from '../utils/supabase'
 import { format } from 'date-fns'
 
 interface EarningsHomeProps {
@@ -52,14 +53,30 @@ export function EarningsHome({
     return saved ? JSON.parse(saved) : {}
   })
 
+  // Load closed dates from Supabase on component mount
+  useEffect(() => {
+    const loadClosedDates = async () => {
+      const cloudClosedDates = await getClosedDatesFromCloud()
+      if (cloudClosedDates) {
+        setClosedDatesMap(cloudClosedDates)
+        localStorage.setItem('earnings-closed-dates-map', JSON.stringify(cloudClosedDates))
+      }
+    }
+    loadClosedDates()
+  }, [])
+
   const isDateClosed = (date: string): boolean => {
     return closedDatesMap[date] === true
   }
 
-  const toggleDateClosed = (date: string) => {
+  const toggleDateClosed = async (date: string) => {
     if (isDateClosed(date)) {
       const confirmed = confirm('This day is closed. Click OK to reopen it.')
       if (!confirmed) return
+      
+      // Sync to Supabase
+      await setDateOpenInCloud(date)
+      
       const updated = { ...closedDatesMap }
       delete updated[date]
       setClosedDatesMap(updated)
@@ -69,6 +86,10 @@ export function EarningsHome({
     } else {
       const confirmed = confirm('Close out this day? You can still add sessions for other days.')
       if (!confirmed) return
+      
+      // Sync to Supabase
+      await setDateClosedInCloud(date)
+      
       const updated = { ...closedDatesMap, [date]: true }
       setClosedDatesMap(updated)
       localStorage.setItem('earnings-closed-dates-map', JSON.stringify(updated))
