@@ -197,13 +197,25 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
   const totalEarnings = isHalo 
     ? services.reduce((acc, s) => {
         const basePrice = s.haloBasePrice || s.rate
-        // Add service-type surcharges for display
         let serviceTotal = basePrice
-        if (s.type === 'deep-tissue') {
-          serviceTotal += 7.50
-        } else if (s.type === 'advanced-bodywork') {
-          serviceTotal += 12.50
+        
+        // Check if there's a matching add-on for this surcharge type
+        const hasMatchingAddOn = addOns.some((addon) => {
+          const checkId = (addon as any).haloCode || addon.id
+          if (s.type === 'deep-tissue' && checkId === 'deep-tissue') return true
+          if (s.type === 'advanced-bodywork' && checkId === 'advanced-bodywork') return true
+          return false
+        })
+        
+        // Only add service-type surcharge if there's no matching add-on
+        if (!hasMatchingAddOn) {
+          if (s.type === 'deep-tissue') {
+            serviceTotal += 7.50
+          } else if (s.type === 'advanced-bodywork') {
+            serviceTotal += 12.50
+          }
         }
+        
         return acc + serviceTotal
       }, 0)
     : services.reduce((acc, s) => acc + (s.rate / 60) * s.duration, 0)
@@ -333,12 +345,23 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
                 {services.map((service) => {
                   let payout = service.haloBasePrice || (service.rate / 60) * service.duration
                   
-                  // For Halo services, add service-type surcharge to payout display
+                  // For Halo services, add service-type surcharge only if no matching add-on
                   if (isHalo) {
-                    if (service.type === 'deep-tissue') {
-                      payout += 7.50
-                    } else if (service.type === 'advanced-bodywork') {
-                      payout += 12.50
+                    // Check if there's a matching add-on for this surcharge type
+                    const hasMatchingAddOn = addOns.some((addon) => {
+                      const checkId = (addon as any).haloCode || addon.id
+                      if (service.type === 'deep-tissue' && checkId === 'deep-tissue') return true
+                      if (service.type === 'advanced-bodywork' && checkId === 'advanced-bodywork') return true
+                      return false
+                    })
+                    
+                    // Only add surcharge if there's no matching add-on
+                    if (!hasMatchingAddOn) {
+                      if (service.type === 'deep-tissue') {
+                        payout += 7.50
+                      } else if (service.type === 'advanced-bodywork') {
+                        payout += 12.50
+                      }
                     }
                   }
                   

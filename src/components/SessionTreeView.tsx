@@ -154,15 +154,27 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                         <div className="text-xs space-y-1 mb-3 pl-3 border-l text-slate-700 border-slate-400">
                           {isHalo ? (
                             <>
-                              {/* Show services with their surcharges included */}
+                              {/* Show services with their surcharges included ONLY if no matching add-on */}
                               {session.services.map((service) => {
                                 let serviceAmount = service.haloBasePrice || service.rate
-                                // Add service-type surcharge to service display
-                                if (service.type === 'deep-tissue') {
-                                  serviceAmount += 7.50
-                                } else if (service.type === 'advanced-bodywork') {
-                                  serviceAmount += 12.50
+                                
+                                // Check if there's a matching add-on for this surcharge type
+                                const hasMatchingAddOn = session.addOns.some((addon) => {
+                                  const checkId = (addon as any).haloCode || addon.id
+                                  if (service.type === 'deep-tissue' && checkId === 'deep-tissue') return true
+                                  if (service.type === 'advanced-bodywork' && checkId === 'advanced-bodywork') return true
+                                  return false
+                                })
+                                
+                                // Only add surcharge if there's no matching add-on
+                                if (!hasMatchingAddOn) {
+                                  if (service.type === 'deep-tissue') {
+                                    serviceAmount += 7.50
+                                  } else if (service.type === 'advanced-bodywork') {
+                                    serviceAmount += 12.50
+                                  }
                                 }
+                                
                                 return (
                                   <div key={service.id}>
                                     <span className="capitalize">{service.type.replace(/-/g, ' ')}</span>: ${serviceAmount.toFixed(2)}

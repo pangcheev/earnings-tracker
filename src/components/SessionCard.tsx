@@ -81,12 +81,23 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
           {session.services.map((service) => {
             let earnings = isHalo ? (service.haloBasePrice || service.rate) : (service.rate / 60) * service.duration
             
-            // For Halo services, add service-type surcharge to display
+            // For Halo services, add service-type surcharge only if there's NO matching add-on
             if (isHalo) {
-              if (service.type === 'deep-tissue') {
-                earnings += 7.50
-              } else if (service.type === 'advanced-bodywork') {
-                earnings += 12.50
+              // Check if there's a matching add-on for this surcharge type
+              const hasMatchingAddOn = session.addOns.some((addon) => {
+                const checkId = (addon as any).haloCode || addon.id
+                if (service.type === 'deep-tissue' && checkId === 'deep-tissue') return true
+                if (service.type === 'advanced-bodywork' && checkId === 'advanced-bodywork') return true
+                return false
+              })
+              
+              // Only add surcharge to service if there's no matching add-on
+              if (!hasMatchingAddOn) {
+                if (service.type === 'deep-tissue') {
+                  earnings += 7.50
+                } else if (service.type === 'advanced-bodywork') {
+                  earnings += 12.50
+                }
               }
             }
             
