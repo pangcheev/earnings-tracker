@@ -35,7 +35,7 @@ export function EarningsSummary({ sessions }: EarningsSummaryProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-      <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-lg p-6">
+      <div className="bg-gradient-to-br from-amber-600 to-amber-700 rounded-lg p-6">
         <p className="text-white text-sm font-semibold mb-2">Total Earnings</p>
         <p className="text-3xl font-bold text-white">${stats.totalEarnings.toFixed(2)}</p>
         <p className="text-xs text-amber-100 mt-2">{stats.sessionCount} sessions</p>

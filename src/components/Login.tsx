@@ -29,7 +29,7 @@ export function Login({ onLogin }: LoginProps) {
       <div className="w-full max-w-md">
         <div className="bg-stone-800 rounded-lg p-8 border border-stone-700 shadow-2xl">
           <div className="flex justify-center mb-6">
-            <div className="bg-teal-600 p-4 rounded-full">
+            <div className="bg-amber-600 p-4 rounded-full">
               <Lock className="w-8 h-8 text-slate-900" />
             </div>
           </div>
@@ -64,7 +64,7 @@ export function Login({ onLogin }: LoginProps) {
 
             <button
               type="submit"
-              className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg transition-colors"
+              className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-lg transition-colors"
             >
               Unlock
             </button>

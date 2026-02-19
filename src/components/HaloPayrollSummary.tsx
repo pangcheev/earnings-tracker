@@ -152,30 +152,30 @@ total: $${totals.grandTotal.toFixed(2)}`
   return (
     <div className="space-y-6 mb-8">
       {/* Header with actions */}
-      <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-lg p-6">
+      <div className="bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg p-6">
         <div className="flex justify-between items-start mb-6">
           <div>
             <h3 className="text-2xl font-bold text-white mb-2">Daily Payroll Tally</h3>
-            <p className="text-teal-100 text-sm">{sessions.length} session{sessions.length !== 1 ? 's' : ''}</p>
+            <p className="text-amber-100 text-sm">{sessions.length} session{sessions.length !== 1 ? 's' : ''}</p>
           </div>
           <div className="flex gap-2 flex-wrap">
             <button
               onClick={handleCopyDetailed}
-              className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
+              className="flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
             >
               <Copy className="w-4 h-4" />
               {copiedType === 'detailed' ? 'Copied!' : 'Copy Detailed'}
             </button>
             <button
               onClick={handleCopyTotalsOnly}
-              className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
+              className="flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
             >
               <Copy className="w-4 h-4" />
               {copiedType === 'totals' ? 'Copied!' : 'Copy Totals'}
             </button>
             <button
               onClick={handleDownload}
-              className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+              className="flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors text-sm"
             >
               <Download className="w-4 h-4" />
               Export
@@ -208,7 +208,7 @@ total: $${totals.grandTotal.toFixed(2)}`
           <div key={item.session.id} className="bg-stone-800 rounded-lg p-4 border border-stone-700">
             <div className="flex justify-between items-center mb-4">
               <h4 className="text-white font-semibold">Session {idx + 1}</h4>
-              <span className="text-teal-700 text-sm">{format(parseLocalDateString(item.session.date), 'MMM d • h:mma')}</span>
+              <span className="text-amber-700 text-sm">{format(parseLocalDateString(item.session.date), 'MMM d • h:mma')}</span>
             </div>
             
             <div className="space-y-2 text-sm">
@@ -244,7 +244,7 @@ total: $${totals.grandTotal.toFixed(2)}`
               )}
               <div className="flex justify-between border-t border-stone-700 pt-2 mt-2">
                 <span className="text-white font-semibold">Total:</span>
-                <span className="text-teal-700 font-bold text-lg">${item.breakdown.total.toFixed(2)}</span>
+                <span className="text-amber-700 font-bold text-lg">${item.breakdown.total.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -252,30 +252,30 @@ total: $${totals.grandTotal.toFixed(2)}`
       </div>
 
       {/* Aggregated totals */}
-      <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-lg p-6">
+      <div className="bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg p-6">
         <h3 className="text-xl font-bold text-white mb-6">Daily Totals</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Breakdown list */}
           <div className="space-y-3">
-            <div className="flex justify-between text-sm border-b border-teal-700 pb-2">
-              <span className="text-teal-100">Massage:</span>
+            <div className="flex justify-between text-sm border-b border-amber-700 pb-2">
+              <span className="text-amber-100">Massage:</span>
               <span className="text-white font-semibold">${totals.massage.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-sm border-b border-teal-700 pb-2">
-              <span className="text-teal-100">Deep Tissue:</span>
+            <div className="flex justify-between text-sm border-b border-amber-700 pb-2">
+              <span className="text-amber-100">Deep Tissue:</span>
               <span className="text-white font-semibold">${totals.deepTissue.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-sm border-b border-teal-700 pb-2">
-              <span className="text-teal-100">Add-ons:</span>
+            <div className="flex justify-between text-sm border-b border-amber-700 pb-2">
+              <span className="text-amber-100">Add-ons:</span>
               <span className="text-white font-semibold">${totals.addOns.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-sm border-b border-teal-700 pb-2">
-              <span className="text-teal-100">Review:</span>
+            <div className="flex justify-between text-sm border-b border-amber-700 pb-2">
+              <span className="text-amber-100">Review:</span>
               <span className="text-white font-semibold">${totals.reviewBonus.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-teal-100">Tips:</span>
+              <span className="text-amber-100">Tips:</span>
               <span className="text-white font-semibold">${totals.tips.toFixed(2)}</span>
             </div>
           </div>

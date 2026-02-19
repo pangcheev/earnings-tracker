@@ -178,7 +178,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   </div>
 
                   <div className="bg-stone-700 p-3 rounded">
-                    <p className="text-sm text-teal-700">
+                    <p className="text-sm text-amber-700">
                       Payout: <span className="font-semibold text-white">${calculateHaloServicePayout(haloServiceType, haloDuration).toFixed(2)}</span>
                     </p>
                   </div>
@@ -229,7 +229,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                 onClick={handleAddService}
                 className={`w-full text-white px-4 py-2 rounded font-semibold transition-colors ${
                   isHalo
-                    ? 'bg-teal-600 hover:bg-teal-700'
+                    ? 'bg-amber-600 hover:bg-amber-700'
                     : 'bg-stone-700 hover:bg-amber-700'
                 }`}
               >
@@ -294,7 +294,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   type="button"
                   onClick={handleAddAddOns}
                   disabled={selectedHaloAddOns.length === 0}
-                  className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-stone-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-stone-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Selected Add-ons ({selectedHaloAddOns.length})
                 </button>
@@ -411,7 +411,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
               type="submit"
               className={`flex-1 text-white px-6 py-3 rounded-lg font-semibold transition-colors ${
                 isHalo
-                  ? 'bg-teal-600 hover:bg-teal-700'
+                  ? 'bg-amber-600 hover:bg-amber-700'
                   : 'bg-stone-9000 hover:bg-amber-600'
               }`}
             >
