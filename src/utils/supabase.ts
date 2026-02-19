@@ -47,20 +47,20 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
       }
       
       // Reconstruct surcharge add-ons only if service type is NOT that type
-      // E.g., if service is 'massage' but has deep_tissue_surcharge, it's an add-on
-      if (row.deep_tissue_surcharge && row.deep_tissue_surcharge > 0 && row.service_type !== 'deep-tissue') {
+      // E.g., if service is 'massage' but has deeptissue_lymp_sport, it's an add-on
+      if (row.deeptissue_lymp_sport && row.deeptissue_lymp_sport > 0 && row.service_type !== 'deep-tissue') {
         addOnsArray.push({
           id: `deep-tissue-${row.id}`,
           name: 'Deep Tissue / Sports / Lymphatic',
-          price: row.deep_tissue_surcharge,
+          price: row.deeptissue_lymp_sport,
           haloCode: 'deep-tissue'
         })
       }
-      if (row.advanced_bodywork_surcharge && row.advanced_bodywork_surcharge > 0 && row.service_type !== 'advanced-bodywork') {
+      if (row.advanced_bodywork && row.advanced_bodywork > 0 && row.service_type !== 'advanced-bodywork') {
         addOnsArray.push({
           id: `advanced-bodywork-${row.id}`,
           name: 'Advanced Bodywork',
-          price: row.advanced_bodywork_surcharge,
+          price: row.advanced_bodywork,
           haloCode: 'advanced-bodywork'
         })
       }
@@ -80,7 +80,7 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
         addOns: addOnsArray,
         tips: row.tips || 0,
         review: row.review || 0,
-        haloPayoutAmount: row.halo_payout_amount,
+        haloPayoutAmount: row.total_payout,
       } as SessionData
     })
     
@@ -144,12 +144,12 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
         service_type: serviceType,
         duration: firstService?.duration || 0,
         base_price: basePrice,
+        deeptissue_lymp_sport: deepTissueSurcharge,
+        advanced_bodywork: advancedBodyworkSurcharge,
         add_ons: totalAddOns,
         review: review,
         tips: tips,
-        deep_tissue_surcharge: deepTissueSurcharge,
-        advanced_bodywork_surcharge: advancedBodyworkSurcharge,
-        halo_payout_amount: haloTotal,
+        total_payout: haloTotal,
         updated_at: new Date().toISOString(),
       }
     })
