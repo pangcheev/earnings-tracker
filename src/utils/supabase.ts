@@ -77,6 +77,7 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
     const sessionsToSync = sessions.map((session) => {
       // Extract first service (since each session has only ONE service)
       const firstService = session.services[0]
+      const serviceType = firstService?.type || 'massage'
       
       // Sum all add-ons (in case there are multiple)
       const totalAddOns = session.addOns.reduce((sum, addon) => sum + Number(addon.price || 0), 0)
@@ -87,16 +88,22 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
       const tips = Number(session.tips || 0)
       const haloTotal = session.location === 'halo' ? basePrice + totalAddOns + review + tips : null
       
+      // Set surcharge columns based on service type
+      const deepTissueSurcharge = serviceType === 'deep-tissue' ? 7.50 : 0
+      const advancedBodyworkSurcharge = serviceType === 'advanced-bodywork' ? 12.50 : 0
+      
       return {
         id: session.id,
         date: session.date,
         business: session.location === 'halo' ? 'halo' : 'soul',
-        service_type: firstService?.type || 'massage',
+        service_type: serviceType,
         duration: firstService?.duration || 0,
         base_price: basePrice,
         add_ons: totalAddOns,
         review: review,
         tips: tips,
+        deep_tissue_surcharge: deepTissueSurcharge,
+        advanced_bodywork_surcharge: advancedBodyworkSurcharge,
         halo_payout_amount: haloTotal,
         updated_at: new Date().toISOString(),
       }
