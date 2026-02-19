@@ -154,10 +154,35 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                         <div className="text-xs space-y-1 mb-3 pl-3 border-l text-slate-700 border-slate-400">
                           {isHalo ? (
                             <>
-                              {breakdown.massage > 0 && <div>Massage: ${breakdown.massage.toFixed(2)}</div>}
-                              {breakdown.deepTissue > 0 && <div>Deep Tissue: ${breakdown.deepTissue.toFixed(2)}</div>}
-                              {breakdown.advancedBodywork > 0 && <div>Advanced Bodywork: ${breakdown.advancedBodywork.toFixed(2)}</div>}
-                              {breakdown.addOnsTotal > 0 && <div>Add-ons: ${breakdown.addOnsTotal.toFixed(2)}</div>}
+                              {/* Show services with their surcharges included */}
+                              {session.services.map((service) => {
+                                let serviceAmount = service.haloBasePrice || service.rate
+                                // Add service-type surcharge to service display
+                                if (service.type === 'deep-tissue') {
+                                  serviceAmount += 7.50
+                                } else if (service.type === 'advanced-bodywork') {
+                                  serviceAmount += 12.50
+                                }
+                                return (
+                                  <div key={service.id}>
+                                    <span className="capitalize">{service.type.replace(/-/g, ' ')}</span>: ${serviceAmount.toFixed(2)}
+                                  </div>
+                                )
+                              })}
+                              
+                              {/* Show only non-surcharge add-ons */}
+                              {session.addOns.map((addon) => {
+                                const checkId = (addon as any).haloCode || addon.id
+                                // Only show add-ons that are NOT service type surcharges
+                                if (checkId !== 'deep-tissue' && checkId !== 'advanced-bodywork') {
+                                  return (
+                                    <div key={addon.id}>
+                                      {addon.name}: ${addon.price.toFixed(2)}
+                                    </div>
+                                  )
+                                }
+                              })}
+                              
                               {breakdown.reviewBonus > 0 && <div>Review: ${breakdown.reviewBonus.toFixed(2)}</div>}
                               {breakdown.tips > 0 && <div>Tips: ${breakdown.tips.toFixed(2)}</div>}
                             </>

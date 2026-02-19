@@ -79,7 +79,17 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
         <h4 className={`text-sm font-semibold mb-2 ${isHalo ? 'text-slate-900' : 'text-white'}`}>Services</h4>
         <div className="space-y-1">
           {session.services.map((service) => {
-            const earnings = isHalo ? (service.haloBasePrice || service.rate) : (service.rate / 60) * service.duration
+            let earnings = isHalo ? (service.haloBasePrice || service.rate) : (service.rate / 60) * service.duration
+            
+            // For Halo services, add service-type surcharge to display
+            if (isHalo) {
+              if (service.type === 'deep-tissue') {
+                earnings += 7.50
+              } else if (service.type === 'advanced-bodywork') {
+                earnings += 12.50
+              }
+            }
+            
             return (
               <div key={service.id} className={`text-sm ${isHalo ? 'text-slate-900' : 'text-white'}`}>
                 <span className="capitalize">{service.type.replace(/-/g, ' ')}</span> ({service.duration}min) - <span className="font-semibold">${earnings.toFixed(2)}</span>
