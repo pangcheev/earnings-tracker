@@ -187,7 +187,7 @@ export function EarningsHome({
               onClick={() => setShowTreeView(!showTreeView)}
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
                 showTreeView
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-indigo-600 text-white'
                   : 'bg-slate-700 hover:bg-slate-600 text-slate-300'
               }`}
               title="Show/hide sessions"
@@ -211,9 +211,6 @@ export function EarningsHome({
               <Upload className="w-4 lg:w-5 h-4 lg:h-5" />
               <span className="hidden sm:inline">Restore</span>
             </button>
-            <div className="col-span-2 lg:col-span-1">
-              <SessionForm onSubmit={handleAddSession} location={currentLocation} defaultDate={viewDate} />
-            </div>
             <button
               onClick={() => toggleDateClosed(viewDate)}
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
@@ -226,6 +223,9 @@ export function EarningsHome({
               <Check className="w-4 lg:w-5 h-4 lg:h-5" />
               <span className="hidden sm:inline">{isDateClosed(viewDate) ? 'Reopen Day' : 'Close Day'}</span>
             </button>
+            <div className="col-span-2 lg:col-span-1">
+              <SessionForm onSubmit={handleAddSession} location={currentLocation} defaultDate={viewDate} />
+            </div>
           </div>
         </div>
 
