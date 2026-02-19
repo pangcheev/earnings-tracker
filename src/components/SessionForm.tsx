@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, X } from 'lucide-react'
 import { SessionData, ServiceEntry, AddOn } from '../types'
 import { HALO_ADDONS, calculateHaloServicePayout, getLocalDateString } from '../utils/haloPayroll'
@@ -18,6 +18,13 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
   const [review, setReview] = useState('')
   const [rating, setRating] = useState(5)
   const [hasClientReview, setHasClientReview] = useState(false) // For Halo
+
+  // Update date when defaultDate changes
+  useEffect(() => {
+    if (defaultDate) {
+      setDate(defaultDate)
+    }
+  }, [defaultDate])
 
   const isHalo = location === 'halo'
 
