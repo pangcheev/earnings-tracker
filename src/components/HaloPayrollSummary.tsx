@@ -161,7 +161,7 @@ total: $${totals.grandTotal.toFixed(2)}`
           <div className="flex gap-2 flex-wrap">
             <button
               onClick={handleCopyDetailed}
-              className="flex items-center gap-2 bg-teal-700 hover:bg-teal-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
+              className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
             >
               <Copy className="w-4 h-4" />
               {copiedType === 'detailed' ? 'Copied!' : 'Copy Detailed'}
@@ -175,7 +175,7 @@ total: $${totals.grandTotal.toFixed(2)}`
             </button>
             <button
               onClick={handleDownload}
-              className="flex items-center gap-2 bg-teal-700 hover:bg-teal-600 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+              className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm"
             >
               <Download className="w-4 h-4" />
               Export
