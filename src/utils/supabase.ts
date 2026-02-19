@@ -168,9 +168,13 @@ export async function deleteSessionFromCloud(sessionId: string): Promise<boolean
 
 // Get all closed dates from Supabase
 export async function getClosedDatesFromCloud(): Promise<Record<string, boolean> | null> {
-  if (!supabase) return null
+  if (!supabase) {
+    console.log('⚠️  Supabase not configured, skipping closed dates load')
+    return null
+  }
 
   try {
+    console.log('🔍 Loading closed dates from Supabase...')
     const { data, error } = await supabase
       .from('sessions')
       .select('date, closed_date')
@@ -181,6 +185,8 @@ export async function getClosedDatesFromCloud(): Promise<Record<string, boolean>
       return null
     }
 
+    console.log('📊 Raw data from Supabase:', data)
+    
     const closedDatesMap: Record<string, boolean> = {}
     const seenDates = new Set<string>()
     
@@ -188,6 +194,7 @@ export async function getClosedDatesFromCloud(): Promise<Record<string, boolean>
       if (row.closed_date && !seenDates.has(row.date)) {
         closedDatesMap[row.date] = true
         seenDates.add(row.date)
+        console.log(`✅ Marked date as closed: ${row.date}`)
       }
     })
 

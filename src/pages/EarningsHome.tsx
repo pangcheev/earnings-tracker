@@ -56,10 +56,15 @@ export function EarningsHome({
   // Load closed dates from Supabase on component mount
   useEffect(() => {
     const loadClosedDates = async () => {
+      console.log('📂 EarningsHome mounted, loading closed dates...')
       const cloudClosedDates = await getClosedDatesFromCloud()
+      console.log('📂 getClosedDatesFromCloud returned:', cloudClosedDates)
       if (cloudClosedDates) {
+        console.log('✅ Setting closed dates map to:', cloudClosedDates)
         setClosedDatesMap(cloudClosedDates)
         localStorage.setItem('earnings-closed-dates-map', JSON.stringify(cloudClosedDates))
+      } else {
+        console.log('⚠️  No closed dates returned from cloud')
       }
     }
     loadClosedDates()
