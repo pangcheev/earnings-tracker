@@ -152,16 +152,16 @@ total: $${totals.grandTotal.toFixed(2)}`
   return (
     <div className="space-y-6 mb-8">
       {/* Header with actions */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-800 rounded-lg p-6">
+      <div className="bg-gradient-to-r from-slate-800 to-slate-700 rounded-lg p-6">
         <div className="flex justify-between items-start mb-6">
           <div>
             <h3 className="text-2xl font-bold text-white mb-2">Daily Payroll Tally</h3>
-            <p className="text-blue-200 text-sm">{sessions.length} session{sessions.length !== 1 ? 's' : ''}</p>
+            <p className="text-slate-300 text-sm">{sessions.length} session{sessions.length !== 1 ? 's' : ''}</p>
           </div>
           <div className="flex gap-2 flex-wrap">
             <button
               onClick={handleCopyDetailed}
-              className="flex items-center gap-2 bg-blue-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
+              className="flex items-center gap-2 bg-slate-600 hover:bg-slate-500 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
             >
               <Copy className="w-4 h-4" />
               {copiedType === 'detailed' ? 'Copied!' : 'Copy Detailed'}
@@ -175,7 +175,7 @@ total: $${totals.grandTotal.toFixed(2)}`
             </button>
             <button
               onClick={handleDownload}
-              className="flex items-center gap-2 bg-blue-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+              className="flex items-center gap-2 bg-slate-600 hover:bg-slate-500 text-white px-4 py-2 rounded-lg transition-colors text-sm"
             >
               <Download className="w-4 h-4" />
               Export
@@ -187,7 +187,7 @@ total: $${totals.grandTotal.toFixed(2)}`
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <h4 className="text-white font-bold mb-2 text-xs">📋 DETAILED:</h4>
-            <div className="bg-blue-950 p-3 rounded-lg font-mono text-xs text-blue-100 whitespace-pre-wrap overflow-y-auto max-h-48 border border-blue-700">
+            <div className="bg-white p-3 rounded-lg font-mono text-xs text-slate-800 whitespace-pre-wrap overflow-y-auto max-h-48 border border-slate-200">
               {payrollText}
             </div>
           </div>
