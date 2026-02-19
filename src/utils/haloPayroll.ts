@@ -120,7 +120,9 @@ export function calculateHaloTotalPayout(
 
   // Separate add-ons: service type surcharges go to deep tissue, others go to add-ons
   addOns.forEach(addon => {
-    if (addon.id === 'deep-tissue' || addon.id === 'advanced-bodywork') {
+    // Check both id and haloCode for backwards compatibility
+    const checkId = (addon as any).haloCode || addon.id
+    if (checkId === 'deep-tissue' || checkId === 'advanced-bodywork') {
       // Service type surcharges go to deep tissue breakdown
       deepTissueTotal += addon.price
     } else {
