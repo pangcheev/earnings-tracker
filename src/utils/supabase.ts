@@ -88,9 +88,26 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
       const tips = Number(session.tips || 0)
       const haloTotal = session.location === 'halo' ? basePrice + totalAddOns + review + tips : null
       
-      // Set surcharge columns based on service type
-      const deepTissueSurcharge = serviceType === 'deep-tissue' ? 7.50 : 0
-      const advancedBodyworkSurcharge = serviceType === 'advanced-bodywork' ? 12.50 : 0
+      // Set surcharge columns based on service type + add-ons
+      let deepTissueSurcharge = 0
+      let advancedBodyworkSurcharge = 0
+      
+      // Add service type surcharge
+      if (serviceType === 'deep-tissue') {
+        deepTissueSurcharge = 7.50
+      } else if (serviceType === 'advanced-bodywork') {
+        advancedBodyworkSurcharge = 12.50
+      }
+      
+      // Add surcharges from add-ons
+      session.addOns.forEach(addon => {
+        const checkId = (addon as any).haloCode || addon.id
+        if (checkId === 'deep-tissue') {
+          deepTissueSurcharge += addon.price
+        } else if (checkId === 'advanced-bodywork') {
+          advancedBodyworkSurcharge += addon.price
+        }
+      })
       
       return {
         id: session.id,
