@@ -70,12 +70,20 @@ export function EarningsHome({
   }
 
   const toggleDateClosed = async (date: string) => {
+    console.log('🔘 toggleDateClosed called for date:', date)
+    
     if (isDateClosed(date)) {
+      console.log('📋 Date is currently closed, attempting to reopen...')
       const confirmed = confirm('This day is closed. Click OK to reopen it.')
-      if (!confirmed) return
+      if (!confirmed) {
+        console.log('❌ User cancelled reopen')
+        return
+      }
       
+      console.log('🌐 Calling setDateOpenInCloud...')
       // Sync to Supabase
-      await setDateOpenInCloud(date)
+      const result = await setDateOpenInCloud(date)
+      console.log('✅ setDateOpenInCloud returned:', result)
       
       const updated = { ...closedDatesMap }
       delete updated[date]
@@ -84,11 +92,17 @@ export function EarningsHome({
       setClosedOutMessage('✅ Day reopened!')
       setTimeout(() => setClosedOutMessage(''), 3000)
     } else {
+      console.log('📋 Date is currently open, attempting to close...')
       const confirmed = confirm('Close out this day? You can still add sessions for other days.')
-      if (!confirmed) return
+      if (!confirmed) {
+        console.log('❌ User cancelled close')
+        return
+      }
       
+      console.log('🌐 Calling setDateClosedInCloud...')
       // Sync to Supabase
-      await setDateClosedInCloud(date)
+      const result = await setDateClosedInCloud(date)
+      console.log('✅ setDateClosedInCloud returned:', result)
       
       const updated = { ...closedDatesMap, [date]: true }
       setClosedDatesMap(updated)
