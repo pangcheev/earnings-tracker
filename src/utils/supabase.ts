@@ -38,31 +38,17 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
     
     // Convert database format to SessionData format
     const sessions = (data || []).map((row: any) => {
-      // Reconstruct add-ons array from database columns
+      // Reconstruct add-ons array from the add_ons column
       const addOnsArray: any[] = []
       
-      // Add non-surcharge add-ons
+      // Add-ons come from the add_ons column
       if (row.add_ons && row.add_ons > 0) {
+        // This could be regular add-ons or add-on surcharges (like deep-tissue add-on)
         addOnsArray.push({ id: `addon-${row.id}`, name: 'Add-ons', price: row.add_ons })
       }
       
-      // Reconstruct surcharge add-ons from the surcharge columns
-      if (row.deep_tissue_surcharge && row.deep_tissue_surcharge > 0) {
-        addOnsArray.push({
-          id: `deep-tissue-${row.id}`,
-          name: 'Deep Tissue / Sports / Lymphatic',
-          price: row.deep_tissue_surcharge,
-          haloCode: 'deep-tissue'
-        })
-      }
-      if (row.advanced_bodywork_surcharge && row.advanced_bodywork_surcharge > 0) {
-        addOnsArray.push({
-          id: `advanced-bodywork-${row.id}`,
-          name: 'Advanced Bodywork',
-          price: row.advanced_bodywork_surcharge,
-          haloCode: 'advanced-bodywork'
-        })
-      }
+      // Note: Service type surcharges (deep_tissue_surcharge, advanced_bodywork_surcharge)
+      // are NOT recreated as add-ons here - they're part of the service type itself
       
       return {
         id: row.id,
@@ -105,29 +91,22 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
       const review = Number(session.review || 0)
       const tips = Number(session.tips || 0)
       
-      // Set surcharge columns based on service type
+      // Set surcharge columns based on SERVICE TYPE ONLY (not add-ons)
       let deepTissueSurcharge = 0
       let advancedBodyworkSurcharge = 0
       
-      // Add service type surcharge
+      // Add service type surcharge if service was booked with that type
       if (serviceType === 'deep-tissue') {
         deepTissueSurcharge = 7.50
       } else if (serviceType === 'advanced-bodywork') {
         advancedBodyworkSurcharge = 12.50
       }
       
-      // Separate add-ons: surcharges go to their columns, others to add_ons total
+      // Process add-ons: ALL add-ons (including service type add-ons at booking time) go to add_ons total
       let totalAddOns = 0
       session.addOns.forEach(addon => {
-        const checkId = (addon as any).haloCode || addon.id
-        if (checkId === 'deep-tissue') {
-          deepTissueSurcharge += addon.price
-        } else if (checkId === 'advanced-bodywork') {
-          advancedBodyworkSurcharge += addon.price
-        } else {
-          // Only non-surcharge add-ons count toward add_ons total
-          totalAddOns += Number(addon.price || 0)
-        }
+        // Count all add-ons toward add_ons total (this includes deep-tissue/advanced-bodywork add-ons)
+        totalAddOns += Number(addon.price || 0)
       })
       
       // Calculate total payout: base + surcharges + other add-ons + review + tips

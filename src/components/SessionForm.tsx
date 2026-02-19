@@ -331,7 +331,17 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
             {services.length > 0 && (
               <div className="space-y-2">
                 {services.map((service) => {
-                  const payout = service.haloBasePrice || (service.rate / 60) * service.duration
+                  let payout = service.haloBasePrice || (service.rate / 60) * service.duration
+                  
+                  // For Halo services, add service-type surcharge to payout display
+                  if (isHalo) {
+                    if (service.type === 'deep-tissue') {
+                      payout += 7.50
+                    } else if (service.type === 'advanced-bodywork') {
+                      payout += 12.50
+                    }
+                  }
+                  
                   return (
                     <div
                       key={service.id}
