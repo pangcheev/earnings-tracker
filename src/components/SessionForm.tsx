@@ -202,7 +202,10 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-slate-800 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Add Session</h2>
+          <div>
+            <h2 className="text-2xl font-bold text-white">Add Session</h2>
+            <div className="text-red-500 font-bold text-lg mt-2">🔴 DEBUG: Form Date={date} | Prop={defaultDate}</div>
+          </div>
           <button
             onClick={() => setIsOpen(false)}
             className="text-slate-400 hover:text-white"
@@ -222,7 +225,6 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
               className="w-full bg-slate-700 border border-amber-700 rounded px-2 py-1 text-sm text-white"
               required
             />
-            <div className="text-xs text-red-400 mt-2 font-bold">DEBUG - Form date: {date} | Prop defaultDate: {defaultDate}</div>
           </div>
 
           {/* Services */}
