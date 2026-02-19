@@ -182,7 +182,6 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
     return (
       <button
         onClick={() => {
-          setDate(getLocalDateString())
           setIsOpen(true)
         }}
         className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-colors"
