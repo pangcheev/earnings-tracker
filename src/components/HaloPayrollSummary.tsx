@@ -168,7 +168,7 @@ total: $${totals.grandTotal.toFixed(2)}`
             </button>
             <button
               onClick={handleCopyTotalsOnly}
-              className="flex items-center gap-2 bg-rose-700 hover:bg-rose-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
+              className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
             >
               <Copy className="w-4 h-4" />
               {copiedType === 'totals' ? 'Copied!' : 'Copy Totals'}
@@ -205,7 +205,7 @@ total: $${totals.grandTotal.toFixed(2)}`
       <div className="space-y-4">
         <h3 className="text-xl font-bold text-white">Session Breakdown</h3>
         {sessionBreakdowns.map((item, idx) => (
-          <div key={item.session.id} className="bg-slate-800 rounded-lg p-4 border border-slate-700">
+          <div key={item.session.id} className="bg-stone-800 rounded-lg p-4 border border-stone-700">
             <div className="flex justify-between items-center mb-4">
               <h4 className="text-white font-semibold">Session {idx + 1}</h4>
               <span className="text-teal-300 text-sm">{format(parseLocalDateString(item.session.date), 'MMM d • h:mma')}</span>
@@ -242,7 +242,7 @@ total: $${totals.grandTotal.toFixed(2)}`
                   <span className="text-white font-semibold">${item.breakdown.tips.toFixed(2)}</span>
                 </div>
               )}
-              <div className="flex justify-between border-t border-slate-700 pt-2 mt-2">
+              <div className="flex justify-between border-t border-stone-700 pt-2 mt-2">
                 <span className="text-white font-semibold">Total:</span>
                 <span className="text-teal-300 font-bold text-lg">${item.breakdown.total.toFixed(2)}</span>
               </div>

@@ -36,7 +36,7 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
   }
 
   return (
-    <div className={`rounded-lg p-6 hover:shadow-lg transition-all ${isHalo ? 'bg-teal-700 hover:bg-teal-600' : 'bg-slate-700 hover:bg-slate-600'}`}>
+    <div className={`rounded-lg p-6 hover:shadow-lg transition-all ${isHalo ? 'bg-teal-700 hover:bg-teal-600' : 'bg-stone-700 hover:bg-amber-700'}`}>
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-lg font-semibold text-white">
@@ -111,7 +111,7 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
       )}
 
       {/* Total */}
-      <div className={`border-t pt-4 mt-4 flex justify-between items-center ${isHalo ? 'border-blue-600' : 'border-slate-600'}`}>
+      <div className={`border-t pt-4 mt-4 flex justify-between items-center ${isHalo ? 'border-blue-600' : 'border-amber-700'}`}>
         <span className="opacity-90">{isHalo ? 'Total Payout' : 'Total Earnings'}:</span>
         <span className={`text-xl font-bold ${isHalo ? 'text-yellow-300' : 'text-amber-400'}`}>
           ${grandTotal.toFixed(2)}

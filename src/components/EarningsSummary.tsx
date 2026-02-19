@@ -41,14 +41,14 @@ export function EarningsSummary({ sessions }: EarningsSummaryProps) {
         <p className="text-xs text-amber-100 mt-2">{stats.sessionCount} sessions</p>
       </div>
 
-      <div className="bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg p-6">
+      <div className="bg-gradient-to-br from-amber-700 to-stone-700 rounded-lg p-6">
         <p className="text-slate-100 text-sm font-semibold mb-2">Services + Add-ons</p>
         <p className="text-3xl font-bold text-white">${(stats.totalServices + stats.totalAddOns).toFixed(2)}</p>
         <p className="text-xs text-teal-100 mt-2">Services: ${stats.totalServices.toFixed(2)}</p>
       </div>
 
-      <div className="bg-gradient-to-br from-rose-600 to-rose-700 rounded-lg p-6">
-        <p className="text-rose-100 text-sm font-semibold mb-2">Tips</p>
+      <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-lg p-6">
+        <p className="text-emerald-100 text-sm font-semibold mb-2">Tips</p>
         <p className="text-3xl font-bold text-white">${stats.totalTips.toFixed(2)}</p>
         <p className="text-xs text-green-100 mt-2">Avg: ${stats.averagePerSession.toFixed(2)}/session</p>
       </div>
