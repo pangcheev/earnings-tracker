@@ -79,7 +79,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
       {/* Floating Sync Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg transition-all hover:shadow-xl z-40"
+        className="fixed bottom-6 right-6 flex items-center gap-2 bg-blue-700 hover:bg-slate-600 text-white px-4 py-3 rounded-full shadow-lg transition-all hover:shadow-xl z-40"
         title="WiFi Sync"
       >
         <Wifi className="w-5 h-5" />
@@ -89,7 +89,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
       {/* Sync Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-stone-800 rounded-lg p-6 max-w-md w-full border border-stone-700">
+          <div className="bg-slate-800 rounded-lg p-6 max-w-md w-full border border-slate-600">
             <div className="flex items-center gap-2 mb-4">
               <Wifi className="w-6 h-6 text-blue-400" />
               <h2 className="text-2xl font-bold text-white">WiFi Sync</h2>
@@ -104,7 +104,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
                 type="text"
                 value={syncUrl}
                 onChange={(e) => setSyncUrl(e.target.value)}
-                className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white text-sm"
+                className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white text-sm"
                 placeholder="http://192.168.0.158:3001"
               />
               <p className="text-xs text-slate-400 mt-1">
@@ -136,7 +136,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
 
             {/* Stats */}
             {syncedCount > 0 && status === 'success' && (
-              <div className="mb-4 p-3 bg-stone-700 rounded border border-amber-700">
+              <div className="mb-4 p-3 bg-slate-700 rounded border border-amber-700">
                 <p className="text-sm text-slate-300">
                   Total sessions: <span className="font-bold text-white">{syncedCount}</span>
                 </p>
@@ -157,7 +157,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
               <button
                 onClick={handleDownload}
                 disabled={status !== 'idle'}
-                className="w-full flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-600 disabled:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-blue-700 hover:bg-slate-600 disabled:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 <Download className="w-5 h-5" />
                 Download (Pull from server)
@@ -165,7 +165,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
 
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full bg-stone-700 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 Close
               </button>

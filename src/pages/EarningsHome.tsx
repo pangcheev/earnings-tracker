@@ -122,7 +122,7 @@ export function EarningsHome({
           </div>
           
           {/* Date Navigation */}
-          <div className="flex items-center gap-2 bg-stone-700 rounded-lg px-4 py-2">
+          <div className="flex items-center gap-2 bg-slate-700 rounded-lg px-4 py-2">
             <button
               onClick={() => changeDate(-1)}
               className="text-white hover:text-amber-400 transition-colors"
@@ -148,7 +148,7 @@ export function EarningsHome({
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
                 showTreeView
                   ? 'bg-blue-600 text-white'
-                  : 'bg-stone-700 hover:bg-blue-600 text-slate-300'
+                  : 'bg-slate-700 hover:bg-slate-600 text-slate-300'
               }`}
               title="Show/hide sessions"
             >
@@ -215,11 +215,11 @@ export function EarningsHome({
 
           {/* Session History - Collapsible Section */}
           {sessions.filter(s => s.date === viewDate).length > 0 && (
-            <div className="mb-8 bg-stone-800 rounded-lg border border-stone-700 overflow-hidden">
+            <div className="mb-8 bg-slate-800 rounded-lg border border-slate-600 overflow-hidden">
               {/* Collapsible Header */}
               <button
                 onClick={() => setShowTreeView(!showTreeView)}
-                className="w-full flex items-center justify-between p-6 hover:bg-stone-700 transition-colors"
+                className="w-full flex items-center justify-between p-6 hover:bg-slate-700 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <h3 className="text-lg font-semibold text-white">Session History</h3>
@@ -230,10 +230,10 @@ export function EarningsHome({
 
               {/* Collapsible Content */}
               {showTreeView && (
-                <div className="border-t border-stone-700 p-6 space-y-6">
+                <div className="border-t border-slate-600 p-6 space-y-6">
                   {/* Stats Cards */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-stone-700 rounded-lg p-4 border border-amber-700">
+                    <div className="bg-slate-700 rounded-lg p-4 border border-amber-700">
                       <p className="text-slate-400 text-sm mb-1">Total Sessions</p>
                       <p className="text-3xl font-bold text-white">{sessions.filter(s => s.date === viewDate).length}</p>
                     </div>

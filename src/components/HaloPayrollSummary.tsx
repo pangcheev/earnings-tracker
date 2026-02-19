@@ -161,7 +161,7 @@ total: $${totals.grandTotal.toFixed(2)}`
           <div className="flex gap-2 flex-wrap">
             <button
               onClick={handleCopyDetailed}
-              className="flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
+              className="flex items-center gap-2 bg-blue-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
             >
               <Copy className="w-4 h-4" />
               {copiedType === 'detailed' ? 'Copied!' : 'Copy Detailed'}
@@ -175,7 +175,7 @@ total: $${totals.grandTotal.toFixed(2)}`
             </button>
             <button
               onClick={handleDownload}
-              className="flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+              className="flex items-center gap-2 bg-blue-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm"
             >
               <Download className="w-4 h-4" />
               Export
@@ -205,7 +205,7 @@ total: $${totals.grandTotal.toFixed(2)}`
       <div className="space-y-4">
         <h3 className="text-xl font-bold text-white">Session Breakdown</h3>
         {sessionBreakdowns.map((item, idx) => (
-          <div key={item.session.id} className="bg-stone-800 rounded-lg p-4 border border-stone-700">
+          <div key={item.session.id} className="bg-slate-800 rounded-lg p-4 border border-slate-600">
             <div className="flex justify-between items-center mb-4">
               <h4 className="text-white font-semibold">Session {idx + 1}</h4>
               <span className="text-blue-600 text-sm">{format(parseLocalDateString(item.session.date), 'MMM d • h:mma')}</span>
@@ -242,7 +242,7 @@ total: $${totals.grandTotal.toFixed(2)}`
                   <span className="text-white font-semibold">${item.breakdown.tips.toFixed(2)}</span>
                 </div>
               )}
-              <div className="flex justify-between border-t border-stone-700 pt-2 mt-2">
+              <div className="flex justify-between border-t border-slate-600 pt-2 mt-2">
                 <span className="text-white font-semibold">Total:</span>
                 <span className="text-blue-600 font-bold text-lg">${item.breakdown.total.toFixed(2)}</span>
               </div>

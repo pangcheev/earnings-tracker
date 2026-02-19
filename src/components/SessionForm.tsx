@@ -193,7 +193,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-stone-800 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-slate-800 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-white">Add Session</h2>
           <button
@@ -212,13 +212,13 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-stone-700 border border-amber-700 rounded px-2 py-1 text-sm text-white"
+              className="w-full bg-slate-700 border border-amber-700 rounded px-2 py-1 text-sm text-white"
               required
             />
           </div>
 
           {/* Services */}
-          <div className="border-t border-stone-700 pt-6">
+          <div className="border-t border-slate-600 pt-6">
             <h3 className="text-lg font-semibold text-white mb-4">Services</h3>
             
             {isHalo ? (
@@ -229,7 +229,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                   <select
                     value={haloServiceType}
                     onChange={(e) => setHaloServiceType(e.target.value as 'massage' | 'deep-tissue' | 'advanced-bodywork')}
-                    className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                    className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                   >
                     <option value="massage">Massage (1hr=$50, 90min=$70, 2hr=$95)</option>
                     <option value="deep-tissue">Deep Tissue (+$7.50)</option>
@@ -242,7 +242,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                   <select
                     value={haloDuration}
                     onChange={handleHaloDurationSelect}
-                    className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                    className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                   >
                     <option value="">-- Select Duration --</option>
                     <option value={60}>60 minutes</option>
@@ -252,7 +252,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                 </div>
 
                 {haloDuration && (
-                  <div className="bg-stone-700 p-3 rounded">
+                  <div className="bg-slate-700 p-3 rounded">
                     <p className="text-sm text-blue-600">
                       Payout: <span className="font-semibold text-white">${calculateHaloServicePayout(haloServiceType, haloDuration as number).toFixed(2)}</span>
                     </p>
@@ -268,7 +268,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                     <select
                       value={serviceType}
                       onChange={(e) => setServiceType(e.target.value as 'massage' | 'deep-tissue')}
-                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                      className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                     >
                       <option value="massage">Massage</option>
                       <option value="deep-tissue">Deep Tissue</option>
@@ -282,7 +282,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                       onChange={(e) => setDuration(Number(e.target.value))}
                       min="15"
                       step="15"
-                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                      className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                     />
                   </div>
                 </div>
@@ -295,14 +295,14 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                     onChange={(e) => setRate(Number(e.target.value))}
                     min="0"
                     step="0.01"
-                    className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                    className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                   />
                 </div>
 
                 <button
                   type="button"
                   onClick={addService}
-                  className="w-full bg-stone-700 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Service
                 </button>
@@ -316,7 +316,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                   return (
                     <div
                       key={service.id}
-                      className="flex justify-between items-center bg-stone-700 p-3 rounded"
+                      className="flex justify-between items-center bg-slate-700 p-3 rounded"
                     >
                       <span className="text-white">
                         {service.type.replace(/-/g, ' ')} - {service.duration}min {isHalo ? '' : `@ $${service.rate}/hr`}
@@ -339,15 +339,15 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
           </div>
 
           {/* Add-ons */}
-          <div className="border-t border-stone-700 pt-6">
+          <div className="border-t border-slate-600 pt-6">
             <h3 className="text-lg font-semibold text-white mb-4">Add-ons</h3>
             
             {isHalo ? (
               // Halo add-ons selection
               <div className="space-y-4 mb-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 bg-stone-700 p-4 rounded">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 bg-slate-700 p-4 rounded">
                   {HALO_ADDONS.map(addon => (
-                    <label key={addon.id} className="flex items-center gap-2 cursor-pointer hover:bg-blue-600 p-2 rounded transition-colors">
+                    <label key={addon.id} className="flex items-center gap-2 cursor-pointer hover:bg-slate-600 p-2 rounded transition-colors">
                       <input
                         type="checkbox"
                         checked={selectedHaloAddOns.includes(addon.id)}
@@ -364,7 +364,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                   type="button"
                   onClick={addAddOn}
                   disabled={selectedHaloAddOns.length === 0}
-                  className="w-full bg-blue-700 hover:bg-blue-600 disabled:bg-stone-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-blue-700 hover:bg-slate-600 disabled:bg-slate-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Selected Add-ons ({selectedHaloAddOns.length})
                 </button>
@@ -380,7 +380,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                       value={addOnName}
                       onChange={(e) => setAddOnName(e.target.value)}
                       placeholder="e.g., Aromatherapy, Hot Stones"
-                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white placeholder-slate-500"
+                      className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white placeholder-slate-500"
                     />
                   </div>
                   <div>
@@ -391,7 +391,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                       onChange={(e) => setAddOnPrice(Number(e.target.value))}
                       min="0"
                       step="0.01"
-                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                      className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                     />
                   </div>
                 </div>
@@ -399,7 +399,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                 <button
                   type="button"
                   onClick={addAddOn}
-                  className="w-full bg-stone-700 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Add-on
                 </button>
@@ -411,7 +411,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                 {addOns.map((addon) => (
                   <div
                     key={addon.id}
-                    className="flex justify-between items-center bg-stone-700 p-3 rounded"
+                    className="flex justify-between items-center bg-slate-700 p-3 rounded"
                   >
                     <span className="text-white">
                       {addon.name} - ${addon.price.toFixed(2)}
@@ -430,7 +430,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
           </div>
 
           {/* Tips */}
-          <div className="border-t border-stone-700 pt-6">
+          <div className="border-t border-slate-600 pt-6">
             <label className="block text-sm font-semibold text-white mb-2">Tips ($)</label>
             <input
               type="number"
@@ -439,7 +439,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
               onFocus={(e) => e.target.select()}
               min="0"
               step="0.01"
-              className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+              className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
               placeholder="0.00"
             />
           </div>
@@ -453,7 +453,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                   value={review}
                   onChange={(e) => setReview(e.target.value)}
                   placeholder="Add any customer feedback or notes..."
-                  className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white placeholder-slate-500 h-24 resize-none"
+                  className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white placeholder-slate-500 h-24 resize-none"
                 />
               </div>
 
@@ -463,7 +463,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                 <select
                   value={rating}
                   onChange={(e) => setRating(Number(e.target.value))}
-                  className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                  className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                 >
                   <option value={5}>★★★★★ (5 Stars)</option>
                   <option value={4}>★★★★ (4 Stars)</option>
@@ -475,7 +475,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
             </>
           ) : (
             // Halo review checkbox
-            <div className="border-t border-stone-700 pt-6">
+            <div className="border-t border-slate-600 pt-6">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
@@ -490,7 +490,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
           )}
 
           {/* Summary */}
-          <div className="border-t border-stone-700 pt-6 bg-stone-700 p-4 rounded">
+          <div className="border-t border-slate-600 pt-6 bg-slate-700 p-4 rounded">
             <div className="space-y-2 text-white">
               <div className="flex justify-between">
                 <span>Services Payout:</span>
@@ -521,14 +521,14 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
           <div className="flex gap-4 pt-6">
             <button
               type="submit"
-              className={`flex-1 ${isHalo ? 'bg-blue-700 hover:bg-blue-600' : 'bg-stone-9000 hover:bg-blue-700'} text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
+              className={`flex-1 ${isHalo ? 'bg-blue-700 hover:bg-slate-600' : 'bg-slate-9000 hover:bg-blue-700'} text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
             >
               Save Session
             </button>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="flex-1 bg-stone-700 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+              className="flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
             >
               Cancel
             </button>

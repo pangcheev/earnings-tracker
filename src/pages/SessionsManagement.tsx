@@ -46,7 +46,7 @@ export function SessionsManagement({
       </div>
 
       {sessions.length === 0 ? (
-        <div className="text-center py-12 bg-stone-800 rounded-lg border border-stone-700">
+        <div className="text-center py-12 bg-slate-800 rounded-lg border border-slate-600">
           <p className="text-slate-400 text-lg">No sessions yet</p>
           <p className="text-slate-500 text-sm mt-2">Go to Home to add your first session</p>
         </div>

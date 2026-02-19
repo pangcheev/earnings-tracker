@@ -27,7 +27,7 @@ export function Login({ onLogin }: LoginProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-stone-800 to-slate-900 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <div className="bg-stone-800 rounded-lg p-8 border border-stone-700 shadow-2xl">
+        <div className="bg-slate-800 rounded-lg p-8 border border-slate-600 shadow-2xl">
           <div className="flex justify-center mb-6">
             <div className="bg-blue-700 p-4 rounded-full">
               <Lock className="w-8 h-8 text-slate-900" />
@@ -51,7 +51,7 @@ export function Login({ onLogin }: LoginProps) {
                   e.target.select()
                 }}
                 placeholder="Enter password"
-                className="w-full bg-stone-700 border border-amber-700 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50"
+                className="w-full bg-slate-700 border border-amber-700 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50"
                 autoFocus
               />
             </div>
@@ -64,7 +64,7 @@ export function Login({ onLogin }: LoginProps) {
 
             <button
               type="submit"
-              className="w-full bg-blue-700 hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition-colors"
+              className="w-full bg-blue-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition-colors"
             >
               Unlock
             </button>

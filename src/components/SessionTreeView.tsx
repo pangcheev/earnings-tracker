@@ -48,7 +48,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
   }
 
   return (
-    <div className="bg-stone-800 rounded-lg p-6 border border-stone-700">
+    <div className="bg-slate-800 rounded-lg p-6 border border-slate-600">
       <h3 className="text-xl font-bold text-white mb-6">📋 Session History</h3>
 
       <div className="space-y-4">
@@ -79,7 +79,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
               {/* Date header */}
               <button
                 onClick={() => toggleExpanded(dayKey)}
-                className="w-full flex items-center justify-between p-4 hover:bg-stone-700 transition-colors"
+                className="w-full flex items-center justify-between p-4 hover:bg-slate-700 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   {isExpanded ? (
@@ -123,7 +123,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                     return (
                       <div
                         key={session.id}
-                        className={`p-3 rounded border ${isHalo ? 'bg-teal-50 border-amber-700 hover:border-teal-500' : 'bg-stone-800 border-amber-700 hover:border-slate-500'} transition-colors`}
+                        className={`p-3 rounded border ${isHalo ? 'bg-teal-50 border-amber-700 hover:border-teal-500' : 'bg-slate-800 border-amber-700 hover:border-slate-500'} transition-colors`}
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <div className="flex-1">
@@ -185,7 +185,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded text-sm font-semibold transition-colors ${
                               isHalo
                                 ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                                : 'bg-stone-700 hover:bg-blue-600 text-white'
+                                : 'bg-slate-700 hover:bg-slate-600 text-white'
                             }`}
                           >
                             <Edit2 className="w-4 h-4" />
