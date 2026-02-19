@@ -49,7 +49,7 @@ export function Navigation({ activeLocation, setActiveLocation, currentPage, onP
             onClick={() => setActiveLocation('soul-bridge')}
             className={`px-6 py-2 rounded-lg font-semibold transition-all ${
               activeLocation === 'soul-bridge'
-                ? 'bg-amber-500 text-slate-900'
+                ? 'bg-amber-500 text-white'
                 : 'bg-slate-800 text-white hover:bg-slate-700'
             }`}
           >

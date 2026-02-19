@@ -157,7 +157,7 @@ export function EarningsHome({
             </button>
             <button
               onClick={onExportSessions}
-              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-green-700 hover:bg-green-600 text-white transition-colors text-sm lg:text-base"
+              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-rose-700 hover:bg-rose-600 text-white transition-colors text-sm lg:text-base"
               title="Download backup"
             >
               <Download className="w-4 lg:w-5 h-4 lg:h-5" />
@@ -165,7 +165,7 @@ export function EarningsHome({
             </button>
             <button
               onClick={onImportSessions}
-              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-blue-700 hover:bg-blue-600 text-white transition-colors text-sm lg:text-base"
+              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-teal-700 hover:bg-teal-600 text-white transition-colors text-sm lg:text-base"
               title="Upload backup"
             >
               <Upload className="w-4 lg:w-5 h-4 lg:h-5" />
@@ -179,7 +179,7 @@ export function EarningsHome({
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
                 isDateClosed(viewDate)
                   ? 'bg-slate-600 hover:bg-slate-500 text-slate-100'
-                  : 'bg-purple-700 hover:bg-purple-600 text-white'
+                  : 'bg-rose-700 hover:bg-rose-600 text-white'
               }`}
               title={isDateClosed(viewDate) ? 'Click to reopen day' : 'Mark this day as complete'}
             >
@@ -237,11 +237,11 @@ export function EarningsHome({
                       <p className="text-slate-400 text-sm mb-1">Total Sessions</p>
                       <p className="text-3xl font-bold text-white">{sessions.filter(s => s.date === viewDate).length}</p>
                     </div>
-                    <div className={`rounded-lg p-4 border ${currentLocation === 'halo' ? 'bg-blue-900 border-blue-700' : 'bg-amber-900 border-amber-700'}`}>
-                      <p className={`text-sm mb-1 ${currentLocation === 'halo' ? 'text-blue-200' : 'text-amber-200'}`}>
+                    <div className={`rounded-lg p-4 border ${currentLocation === 'halo' ? 'bg-blue-900 border-teal-700' : 'bg-amber-900 border-amber-700'}`}>
+                      <p className={`text-sm mb-1 ${currentLocation === 'halo' ? 'text-teal-200' : 'text-amber-200'}`}>
                         Total {currentLocation === 'halo' ? 'Payout' : 'Earnings'}
                       </p>
-                      <p className={`text-3xl font-bold ${currentLocation === 'halo' ? 'text-blue-100' : 'text-amber-100'}`}>
+                      <p className={`text-3xl font-bold ${currentLocation === 'halo' ? 'text-teal-100' : 'text-amber-100'}`}>
                         ${sessions.filter(s => s.date === viewDate).reduce((sum, session) => {
                           if (currentLocation === 'halo') {
                             const breakdown = calculateHaloTotalPayout(session.services, session.addOns, session.tips, session.hasClientReview)
@@ -282,7 +282,7 @@ export function EarningsHome({
         </>
       ) : (
         <div>
-          <div className="text-center py-12 bg-gradient-to-b from-purple-900 to-slate-800 rounded-lg border border-purple-700 mb-8">
+          <div className="text-center py-12 bg-gradient-to-b from-rose-900 to-slate-800 rounded-lg border border-rose-700 mb-8">
             <p className="text-2xl font-bold text-white mb-3">✅ {format(parseLocalDateString(viewDate), 'EEEE, MMM d')} - Closed Out</p>
             <p className="text-slate-300 mb-2">This day's tally is locked. View history in 📋 Sessions page</p>
             <p className="text-slate-400 text-sm">You can still add sessions for other days</p>

@@ -75,7 +75,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
           }, 0)
 
           return (
-            <div key={dayKey} className={`rounded-lg border ${isExpanded ? 'border-blue-500 bg-slate-750' : 'border-slate-600 hover:border-slate-500'} transition-colors`}>
+            <div key={dayKey} className={`rounded-lg border ${isExpanded ? 'border-teal-500 bg-slate-750' : 'border-slate-600 hover:border-slate-500'} transition-colors`}>
               {/* Date header */}
               <button
                 onClick={() => toggleExpanded(dayKey)}
@@ -123,7 +123,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                     return (
                       <div
                         key={session.id}
-                        className={`p-3 rounded border ${isHalo ? 'bg-blue-950 border-blue-700 hover:border-blue-500' : 'bg-slate-800 border-slate-600 hover:border-slate-500'} transition-colors`}
+                        className={`p-3 rounded border ${isHalo ? 'bg-teal-950 border-teal-700 hover:border-teal-500' : 'bg-slate-800 border-slate-600 hover:border-slate-500'} transition-colors`}
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <div className="flex-1">
@@ -144,7 +144,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             )}
                           </div>
                           <div className="text-right">
-                            <p className={`font-bold text-sm ${isHalo ? 'text-blue-300' : 'text-amber-300'}`}>
+                            <p className={`font-bold text-sm ${isHalo ? 'text-teal-300' : 'text-amber-300'}`}>
                               ${sessionTotal.toFixed(2)}
                             </p>
                           </div>
@@ -184,7 +184,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             onClick={() => onEdit(session)}
                             className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded text-sm font-semibold transition-colors ${
                               isHalo
-                                ? 'bg-blue-700 hover:bg-blue-600 text-white'
+                                ? 'bg-teal-700 hover:bg-teal-600 text-white'
                                 : 'bg-slate-700 hover:bg-slate-600 text-white'
                             }`}
                           >

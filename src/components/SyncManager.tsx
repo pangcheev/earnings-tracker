@@ -79,7 +79,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
       {/* Floating Sync Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-full shadow-lg transition-all hover:shadow-xl z-40"
+        className="fixed bottom-6 right-6 flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-4 py-3 rounded-full shadow-lg transition-all hover:shadow-xl z-40"
         title="WiFi Sync"
       >
         <Wifi className="w-5 h-5" />
@@ -120,7 +120,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
                     ? 'bg-green-900 border border-green-700'
                     : status === 'error'
                     ? 'bg-red-900 border border-red-700'
-                    : 'bg-blue-900 border border-blue-700'
+                    : 'bg-blue-900 border border-teal-700'
                 }`}
               >
                 {status === 'success' ? (
@@ -157,7 +157,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
               <button
                 onClick={handleDownload}
                 disabled={status !== 'idle'}
-                className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-600 text-white px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 disabled:bg-slate-600 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 <Download className="w-5 h-5" />
                 Download (Pull from server)

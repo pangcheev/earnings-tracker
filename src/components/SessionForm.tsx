@@ -177,7 +177,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
           setDate(getLocalDateString())
           setIsOpen(true)
         }}
-        className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-colors"
+        className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
       >
         <Plus className="w-5 h-5" />
         Add Session
@@ -253,7 +253,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
 
                 {haloDuration && (
                   <div className="bg-slate-700 p-3 rounded">
-                    <p className="text-sm text-blue-300">
+                    <p className="text-sm text-teal-300">
                       Payout: <span className="font-semibold text-white">${calculateHaloServicePayout(haloServiceType, haloDuration as number).toFixed(2)}</span>
                     </p>
                   </div>
@@ -364,7 +364,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                   type="button"
                   onClick={addAddOn}
                   disabled={selectedHaloAddOns.length === 0}
-                  className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-slate-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Selected Add-ons ({selectedHaloAddOns.length})
                 </button>
@@ -485,7 +485,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
                 />
                 <span className="text-white font-semibold">Client Left a Review? (+$5)</span>
               </label>
-              <p className="text-xs text-blue-300 mt-2">Check if the client submitted a review</p>
+              <p className="text-xs text-teal-300 mt-2">Check if the client submitted a review</p>
             </div>
           )}
 
@@ -521,7 +521,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
           <div className="flex gap-4 pt-6">
             <button
               type="submit"
-              className={`flex-1 ${isHalo ? 'bg-blue-500 hover:bg-blue-600' : 'bg-amber-500 hover:bg-amber-600'} text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
+              className={`flex-1 ${isHalo ? 'bg-teal-600 hover:bg-teal-700' : 'bg-amber-500 hover:bg-amber-600'} text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
             >
               Save Session
             </button>

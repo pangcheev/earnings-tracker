@@ -35,20 +35,20 @@ export function EarningsSummary({ sessions }: EarningsSummaryProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-      <div className="bg-gradient-to-br from-amber-600 to-amber-700 rounded-lg p-6">
-        <p className="text-amber-100 text-sm font-semibold mb-2">Total Earnings</p>
+      <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-lg p-6">
+        <p className="text-teal-100 text-sm font-semibold mb-2">Total Earnings</p>
         <p className="text-3xl font-bold text-white">${stats.totalEarnings.toFixed(2)}</p>
         <p className="text-xs text-amber-100 mt-2">{stats.sessionCount} sessions</p>
       </div>
 
-      <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg p-6">
-        <p className="text-blue-100 text-sm font-semibold mb-2">Services + Add-ons</p>
+      <div className="bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg p-6">
+        <p className="text-slate-100 text-sm font-semibold mb-2">Services + Add-ons</p>
         <p className="text-3xl font-bold text-white">${(stats.totalServices + stats.totalAddOns).toFixed(2)}</p>
-        <p className="text-xs text-blue-100 mt-2">Services: ${stats.totalServices.toFixed(2)}</p>
+        <p className="text-xs text-teal-100 mt-2">Services: ${stats.totalServices.toFixed(2)}</p>
       </div>
 
-      <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-lg p-6">
-        <p className="text-green-100 text-sm font-semibold mb-2">Tips</p>
+      <div className="bg-gradient-to-br from-rose-600 to-rose-700 rounded-lg p-6">
+        <p className="text-rose-100 text-sm font-semibold mb-2">Tips</p>
         <p className="text-3xl font-bold text-white">${stats.totalTips.toFixed(2)}</p>
         <p className="text-xs text-green-100 mt-2">Avg: ${stats.averagePerSession.toFixed(2)}/session</p>
       </div>

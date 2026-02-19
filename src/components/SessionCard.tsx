@@ -36,7 +36,7 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
   }
 
   return (
-    <div className={`rounded-lg p-6 hover:shadow-lg transition-all ${isHalo ? 'bg-blue-700 hover:bg-blue-600' : 'bg-slate-700 hover:bg-slate-600'}`}>
+    <div className={`rounded-lg p-6 hover:shadow-lg transition-all ${isHalo ? 'bg-teal-700 hover:bg-teal-600' : 'bg-slate-700 hover:bg-slate-600'}`}>
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-lg font-semibold text-white">
@@ -60,7 +60,7 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
           {onEdit && (
             <button
               onClick={() => onEdit(session)}
-              className={`transition-colors ${isHalo ? 'text-blue-300 hover:text-blue-200' : 'text-amber-400 hover:text-amber-300'}`}
+              className={`transition-colors ${isHalo ? 'text-teal-300 hover:text-teal-200' : 'text-amber-400 hover:text-amber-300'}`}
             >
               <Edit2 className="w-5 h-5" />
             </button>
