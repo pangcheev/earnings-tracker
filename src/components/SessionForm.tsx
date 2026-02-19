@@ -163,8 +163,8 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
       hasClientReview: isHalo ? hasClientReview : undefined,
     })
 
-    // Reset form
-    setDate(getLocalDateString())
+    // Reset form - keep the defaultDate (currently toggled date) instead of reverting to today
+    setDate(defaultDate || getLocalDateString())
     setServices([])
     setAddOns([])
     setTips(0)
