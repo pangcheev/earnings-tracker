@@ -48,7 +48,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
   }
 
   return (
-    <div className="bg-green-800 rounded-lg p-6 border border-green-600">
+    <div className="bg-slate-800 rounded-lg p-6 border border-slate-600">
       <h3 className="text-xl font-bold text-white mb-6">📋 Session History</h3>
 
       <div className="space-y-4">
@@ -75,15 +75,15 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
           }, 0)
 
           return (
-            <div key={dayKey} className={`rounded-lg border ${isExpanded ? 'border-green-400 bg-green-750' : 'border-green-600 hover:border-green-400'} transition-colors`}>
+            <div key={dayKey} className={`rounded-lg border ${isExpanded ? 'border-slate-400 bg-slate-750' : 'border-slate-600 hover:border-slate-400'} transition-colors`}>
               {/* Date header */}
               <button
                 onClick={() => toggleExpanded(dayKey)}
-                className="w-full flex items-center justify-between p-4 hover:bg-green-700 transition-colors"
+                className="w-full flex items-center justify-between p-4 hover:bg-slate-700 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   {isExpanded ? (
-                    <ChevronDown className="w-5 h-5 text-green-400" />
+                    <ChevronDown className="w-5 h-5 text-slate-300" />
                   ) : (
                     <ChevronRight className="w-5 h-5 text-slate-400" />
                   )}
@@ -101,7 +101,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
 
               {/* Sessions list */}
               {isExpanded && (
-                <div className="border-t border-green-700 p-4 bg-green-900 space-y-3">
+                <div className="border-t border-slate-700 p-4 bg-slate-900 space-y-3">
                   {daySessionList.map((session, idx) => {
                     let sessionTotal: number
                     let breakdown: any = null
@@ -123,7 +123,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                     return (
                       <div
                         key={session.id}
-                        className={`p-3 rounded border bg-slate-100 border-slate-300 hover:border-slate-400 transition-colors`}
+                        className={`p-3 rounded border bg-slate-100 border-green-400 hover:border-green-500 transition-colors`}
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <div className="flex-1">
