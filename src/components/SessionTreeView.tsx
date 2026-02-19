@@ -170,18 +170,12 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                                 )
                               })}
                               
-                              {/* Show only non-surcharge add-ons */}
-                              {session.addOns.map((addon) => {
-                                const checkId = (addon as any).haloCode || addon.id
-                                // Only show add-ons that are NOT service type surcharges
-                                if (checkId !== 'deep-tissue' && checkId !== 'advanced-bodywork') {
-                                  return (
-                                    <div key={addon.id}>
-                                      {addon.name}: ${addon.price.toFixed(2)}
-                                    </div>
-                                  )
-                                }
-                              })}
+                              {/* Show all add-ons (including service-type add-ons if they were added as add-ons) */}
+                              {session.addOns.map((addon) => (
+                                <div key={addon.id}>
+                                  {addon.name}: ${addon.price.toFixed(2)}
+                                </div>
+                              ))}
                               
                               {breakdown.reviewBonus > 0 && <div>Review: ${breakdown.reviewBonus.toFixed(2)}</div>}
                               {breakdown.tips > 0 && <div>Tips: ${breakdown.tips.toFixed(2)}</div>}
