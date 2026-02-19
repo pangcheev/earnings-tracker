@@ -48,8 +48,8 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
   }
 
   return (
-    <div className="bg-stone-100 rounded-lg p-6 border border-stone-700">
-      <h3 className="text-xl font-bold text-gray-900 mb-6">📋 Session History</h3>
+    <div className="bg-stone-800 rounded-lg p-6 border border-stone-700">
+      <h3 className="text-xl font-bold text-white mb-6">📋 Session History</h3>
 
       <div className="space-y-4">
         {sortedDates.map(date => {
@@ -88,7 +88,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                     <ChevronRight className="w-5 h-5 text-slate-400" />
                   )}
                   <div className="text-left">
-                    <p className="font-semibold text-gray-900">{format(parseLocalDateString(date), 'EEEE, MMMM d, yyyy')}</p>
+                    <p className="font-semibold text-white">{format(parseLocalDateString(date), 'EEEE, MMMM d, yyyy')}</p>
                     <p className="text-xs text-slate-400">{daySessionList.length} session(s)</p>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                     return (
                       <div
                         key={session.id}
-                        className={`p-3 rounded border ${isHalo ? 'bg-teal-50 border-teal-700 hover:border-teal-500' : 'bg-stone-100 border-amber-700 hover:border-slate-500'} transition-colors`}
+                        className={`p-3 rounded border ${isHalo ? 'bg-teal-50 border-teal-700 hover:border-teal-500' : 'bg-stone-800 border-amber-700 hover:border-slate-500'} transition-colors`}
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <div className="flex-1">
@@ -185,7 +185,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded text-sm font-semibold transition-colors ${
                               isHalo
                                 ? 'bg-teal-700 hover:bg-teal-600 text-white'
-                                : 'bg-stone-700 hover:bg-amber-700 text-gray-900'
+                                : 'bg-stone-700 hover:bg-amber-700 text-white'
                             }`}
                           >
                             <Edit2 className="w-4 h-4" />
@@ -197,7 +197,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                                 onDelete(session.id)
                               }
                             }}
-                            className="flex items-center justify-center gap-2 px-3 py-2 rounded bg-red-700 hover:bg-red-600 text-gray-900 text-sm font-semibold transition-colors"
+                            className="flex items-center justify-center gap-2 px-3 py-2 rounded bg-red-700 hover:bg-red-600 text-white text-sm font-semibold transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

@@ -89,22 +89,22 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
       {/* Sync Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-stone-100 rounded-lg p-6 max-w-md w-full border border-stone-700">
+          <div className="bg-stone-800 rounded-lg p-6 max-w-md w-full border border-stone-700">
             <div className="flex items-center gap-2 mb-4">
               <Wifi className="w-6 h-6 text-blue-400" />
-              <h2 className="text-2xl font-bold text-gray-900">WiFi Sync</h2>
+              <h2 className="text-2xl font-bold text-white">WiFi Sync</h2>
             </div>
 
             {/* Server URL Input */}
             <div className="mb-4">
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-white mb-2">
                 Sync Server URL
               </label>
               <input
                 type="text"
                 value={syncUrl}
                 onChange={(e) => setSyncUrl(e.target.value)}
-                className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900 text-sm"
+                className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white text-sm"
                 placeholder="http://192.168.0.158:3001"
               />
               <p className="text-xs text-slate-400 mt-1">
@@ -130,7 +130,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
                 ) : (
                   <div className="w-5 h-5 border-2 border-blue-300 border-t-transparent rounded-full animate-spin flex-shrink-0 mt-0.5" />
                 )}
-                <p className="text-sm text-gray-900">{message}</p>
+                <p className="text-sm text-white">{message}</p>
               </div>
             )}
 
@@ -138,7 +138,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
             {syncedCount > 0 && status === 'success' && (
               <div className="mb-4 p-3 bg-stone-700 rounded border border-amber-700">
                 <p className="text-sm text-slate-300">
-                  Total sessions: <span className="font-bold text-gray-900">{syncedCount}</span>
+                  Total sessions: <span className="font-bold text-white">{syncedCount}</span>
                 </p>
               </div>
             )}
@@ -148,7 +148,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
               <button
                 onClick={handleUpload}
                 disabled={status !== 'idle'}
-                className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 disabled:bg-amber-700 text-gray-900 px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 disabled:bg-amber-700 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 <Upload className="w-5 h-5" />
                 Upload (Push from here)
@@ -157,7 +157,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
               <button
                 onClick={handleDownload}
                 disabled={status !== 'idle'}
-                className="w-full flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 disabled:bg-amber-700 text-gray-900 px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 disabled:bg-amber-700 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 <Download className="w-5 h-5" />
                 Download (Pull from server)
@@ -165,7 +165,7 @@ export function SyncManager({ sessions, onUpdateSessions }: SyncManagerProps) {
 
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full bg-stone-700 hover:bg-amber-700 text-gray-900 px-4 py-2 rounded font-semibold transition-colors"
+                className="w-full bg-stone-700 hover:bg-amber-700 text-white px-4 py-2 rounded font-semibold transition-colors"
               >
                 Close
               </button>
