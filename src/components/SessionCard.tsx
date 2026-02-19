@@ -24,7 +24,7 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
       session.tips,
       session.hasClientReview,
     )
-    totalServices = breakdown.massage + breakdown.deepTissue
+    totalServices = breakdown.massage + breakdown.deepTissue + breakdown.advancedBodywork
     totalAddOns = breakdown.addOnsTotal
     grandTotal = breakdown.total
     reviewBonus = breakdown.reviewBonus

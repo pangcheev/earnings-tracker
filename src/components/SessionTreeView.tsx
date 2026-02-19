@@ -156,6 +156,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                             <>
                               {breakdown.massage > 0 && <div>Massage: ${breakdown.massage.toFixed(2)}</div>}
                               {breakdown.deepTissue > 0 && <div>Deep Tissue: ${breakdown.deepTissue.toFixed(2)}</div>}
+                              {breakdown.advancedBodywork > 0 && <div>Advanced Bodywork: ${breakdown.advancedBodywork.toFixed(2)}</div>}
                               {breakdown.addOnsTotal > 0 && <div>Add-ons: ${breakdown.addOnsTotal.toFixed(2)}</div>}
                               {breakdown.reviewBonus > 0 && <div>Review: ${breakdown.reviewBonus.toFixed(2)}</div>}
                               {breakdown.tips > 0 && <div>Tips: ${breakdown.tips.toFixed(2)}</div>}

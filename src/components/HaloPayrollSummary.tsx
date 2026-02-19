@@ -34,6 +34,7 @@ export function HaloPayrollSummary({ sessions, selectedDate }: HaloPayrollSummar
   const totals = {
     massage: 0,
     deepTissue: 0,
+    advancedBodywork: 0,
     addOns: 0,
     reviewBonus: 0,
     tips: 0,
@@ -43,6 +44,7 @@ export function HaloPayrollSummary({ sessions, selectedDate }: HaloPayrollSummar
   sessionBreakdowns.forEach(({ breakdown }) => {
     totals.massage += breakdown.massage
     totals.deepTissue += breakdown.deepTissue
+    totals.advancedBodywork += breakdown.advancedBodywork
     totals.addOns += breakdown.addOnsTotal
     totals.reviewBonus += breakdown.reviewBonus
     totals.tips += breakdown.tips
@@ -63,6 +65,7 @@ ${sessionBreakdowns
     return `Session ${idx + 1}:
   Massage: $${item.breakdown.massage.toFixed(2)}
   Deep Tissue: $${item.breakdown.deepTissue.toFixed(2)}
+  Advanced Bodywork: $${item.breakdown.advancedBodywork.toFixed(2)}
   Add-ons: $${item.breakdown.addOnsTotal.toFixed(2)}${reviewText}
   Tips: $${item.breakdown.tips.toFixed(2)}
   Total: $${item.breakdown.total.toFixed(2)}`
@@ -74,6 +77,7 @@ DAILY TOTALS:
 
 massage: $${totals.massage.toFixed(2)}
 deep tissue: $${totals.deepTissue.toFixed(2)}
+advanced bodywork: $${totals.advancedBodywork.toFixed(2)}
 add ons: $${totals.addOns.toFixed(2)}
 review: $${totals.reviewBonus.toFixed(2)}
 tips: $${totals.tips.toFixed(2)}
@@ -89,6 +93,7 @@ SESSION BREAKDOWN:
 
 massage: $${totals.massage.toFixed(2)}
 deep tissue: $${totals.deepTissue.toFixed(2)}
+advanced bodywork: $${totals.advancedBodywork.toFixed(2)}
 add ons: $${totals.addOns.toFixed(2)}
 review: $${totals.reviewBonus.toFixed(2)}
 tips: $${totals.tips.toFixed(2)}
@@ -224,6 +229,12 @@ total: $${totals.grandTotal.toFixed(2)}`
                   <span className="text-white font-semibold">${item.breakdown.deepTissue.toFixed(2)}</span>
                 </div>
               )}
+              {item.breakdown.advancedBodywork > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-slate-300">Advanced Bodywork:</span>
+                  <span className="text-white font-semibold">${item.breakdown.advancedBodywork.toFixed(2)}</span>
+                </div>
+              )}
               {item.breakdown.addOnsTotal > 0 && (
                 <div className="flex justify-between">
                   <span className="text-slate-300">Add-ons:</span>
@@ -265,6 +276,10 @@ total: $${totals.grandTotal.toFixed(2)}`
             <div className="flex justify-between text-sm border-b border-amber-700 pb-2">
               <span className="text-blue-200">Deep Tissue:</span>
               <span className="text-white font-semibold">${totals.deepTissue.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between text-sm border-b border-amber-700 pb-2">
+              <span className="text-blue-200">Advanced Bodywork:</span>
+              <span className="text-white font-semibold">${totals.advancedBodywork.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm border-b border-amber-700 pb-2">
               <span className="text-blue-200">Add-ons:</span>

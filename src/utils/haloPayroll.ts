@@ -78,6 +78,7 @@ export function calculateHaloTotalPayout(
 ): {
   massage: number
   deepTissue: number
+  advancedBodywork: number
   addOnsTotal: number
   reviewBonus: number
   tips: number
@@ -85,6 +86,7 @@ export function calculateHaloTotalPayout(
 } {
   let massageTotal = 0
   let deepTissueTotal = 0
+  let advancedBodyworkTotal = 0
   let addOnsTotal = 0
 
   // Separate base pay from surcharges
@@ -110,21 +112,24 @@ export function calculateHaloTotalPayout(
     // Add base to massage total
     massageTotal += basePayout
 
-    // Add service-type surcharge to deep tissue total
+    // Add service-type surcharge to appropriate total
     if (service.type === 'deep-tissue') {
       deepTissueTotal += HALO_SERVICE_PRICING.serviceAdditions['deep-tissue']
     } else if (service.type === 'advanced-bodywork') {
-      deepTissueTotal += HALO_SERVICE_PRICING.serviceAdditions['advanced-bodywork']
+      advancedBodyworkTotal += HALO_SERVICE_PRICING.serviceAdditions['advanced-bodywork']
     }
   })
 
-  // Separate add-ons: service type surcharges go to deep tissue, others go to add-ons
+  // Separate add-ons: service type surcharges go to their respective line, others go to add-ons
   addOns.forEach(addon => {
     // Check both id and haloCode for backwards compatibility
     const checkId = (addon as any).haloCode || addon.id
-    if (checkId === 'deep-tissue' || checkId === 'advanced-bodywork') {
-      // Service type surcharges go to deep tissue breakdown
+    if (checkId === 'deep-tissue') {
+      // Deep Tissue surcharges go to deep tissue breakdown
       deepTissueTotal += addon.price
+    } else if (checkId === 'advanced-bodywork') {
+      // Advanced Bodywork surcharges go to advanced bodywork breakdown
+      advancedBodyworkTotal += addon.price
     } else {
       // All other add-ons go to add-ons total
       addOnsTotal += addon.price
@@ -134,11 +139,12 @@ export function calculateHaloTotalPayout(
   // Client review bonus
   const reviewBonus = hasClientReview ? HALO_SERVICE_PRICING.fiveStarBonus : 0
 
-  const total = massageTotal + deepTissueTotal + addOnsTotal + reviewBonus + tips
+  const total = massageTotal + deepTissueTotal + advancedBodyworkTotal + addOnsTotal + reviewBonus + tips
 
   return {
     massage: massageTotal,
     deepTissue: deepTissueTotal,
+    advancedBodywork: advancedBodyworkTotal,
     addOnsTotal,
     reviewBonus,
     tips,
