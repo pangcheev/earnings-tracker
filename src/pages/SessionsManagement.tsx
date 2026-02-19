@@ -40,13 +40,13 @@ export function SessionsManagement({
   return (
     <div>
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">
           {currentLocation === 'soul-bridge' ? 'Soul Bridge Healing' : 'Halo Therapies'} - Sessions
         </h2>
       </div>
 
       {sessions.length === 0 ? (
-        <div className="text-center py-12 bg-stone-800 rounded-lg border border-stone-700">
+        <div className="text-center py-12 bg-stone-100 rounded-lg border border-stone-700">
           <p className="text-slate-400 text-lg">No sessions yet</p>
           <p className="text-slate-500 text-sm mt-2">Go to Home to add your first session</p>
         </div>

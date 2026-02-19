@@ -15,7 +15,7 @@ export function Navigation({ activeLocation, setActiveLocation, currentPage, onP
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Building2 className="w-8 h-8 text-amber-500" />
-            <h1 className="text-2xl font-bold text-white">Earnings Tracker</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Earnings Tracker</h1>
           </div>
           <p className="text-slate-400 text-sm">Daily Earnings & Tax Tracking</p>
         </div>
@@ -26,8 +26,8 @@ export function Navigation({ activeLocation, setActiveLocation, currentPage, onP
             onClick={() => onPageChange('earnings')}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
               currentPage === 'earnings'
-                ? 'bg-green-600 text-white'
-                : 'bg-stone-800 text-white hover:bg-stone-700'
+                ? 'bg-green-600 text-gray-900'
+                : 'bg-stone-100 text-gray-900 hover:bg-stone-700'
             }`}
           >
             <Home className="w-5 h-5" />
@@ -37,8 +37,8 @@ export function Navigation({ activeLocation, setActiveLocation, currentPage, onP
             onClick={() => onPageChange('sessions')}
             className={`px-4 py-2 rounded-lg font-semibold transition-all ${
               currentPage === 'sessions'
-                ? 'bg-purple-600 text-white'
-                : 'bg-stone-800 text-white hover:bg-stone-700'
+                ? 'bg-purple-600 text-gray-900'
+                : 'bg-stone-100 text-gray-900 hover:bg-stone-700'
             }`}
           >
             📋 Sessions
@@ -49,8 +49,8 @@ export function Navigation({ activeLocation, setActiveLocation, currentPage, onP
             onClick={() => setActiveLocation('soul-bridge')}
             className={`px-6 py-2 rounded-lg font-semibold transition-all ${
               activeLocation === 'soul-bridge'
-                ? 'bg-amber-500 text-white'
-                : 'bg-stone-800 text-white hover:bg-stone-700'
+                ? 'bg-amber-500 text-gray-900'
+                : 'bg-stone-100 text-gray-900 hover:bg-stone-700'
             }`}
           >
             Soul Bridge Healing
@@ -59,8 +59,8 @@ export function Navigation({ activeLocation, setActiveLocation, currentPage, onP
             onClick={() => setActiveLocation('halo')}
             className={`px-6 py-2 rounded-lg font-semibold transition-all ${
               activeLocation === 'halo'
-                ? 'bg-blue-500 text-white'
-                : 'bg-stone-800 text-white hover:bg-stone-700'
+                ? 'bg-blue-500 text-gray-900'
+                : 'bg-stone-100 text-gray-900 hover:bg-stone-700'
             }`}
           >
             Halo Therapies
@@ -69,7 +69,7 @@ export function Navigation({ activeLocation, setActiveLocation, currentPage, onP
         <div className="flex gap-2 ml-auto">
           <button
             onClick={onLogout}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold bg-red-700 hover:bg-red-600 text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold bg-red-700 hover:bg-red-600 text-gray-900 transition-colors"
           >
             <LogOut className="w-5 h-5" />
             <span className="hidden sm:inline">Logout</span>

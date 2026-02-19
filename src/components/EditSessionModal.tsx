@@ -120,12 +120,12 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-stone-800 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-stone-100 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Edit Session</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Edit Session</h2>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white"
+            className="text-slate-400 hover:text-gray-900"
           >
             <X className="w-6 h-6" />
           </button>
@@ -134,29 +134,29 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
         <form onSubmit={(e) => { e.preventDefault(); handleSave() }} className="space-y-6">
           {/* Date */}
           <div>
-            <label className="block text-sm font-semibold text-white mb-2">Date</label>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Date</label>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+              className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900"
               required
             />
           </div>
 
           {/* Services */}
           <div className="border-t border-stone-700 pt-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Services</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Services</h3>
 
             <div className="space-y-4 mb-4">
               {isHalo ? (
                 <>
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2">Service Type</label>
+                    <label className="block text-sm font-semibold text-gray-900 mb-2">Service Type</label>
                     <select
                       value={haloServiceType}
                       onChange={(e) => setHaloServiceType(e.target.value as 'massage' | 'deep-tissue' | 'advanced-bodywork')}
-                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900"
                     >
                       <option value="massage">Massage (1hr=$50, 90min=$70, 2hr=$95)</option>
                       <option value="deep-tissue">Deep Tissue (+$7.50)</option>
@@ -165,11 +165,11 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2">Duration (minutes)</label>
+                    <label className="block text-sm font-semibold text-gray-900 mb-2">Duration (minutes)</label>
                     <select
                       value={haloDuration}
                       onChange={(e) => setHaloDuration(Number(e.target.value))}
-                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900"
                     >
                       <option value={60}>60 minutes</option>
                       <option value={90}>90 minutes</option>
@@ -178,8 +178,8 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   </div>
 
                   <div className="bg-stone-700 p-3 rounded">
-                    <p className="text-sm text-teal-300">
-                      Payout: <span className="font-semibold text-white">${calculateHaloServicePayout(haloServiceType, haloDuration).toFixed(2)}</span>
+                    <p className="text-sm text-teal-700">
+                      Payout: <span className="font-semibold text-gray-900">${calculateHaloServicePayout(haloServiceType, haloDuration).toFixed(2)}</span>
                     </p>
                   </div>
                 </>
@@ -187,38 +187,38 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                 <>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-white mb-2">Service Type</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-2">Service Type</label>
                       <select
                         value={serviceType}
                         onChange={(e) => setServiceType(e.target.value as 'massage' | 'deep-tissue')}
-                        className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                        className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900"
                       >
                         <option value="massage">Massage</option>
                         <option value="deep-tissue">Deep Tissue</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-white mb-2">Duration (min)</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-2">Duration (min)</label>
                       <input
                         type="number"
                         value={duration}
                         onChange={(e) => setDuration(Number(e.target.value))}
                         min="15"
                         step="15"
-                        className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                        className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2">Hourly Rate ($)</label>
+                    <label className="block text-sm font-semibold text-gray-900 mb-2">Hourly Rate ($)</label>
                     <input
                       type="number"
                       value={rate}
                       onChange={(e) => setRate(Number(e.target.value))}
                       min="0"
                       step="0.01"
-                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                      className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900"
                     />
                   </div>
                 </>
@@ -227,7 +227,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
               <button
                 type="button"
                 onClick={handleAddService}
-                className={`w-full text-white px-4 py-2 rounded font-semibold transition-colors ${
+                className={`w-full text-gray-900 px-4 py-2 rounded font-semibold transition-colors ${
                   isHalo
                     ? 'bg-teal-600 hover:bg-teal-700'
                     : 'bg-stone-700 hover:bg-amber-700'
@@ -243,7 +243,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   const payout = service.haloBasePrice || (service.rate / 60) * service.duration
                   return (
                     <div key={service.id} className="flex justify-between items-center bg-stone-700 p-3 rounded">
-                      <span className="text-white">
+                      <span className="text-gray-900">
                         {service.type.replace(/-/g, ' ')} - {service.duration}min
                       </span>
                       <div className="flex items-center gap-3">
@@ -265,7 +265,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
 
           {/* Add-ons */}
           <div className="border-t border-stone-700 pt-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Add-ons</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Add-ons</h3>
 
             {isHalo ? (
               <div className="space-y-4 mb-4">
@@ -284,7 +284,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                         }}
                         className="w-4 h-4"
                       />
-                      <span className="text-sm text-white flex-1">{addon.name}</span>
+                      <span className="text-sm text-gray-900 flex-1">{addon.name}</span>
                       <span className="text-xs text-amber-400 font-semibold">${addon.price.toFixed(2)}</span>
                     </label>
                   ))}
@@ -294,7 +294,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   type="button"
                   onClick={handleAddAddOns}
                   disabled={selectedHaloAddOns.length === 0}
-                  className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-stone-700 disabled:cursor-not-allowed text-white px-4 py-2 rounded font-semibold transition-colors"
+                  className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-stone-700 disabled:cursor-not-allowed text-gray-900 px-4 py-2 rounded font-semibold transition-colors"
                 >
                   + Add Selected Add-ons ({selectedHaloAddOns.length})
                 </button>
@@ -305,7 +305,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
               <div className="space-y-2">
                 {addOns.map((addon) => (
                   <div key={addon.id} className="flex justify-between items-center bg-stone-700 p-3 rounded">
-                    <span className="text-white">{addon.name}</span>
+                    <span className="text-gray-900">{addon.name}</span>
                     <div className="flex items-center gap-3">
                       <span className="font-semibold">${addon.price.toFixed(2)}</span>
                       <button
@@ -324,14 +324,14 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
 
           {/* Tips */}
           <div>
-            <label className="block text-sm font-semibold text-white mb-2">Tips ($)</label>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Tips ($)</label>
             <input
               type="number"
               value={tips}
               onChange={(e) => setTips(Number(e.target.value))}
               min="0"
               step="0.01"
-              className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+              className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900"
             />
           </div>
 
@@ -339,21 +339,21 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
           {!isHalo ? (
             <>
               <div>
-                <label className="block text-sm font-semibold text-white mb-2">Customer Review (Optional)</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">Customer Review (Optional)</label>
                 <textarea
                   value={review}
                   onChange={(e) => setReview(e.target.value)}
                   placeholder="Add any customer feedback or notes..."
-                  className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white placeholder-slate-500 h-24 resize-none"
+                  className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900 placeholder-slate-500 h-24 resize-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-white mb-2">Rating</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">Rating</label>
                 <select
                   value={rating}
                   onChange={(e) => setRating(Number(e.target.value))}
-                  className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-white"
+                  className="w-full bg-stone-700 border border-amber-700 rounded px-3 py-2 text-gray-900"
                 >
                   <option value={5}>★★★★★ (5 Stars)</option>
                   <option value={4}>★★★★ (4 Stars)</option>
@@ -372,14 +372,14 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
                   onChange={(e) => setHasClientReview(e.target.checked)}
                   className="w-5 h-5"
                 />
-                <span className="text-white font-semibold">Client Left a Review? (+$5)</span>
+                <span className="text-gray-900 font-semibold">Client Left a Review? (+$5)</span>
               </label>
             </div>
           )}
 
           {/* Summary */}
           <div className="border-t border-stone-700 pt-6 bg-stone-700 p-4 rounded">
-            <div className="space-y-2 text-white">
+            <div className="space-y-2 text-gray-900">
               <div className="flex justify-between">
                 <span>Services Payout:</span>
                 <span className="font-semibold">${totalEarnings.toFixed(2)}</span>
@@ -409,7 +409,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
           <div className="flex gap-4 pt-6">
             <button
               type="submit"
-              className={`flex-1 text-white px-6 py-3 rounded-lg font-semibold transition-colors ${
+              className={`flex-1 text-gray-900 px-6 py-3 rounded-lg font-semibold transition-colors ${
                 isHalo
                   ? 'bg-teal-600 hover:bg-teal-700'
                   : 'bg-amber-500 hover:bg-amber-600'
@@ -420,7 +420,7 @@ export function EditSessionModal({ session, isOpen, onClose, onSave, location }:
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 bg-stone-700 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+              className="flex-1 bg-stone-700 hover:bg-amber-700 text-gray-900 px-6 py-3 rounded-lg font-semibold transition-colors"
             >
               Cancel
             </button>

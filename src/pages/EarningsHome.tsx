@@ -116,7 +116,7 @@ export function EarningsHome({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
             <TrendingUp className="w-8 h-8 text-amber-500" />
-            <h2 className="text-2xl lg:text-3xl font-bold text-white">
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900">
               {currentLocation === 'soul-bridge' ? 'Soul Bridge Healing' : 'Halo Therapies'}
             </h2>
           </div>
@@ -125,17 +125,17 @@ export function EarningsHome({
           <div className="flex items-center gap-2 bg-stone-700 rounded-lg px-4 py-2">
             <button
               onClick={() => changeDate(-1)}
-              className="text-white hover:text-amber-400 transition-colors"
+              className="text-gray-900 hover:text-amber-400 transition-colors"
               title="Previous day"
             >
               ←
             </button>
             <div className="min-w-[140px] text-center">
-              <p className="text-white font-semibold">{format(parseLocalDateString(viewDate), 'EEE, MMM d')}</p>
+              <p className="text-gray-900 font-semibold">{format(parseLocalDateString(viewDate), 'EEE, MMM d')}</p>
             </div>
             <button
               onClick={() => changeDate(1)}
-              className="text-white hover:text-amber-400 transition-colors"
+              className="text-gray-900 hover:text-amber-400 transition-colors"
               title="Next day"
             >
               →
@@ -147,7 +147,7 @@ export function EarningsHome({
               onClick={() => setShowTreeView(!showTreeView)}
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
                 showTreeView
-                  ? 'bg-amber-700 text-white'
+                  ? 'bg-amber-700 text-gray-900'
                   : 'bg-stone-700 hover:bg-amber-700 text-slate-300'
               }`}
               title="Show/hide sessions"
@@ -157,7 +157,7 @@ export function EarningsHome({
             </button>
             <button
               onClick={onExportSessions}
-              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-emerald-700 hover:bg-emerald-600 text-white transition-colors text-sm lg:text-base"
+              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-emerald-700 hover:bg-emerald-600 text-gray-900 transition-colors text-sm lg:text-base"
               title="Download backup"
             >
               <Download className="w-4 lg:w-5 h-4 lg:h-5" />
@@ -179,7 +179,7 @@ export function EarningsHome({
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
                 isDateClosed(viewDate)
                   ? 'bg-amber-700 hover:bg-slate-500 text-slate-100'
-                  : 'bg-emerald-700 hover:bg-emerald-600 text-white'
+                  : 'bg-emerald-700 hover:bg-emerald-600 text-gray-900'
               }`}
               title={isDateClosed(viewDate) ? 'Click to reopen day' : 'Mark this day as complete'}
             >
@@ -215,14 +215,14 @@ export function EarningsHome({
 
           {/* Session History - Collapsible Section */}
           {sessions.filter(s => s.date === viewDate).length > 0 && (
-            <div className="mb-8 bg-stone-800 rounded-lg border border-stone-700 overflow-hidden">
+            <div className="mb-8 bg-stone-100 rounded-lg border border-stone-700 overflow-hidden">
               {/* Collapsible Header */}
               <button
                 onClick={() => setShowTreeView(!showTreeView)}
                 className="w-full flex items-center justify-between p-6 hover:bg-stone-700 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <h3 className="text-lg font-semibold text-white">Session History</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">Session History</h3>
                   <span className="text-sm text-slate-400">({sessions.filter(s => s.date === viewDate).length})</span>
                 </div>
                 <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${showTreeView ? 'rotate-180' : ''}`} />
@@ -235,13 +235,13 @@ export function EarningsHome({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-stone-700 rounded-lg p-4 border border-amber-700">
                       <p className="text-slate-400 text-sm mb-1">Total Sessions</p>
-                      <p className="text-3xl font-bold text-white">{sessions.filter(s => s.date === viewDate).length}</p>
+                      <p className="text-3xl font-bold text-gray-900">{sessions.filter(s => s.date === viewDate).length}</p>
                     </div>
                     <div className={`rounded-lg p-4 border ${currentLocation === 'halo' ? 'bg-blue-900 border-teal-700' : 'bg-amber-900 border-amber-700'}`}>
-                      <p className={`text-sm mb-1 ${currentLocation === 'halo' ? 'text-teal-200' : 'text-amber-200'}`}>
+                      <p className={`text-sm mb-1 ${currentLocation === 'halo' ? 'text-teal-100' : 'text-amber-200'}`}>
                         Total {currentLocation === 'halo' ? 'Payout' : 'Earnings'}
                       </p>
-                      <p className={`text-3xl font-bold ${currentLocation === 'halo' ? 'text-teal-100' : 'text-amber-100'}`}>
+                      <p className={`text-3xl font-bold ${currentLocation === 'halo' ? 'text-white' : 'text-amber-100'}`}>
                         ${sessions.filter(s => s.date === viewDate).reduce((sum, session) => {
                           if (currentLocation === 'halo') {
                             const breakdown = calculateHaloTotalPayout(session.services, session.addOns, session.tips, session.hasClientReview)
@@ -282,8 +282,8 @@ export function EarningsHome({
         </>
       ) : (
         <div>
-          <div className="text-center py-12 bg-gradient-to-b from-emerald-900 to-stone-800 rounded-lg border border-emerald-700 mb-8">
-            <p className="text-2xl font-bold text-white mb-3">✅ {format(parseLocalDateString(viewDate), 'EEEE, MMM d')} - Closed Out</p>
+          <div className="text-center py-12 bg-gradient-to-b from-rose-600 to-rose-700 rounded-lg border border-emerald-300 mb-8">
+            <p className="text-2xl font-bold text-gray-900 mb-3">✅ {format(parseLocalDateString(viewDate), 'EEEE, MMM d')} - Closed Out</p>
             <p className="text-slate-300 mb-2">This day's tally is locked. View history in 📋 Sessions page</p>
             <p className="text-slate-400 text-sm">You can still add sessions for other days</p>
           </div>

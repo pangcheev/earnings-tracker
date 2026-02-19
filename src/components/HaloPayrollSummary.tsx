@@ -152,11 +152,11 @@ total: $${totals.grandTotal.toFixed(2)}`
   return (
     <div className="space-y-6 mb-8">
       {/* Header with actions */}
-      <div className="bg-gradient-to-r from-teal-900 to-teal-800 rounded-lg p-6">
+      <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-lg p-6">
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h3 className="text-2xl font-bold text-white mb-2">Daily Payroll Tally</h3>
-            <p className="text-teal-200 text-sm">{sessions.length} session{sessions.length !== 1 ? 's' : ''}</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Daily Payroll Tally</h3>
+            <p className="text-teal-100 text-sm">{sessions.length} session{sessions.length !== 1 ? 's' : ''}</p>
           </div>
           <div className="flex gap-2 flex-wrap">
             <button
@@ -168,7 +168,7 @@ total: $${totals.grandTotal.toFixed(2)}`
             </button>
             <button
               onClick={handleCopyTotalsOnly}
-              className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
+              className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-gray-900 px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
             >
               <Copy className="w-4 h-4" />
               {copiedType === 'totals' ? 'Copied!' : 'Copy Totals'}
@@ -186,14 +186,14 @@ total: $${totals.grandTotal.toFixed(2)}`
         {/* Copy/paste boxes */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
-            <h4 className="text-white font-bold mb-2 text-xs">📋 DETAILED:</h4>
-            <div className="bg-teal-950 p-3 rounded-lg font-mono text-xs text-teal-100 whitespace-pre-wrap overflow-y-auto max-h-48 border border-teal-700">
+            <h4 className="text-gray-900 font-bold mb-2 text-xs">📋 DETAILED:</h4>
+            <div className="bg-teal-50 p-3 rounded-lg font-mono text-xs text-white whitespace-pre-wrap overflow-y-auto max-h-48 border border-teal-700">
               {payrollText}
             </div>
           </div>
           
           <div>
-            <h4 className="text-white font-bold mb-2 text-xs">📱 TOTALS ONLY:</h4>
+            <h4 className="text-gray-900 font-bold mb-2 text-xs">📱 TOTALS ONLY:</h4>
             <div className="bg-green-950 p-3 rounded-lg font-mono text-xs text-green-100 whitespace-pre-wrap overflow-y-auto max-h-48 border border-green-700">
               {totalsOnlyText}
             </div>
@@ -203,48 +203,48 @@ total: $${totals.grandTotal.toFixed(2)}`
 
       {/* Session-by-session breakdown */}
       <div className="space-y-4">
-        <h3 className="text-xl font-bold text-white">Session Breakdown</h3>
+        <h3 className="text-xl font-bold text-gray-900">Session Breakdown</h3>
         {sessionBreakdowns.map((item, idx) => (
-          <div key={item.session.id} className="bg-stone-800 rounded-lg p-4 border border-stone-700">
+          <div key={item.session.id} className="bg-stone-100 rounded-lg p-4 border border-stone-700">
             <div className="flex justify-between items-center mb-4">
-              <h4 className="text-white font-semibold">Session {idx + 1}</h4>
-              <span className="text-teal-300 text-sm">{format(parseLocalDateString(item.session.date), 'MMM d • h:mma')}</span>
+              <h4 className="text-gray-900 font-semibold">Session {idx + 1}</h4>
+              <span className="text-teal-700 text-sm">{format(parseLocalDateString(item.session.date), 'MMM d • h:mma')}</span>
             </div>
             
             <div className="space-y-2 text-sm">
               {item.breakdown.massage > 0 && (
                 <div className="flex justify-between">
                   <span className="text-slate-300">Massage:</span>
-                  <span className="text-white font-semibold">${item.breakdown.massage.toFixed(2)}</span>
+                  <span className="text-gray-900 font-semibold">${item.breakdown.massage.toFixed(2)}</span>
                 </div>
               )}
               {item.breakdown.deepTissue > 0 && (
                 <div className="flex justify-between">
                   <span className="text-slate-300">Deep Tissue:</span>
-                  <span className="text-white font-semibold">${item.breakdown.deepTissue.toFixed(2)}</span>
+                  <span className="text-gray-900 font-semibold">${item.breakdown.deepTissue.toFixed(2)}</span>
                 </div>
               )}
               {item.breakdown.addOnsTotal > 0 && (
                 <div className="flex justify-between">
                   <span className="text-slate-300">Add-ons:</span>
-                  <span className="text-white font-semibold">${item.breakdown.addOnsTotal.toFixed(2)}</span>
+                  <span className="text-gray-900 font-semibold">${item.breakdown.addOnsTotal.toFixed(2)}</span>
                 </div>
               )}
               {item.breakdown.reviewBonus > 0 && (
                 <div className="flex justify-between">
                   <span className="text-slate-300">Review:</span>
-                  <span className="text-white font-semibold">${item.breakdown.reviewBonus.toFixed(2)}</span>
+                  <span className="text-gray-900 font-semibold">${item.breakdown.reviewBonus.toFixed(2)}</span>
                 </div>
               )}
               {item.breakdown.tips > 0 && (
                 <div className="flex justify-between">
                   <span className="text-slate-300">Tips:</span>
-                  <span className="text-white font-semibold">${item.breakdown.tips.toFixed(2)}</span>
+                  <span className="text-gray-900 font-semibold">${item.breakdown.tips.toFixed(2)}</span>
                 </div>
               )}
               <div className="flex justify-between border-t border-stone-700 pt-2 mt-2">
-                <span className="text-white font-semibold">Total:</span>
-                <span className="text-teal-300 font-bold text-lg">${item.breakdown.total.toFixed(2)}</span>
+                <span className="text-gray-900 font-semibold">Total:</span>
+                <span className="text-teal-700 font-bold text-lg">${item.breakdown.total.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -252,39 +252,39 @@ total: $${totals.grandTotal.toFixed(2)}`
       </div>
 
       {/* Aggregated totals */}
-      <div className="bg-gradient-to-r from-teal-900 to-teal-800 rounded-lg p-6">
-        <h3 className="text-xl font-bold text-white mb-6">Daily Totals</h3>
+      <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-lg p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-6">Daily Totals</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Breakdown list */}
           <div className="space-y-3">
             <div className="flex justify-between text-sm border-b border-teal-700 pb-2">
-              <span className="text-teal-200">Massage:</span>
-              <span className="text-white font-semibold">${totals.massage.toFixed(2)}</span>
+              <span className="text-teal-100">Massage:</span>
+              <span className="text-gray-900 font-semibold">${totals.massage.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm border-b border-teal-700 pb-2">
-              <span className="text-teal-200">Deep Tissue:</span>
-              <span className="text-white font-semibold">${totals.deepTissue.toFixed(2)}</span>
+              <span className="text-teal-100">Deep Tissue:</span>
+              <span className="text-gray-900 font-semibold">${totals.deepTissue.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm border-b border-teal-700 pb-2">
-              <span className="text-teal-200">Add-ons:</span>
-              <span className="text-white font-semibold">${totals.addOns.toFixed(2)}</span>
+              <span className="text-teal-100">Add-ons:</span>
+              <span className="text-gray-900 font-semibold">${totals.addOns.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm border-b border-teal-700 pb-2">
-              <span className="text-teal-200">Review:</span>
-              <span className="text-white font-semibold">${totals.reviewBonus.toFixed(2)}</span>
+              <span className="text-teal-100">Review:</span>
+              <span className="text-gray-900 font-semibold">${totals.reviewBonus.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-teal-200">Tips:</span>
-              <span className="text-white font-semibold">${totals.tips.toFixed(2)}</span>
+              <span className="text-teal-100">Tips:</span>
+              <span className="text-gray-900 font-semibold">${totals.tips.toFixed(2)}</span>
             </div>
           </div>
 
           {/* Total payout card */}
           <div className="bg-blue-600 p-4 rounded-lg border-2 border-teal-500 flex flex-col justify-center">
             <div className="text-center">
-              <p className="text-teal-100 text-sm font-semibold mb-2">TOTAL PAYOUT</p>
-              <p className="text-white font-bold text-4xl">${totals.grandTotal.toFixed(2)}</p>
+              <p className="text-white text-sm font-semibold mb-2">TOTAL PAYOUT</p>
+              <p className="text-gray-900 font-bold text-4xl">${totals.grandTotal.toFixed(2)}</p>
             </div>
           </div>
         </div>
