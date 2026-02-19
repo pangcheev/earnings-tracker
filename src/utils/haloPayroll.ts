@@ -122,11 +122,14 @@ export function calculateHaloTotalPayout(
   addOns.forEach(addon => {
     // Check both id and haloCode for backwards compatibility
     const checkId = (addon as any).haloCode || addon.id
+    console.log(`🔍 Add-on: name="${addon.name}", id="${addon.id}", haloCode="${(addon as any).haloCode}", checkId="${checkId}"`)
     if (checkId === 'deep-tissue' || checkId === 'advanced-bodywork') {
       // Service type surcharges go to deep tissue breakdown
+      console.log(`  → Goes to DEEP TISSUE (+$${addon.price})`)
       deepTissueTotal += addon.price
     } else {
       // All other add-ons go to add-ons total
+      console.log(`  → Goes to ADD-ONS (+$${addon.price})`)
       addOnsTotal += addon.price
     }
   })
