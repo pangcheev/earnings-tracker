@@ -168,7 +168,7 @@ total: $${totals.grandTotal.toFixed(2)}`
             </button>
             <button
               onClick={handleCopyTotalsOnly}
-              className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
+              className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-semibold"
             >
               <Copy className="w-4 h-4" />
               {copiedType === 'totals' ? 'Copied!' : 'Copy Totals'}
@@ -187,7 +187,7 @@ total: $${totals.grandTotal.toFixed(2)}`
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <h4 className="text-white font-bold mb-2 text-xs">📋 DETAILED:</h4>
-            <div className="bg-teal-50 p-3 rounded-lg font-mono text-xs text-white whitespace-pre-wrap overflow-y-auto max-h-48 border border-teal-700">
+            <div className="bg-stone-900 p-3 rounded-lg font-mono text-xs text-white whitespace-pre-wrap overflow-y-auto max-h-48 border border-stone-700">
               {payrollText}
             </div>
           </div>
