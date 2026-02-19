@@ -123,35 +123,35 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                     return (
                       <div
                         key={session.id}
-                        className={`p-3 rounded border ${isHalo ? 'bg-blue-950 border-blue-700 hover:border-blue-500' : 'bg-slate-800 border-slate-600 hover:border-slate-500'} transition-colors`}
+                        className={`p-3 rounded border ${isHalo ? 'bg-white border-slate-200 hover:border-slate-300' : 'bg-slate-800 border-slate-600 hover:border-slate-500'} transition-colors`}
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="text-xs font-semibold text-slate-400">Session #{idx + 1}</span>
-                              <span className="text-xs text-slate-500">• {format(parseLocalDateString(session.date), 'MMM d, yyyy')}</span>
+                              <span className={`text-xs font-semibold ${isHalo ? 'text-slate-800' : 'text-slate-400'}`}>Session #{idx + 1}</span>
+                              <span className={`text-xs ${isHalo ? 'text-slate-700' : 'text-slate-500'}`}>• {format(parseLocalDateString(session.date), 'MMM d, yyyy')}</span>
                               {isHalo && session.hasClientReview && (
                                 <span className="text-yellow-300 text-xs">📝</span>
                               )}
                             </div>
-                            <p className="text-sm text-slate-300">
+                            <p className={`text-sm ${isHalo ? 'text-slate-800' : 'text-slate-300'}`}>
                               {session.services.map(s => s.type.replace(/-/g, ' ')).join(', ')}
                             </p>
                             {session.addOns.length > 0 && (
-                              <p className="text-xs text-slate-400 mt-1">
+                              <p className={`text-xs ${isHalo ? 'text-slate-700' : 'text-slate-400'} mt-1`}>
                                 Add-ons: {session.addOns.map(a => a.name).join(', ')}
                               </p>
                             )}
                           </div>
                           <div className="text-right">
-                            <p className={`font-bold text-sm ${isHalo ? 'text-blue-300' : 'text-amber-300'}`}>
+                            <p className={`font-bold text-sm ${isHalo ? 'text-blue-700' : 'text-amber-300'}`}>
                               ${sessionTotal.toFixed(2)}
                             </p>
                           </div>
                         </div>
 
                         {/* Breakdown details */}
-                        <div className="text-xs text-slate-400 space-y-1 mb-3 pl-3 border-l border-slate-600">
+                        <div className={`text-xs space-y-1 mb-3 pl-3 border-l ${isHalo ? 'text-slate-700 border-slate-300' : 'text-slate-400 border-slate-600'}`}>
                           {isHalo ? (
                             <>
                               {breakdown.massage > 0 && <div>Massage: ${breakdown.massage.toFixed(2)}</div>}
