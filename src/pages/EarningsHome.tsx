@@ -172,7 +172,7 @@ export function EarningsHome({
               <span className="hidden sm:inline">Restore</span>
             </button>
             <div className="col-span-2 lg:col-span-1">
-              <SessionForm onSubmit={handleAddSession} location={currentLocation} />
+              <SessionForm onSubmit={handleAddSession} location={currentLocation} defaultDate={viewDate} />
             </div>
             <button
               onClick={() => toggleDateClosed(viewDate)}

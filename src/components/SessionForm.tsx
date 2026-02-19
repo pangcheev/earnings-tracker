@@ -6,11 +6,12 @@ import { HALO_ADDONS, calculateHaloServicePayout, getLocalDateString } from '../
 interface SessionFormProps {
   onSubmit: (session: SessionData) => void
   location: 'soul-bridge' | 'halo'
+  defaultDate?: string
 }
 
-export function SessionForm({ onSubmit, location }: SessionFormProps) {
+export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [date, setDate] = useState(getLocalDateString())
+  const [date, setDate] = useState(defaultDate || getLocalDateString())
   const [services, setServices] = useState<ServiceEntry[]>([])
   const [addOns, setAddOns] = useState<AddOn[]>([])
   const [tips, setTips] = useState(0)
