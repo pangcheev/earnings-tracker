@@ -123,7 +123,7 @@ export function SessionTreeView({ sessions, onEdit, onDelete, isHalo }: SessionT
                     return (
                       <div
                         key={session.id}
-                        className={`p-3 rounded border bg-slate-100 border-green-400 hover:border-green-500 transition-colors`}
+                        className={`p-3 rounded border bg-gray-50 border-gray-300 hover:border-gray-400 transition-colors`}
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <div className="flex-1">
