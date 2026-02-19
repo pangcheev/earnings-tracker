@@ -178,8 +178,8 @@ export function EarningsHome({
               onClick={() => toggleDateClosed(viewDate)}
               className={`flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold transition-colors text-sm lg:text-base ${
                 isDateClosed(viewDate)
-                  ? 'bg-blue-600 hover:bg-slate-500 text-slate-100'
-                  : 'bg-green-700 hover:bg-green-600 text-white'
+                  ? 'bg-slate-600 hover:bg-slate-500 text-slate-100'
+                  : 'bg-purple-700 hover:bg-purple-600 text-white'
               }`}
               title={isDateClosed(viewDate) ? 'Click to reopen day' : 'Mark this day as complete'}
             >

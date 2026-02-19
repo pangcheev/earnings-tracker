@@ -177,7 +177,7 @@ export function SessionForm({ onSubmit, location }: SessionFormProps) {
           setDate(getLocalDateString())
           setIsOpen(true)
         }}
-        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+        className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-colors"
       >
         <Plus className="w-5 h-5" />
         Add Session
