@@ -15,9 +15,11 @@ export interface QueryFilters {
 
 /**
  * Query sessions from Supabase with optional filters
- * Automatically filters to current user's data only
+ * Automatically filters to current user's data only, or to specified userId if admin
+ * @param filters Query filters (date range, location, service type, etc)
+ * @param userId Optional userId for admin to query another user's data
  */
-export async function querySessionsFromCloud(filters: QueryFilters): Promise<SessionData[]> {
+export async function querySessionsFromCloud(filters: QueryFilters, userId?: string): Promise<SessionData[]> {
   if (!supabase) {
     console.warn('⚠️  Supabase not configured')
     return []
@@ -31,7 +33,10 @@ export async function querySessionsFromCloud(filters: QueryFilters): Promise<Ses
       return []
     }
 
-    let query = supabase.from('sessions').select('*').eq('user_id', currentUser.id)
+    // Use provided userId if specified (admin querying specific user), otherwise use current user's id
+    const queryUserId = userId || currentUser.id
+
+    let query = supabase.from('sessions').select('*').eq('user_id', queryUserId)
 
     // Apply date range filters
     if (filters.startDate) {

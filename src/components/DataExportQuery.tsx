@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Download, Filter, X } from 'lucide-react'
 import { querySessionsFromCloud, exportToCsv, exportToJson } from '../utils/dataQuery'
 import { SessionData } from '../types'
 import { format } from 'date-fns'
+import { isCurrentUserAdmin, getAllUsers, UserProfile } from '../utils/auth'
 
 interface DataExportQueryProps {
   onClose: () => void
@@ -14,6 +15,11 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
   const [showResults, setShowResults] = useState(false)
   const [exportFormat, setExportFormat] = useState<'csv' | 'json'>('csv')
 
+  // Admin state
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [users, setUsers] = useState<UserProfile[]>([])
+  const [selectedUserId, setSelectedUserId] = useState<string>('')
+
   // Filter state
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
@@ -22,19 +28,43 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
   const [sortBy, setSortBy] = useState<'date' | 'earnings' | 'duration'>('date')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
+  // Load admin status and users on component mount
+  useEffect(() => {
+    const loadAdminStatus = async () => {
+      try {
+        const adminStatus = await isCurrentUserAdmin()
+        setIsAdmin(adminStatus)
+
+        if (adminStatus) {
+          const allUsers = await getAllUsers()
+          if (allUsers) {
+            setUsers(allUsers)
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load admin status:', error)
+      }
+    }
+
+    loadAdminStatus()
+  }, [])
+
   const handleQuery = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
     try {
-      const queriedSessions = await querySessionsFromCloud({
-        startDate: startDate || undefined,
-        endDate: endDate || undefined,
-        location,
-        serviceType,
-        sortBy,
-        sortOrder,
-      })
+      const queriedSessions = await querySessionsFromCloud(
+        {
+          startDate: startDate || undefined,
+          endDate: endDate || undefined,
+          location,
+          serviceType,
+          sortBy,
+          sortOrder,
+        },
+        isAdmin && selectedUserId ? selectedUserId : undefined
+      )
 
       setResults(queriedSessions)
       setShowResults(true)
@@ -96,6 +126,25 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
         </div>
 
         <form onSubmit={handleQuery} className="space-y-6">
+          {/* Admin User Selection */}
+          {isAdmin && users.length > 0 && (
+            <div className="bg-purple-700 bg-opacity-50 p-4 rounded-lg border border-purple-500">
+              <label className="block text-sm font-semibold text-white mb-2">Select User (Admin Only)</label>
+              <select
+                value={selectedUserId}
+                onChange={(e) => setSelectedUserId(e.target.value)}
+                className="w-full bg-slate-600 border border-slate-500 rounded px-3 py-2 text-white"
+              >
+                <option value="">My Data (Current User)</option>
+                {users.map((user) => (
+                  <option key={user.id} value={user.id}>
+                    {user.fullName || user.email}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
           {/* Filters Section */}
           <div className="bg-slate-700 p-6 rounded-lg space-y-4">
             <h3 className="text-lg font-semibold text-white mb-4">Filters</h3>
