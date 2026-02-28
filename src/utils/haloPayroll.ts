@@ -3,6 +3,7 @@
 export const HALO_SERVICE_PRICING = {
   // Base service pricing (minutes -> payout)
   basePricing: {
+    30: 30,      // 30 minutes
     60: 50,      // 1 hour
     90: 70,      // 90 minutes
     120: 95,     // 2 hours

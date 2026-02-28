@@ -262,7 +262,7 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
                     onChange={(e) => setHaloServiceType(e.target.value as 'massage' | 'deep-tissue' | 'advanced-bodywork')}
                     className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                   >
-                    <option value="massage">Massage (1hr=$50, 90min=$70, 2hr=$95)</option>
+                    <option value="massage">Massage (30min=$30, 1hr=$50, 90min=$70, 2hr=$95)</option>
                     <option value="deep-tissue">Deep Tissue (+$7.50)</option>
                     <option value="advanced-bodywork">Advanced Bodywork (+$12.50)</option>
                   </select>
@@ -276,6 +276,7 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
                     className="w-full bg-slate-700 border border-amber-700 rounded px-3 py-2 text-white"
                   >
                     <option value="">-- Select Duration --</option>
+                    <option value={30}>30 minutes</option>
                     <option value={60}>60 minutes</option>
                     <option value={90}>90 minutes</option>
                     <option value={120}>120 minutes (2 hours)</option>
