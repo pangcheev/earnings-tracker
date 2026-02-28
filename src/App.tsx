@@ -12,7 +12,7 @@ import { isCurrentUserAdmin } from './utils/auth'
 
 function App() {
   const [sessions, setSessions] = useState<SessionData[]>([])
-  const [activeLocation, setActiveLocation] = useState<'soul-bridge' | 'halo'>('soul-bridge')
+  const [activeLocation] = useState<'halo'>('halo')
   const [currentPage, setCurrentPage] = useState<'earnings' | 'sessions'>('earnings')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
@@ -163,8 +163,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-stone-800 to-slate-900">
       <Navigation 
-        activeLocation={activeLocation} 
-        setActiveLocation={setActiveLocation}
+        activeLocation={activeLocation}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
         onLogout={handleLogout}

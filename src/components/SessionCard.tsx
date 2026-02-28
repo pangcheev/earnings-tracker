@@ -1,6 +1,6 @@
 import { SessionData } from '../types'
 import { format } from 'date-fns'
-import { Trash2, Star, Edit2 } from 'lucide-react'
+import { Trash2, Edit2 } from 'lucide-react'
 import { calculateHaloTotalPayout, parseLocalDateString } from '../utils/haloPayroll'
 
 interface SessionCardProps {
@@ -42,17 +42,8 @@ export function SessionCard({ session, onDelete, onEdit }: SessionCardProps) {
           <h3 className="text-lg font-semibold text-slate-900">
             {format(parseLocalDateString(session.date), 'MMMM d, yyyy')}
           </h3>
-          <p className="text-xs mt-1 text-slate-800">
-            {isHalo ? 'Halo Therapies' : 'Soul Bridge Healing'}
-          </p>
-          {!isHalo && session.rating && (
-            <div className="flex items-center gap-1 mt-2">
-              {[...Array(session.rating)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
-          )}
-          {isHalo && session.hasClientReview && (
+          <p className="text-xs mt-1 text-slate-800">Halo Therapies</p>
+          {session.hasClientReview && (
             <div className="text-yellow-600 text-sm mt-2 font-semibold">📝 Client Review</div>
           )}
         </div>

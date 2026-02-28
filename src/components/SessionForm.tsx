@@ -5,7 +5,7 @@ import { HALO_ADDONS, calculateHaloServicePayout, calculateHaloBaseMassagePrice,
 
 interface SessionFormProps {
   onSubmit: (session: SessionData) => void
-  location: 'soul-bridge' | 'halo'
+  location: 'halo'
   defaultDate?: string
 }
 
@@ -158,8 +158,7 @@ export function SessionForm({ onSubmit, location, defaultDate }: SessionFormProp
       services,
       addOns,
       tips,
-      review: !isHalo ? (review || undefined) : undefined,
-      rating: !isHalo ? (rating || undefined) : undefined,
+      review: undefined,
       hasClientReview: isHalo ? hasClientReview : undefined,
     })
 

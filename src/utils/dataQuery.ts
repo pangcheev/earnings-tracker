@@ -5,7 +5,6 @@ import { getCurrentUser } from './auth'
 export interface QueryFilters {
   startDate?: string
   endDate?: string
-  location?: 'soul-bridge' | 'halo' | 'all'
   serviceType?: 'massage' | 'deep-tissue' | 'advanced-bodywork' | 'all'
   minTips?: number
   maxTips?: number
@@ -46,11 +45,8 @@ export async function querySessionsFromCloud(filters: QueryFilters, userId?: str
       query = query.lte('date', filters.endDate)
     }
 
-    // Apply location filter
-    if (filters.location && filters.location !== 'all') {
-      const business = filters.location === 'halo' ? 'halo' : 'soul'
-      query = query.eq('business', business)
-    }
+    // All sessions are Halo Therapies
+    query = query.eq('business', 'halo')
 
     // Apply service type filter
     if (filters.serviceType && filters.serviceType !== 'all') {
@@ -65,7 +61,8 @@ export async function querySessionsFromCloud(filters: QueryFilters, userId?: str
     const { data, error } = await query
 
     if (error) {
-      console.warn('❌ Query failed:', error.message)
+      console.error('❌ Query failed:', error.message)
+      console.error('Full error:', error)
       return []
     }
 

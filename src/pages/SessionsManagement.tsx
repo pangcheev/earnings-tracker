@@ -7,7 +7,7 @@ import { Download } from 'lucide-react'
 
 interface SessionsManagementProps {
   sessions: SessionData[]
-  currentLocation: 'soul-bridge' | 'halo'
+  currentLocation: 'halo'
   onDeleteSession: (id: string) => void
   onUpdateSession: (id: string, updates: Partial<SessionData>) => void
 }
@@ -32,20 +32,19 @@ export function SessionsManagement({
       addOns: updatedSession.addOns,
       tips: updatedSession.tips,
       review: updatedSession.review,
-      rating: updatedSession.rating,
       hasClientReview: updatedSession.hasClientReview,
     })
     setEditingSession(null)
   }
 
-  const isHalo = currentLocation === 'halo'
+  const isHalo = true
 
   return (
     <div>
       <div className="mb-8 flex justify-between items-start">
         <div>
           <h2 className="text-3xl font-bold text-white mb-4">
-            {currentLocation === 'soul-bridge' ? 'Soul Bridge Healing' : 'Halo Therapies'} - Sessions
+            Halo Therapies - Sessions
           </h2>
         </div>
         <button

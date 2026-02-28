@@ -16,7 +16,7 @@ interface EarningsHomeProps {
   onAddSession: (session: SessionData) => void
   onDeleteSession: (id: string) => void
   onUpdateSession: (id: string, updates: Partial<SessionData>) => void
-  currentLocation: 'soul-bridge' | 'halo'
+  currentLocation: 'halo'
   onExportSessions: () => void
   onImportSessions: () => void
 }
@@ -134,7 +134,6 @@ export function EarningsHome({
       addOns: updatedSession.addOns,
       tips: updatedSession.tips,
       review: updatedSession.review,
-      rating: updatedSession.rating,
       hasClientReview: updatedSession.hasClientReview,
     })
     setEditingSession(null)
@@ -158,9 +157,7 @@ export function EarningsHome({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
             <TrendingUp className="w-8 h-8 text-amber-500" />
-            <h2 className="text-2xl lg:text-3xl font-bold text-white">
-              {currentLocation === 'soul-bridge' ? 'Soul Bridge Healing' : 'Halo Therapies'}
-            </h2>
+            <h2 className="text-2xl lg:text-3xl font-bold text-white">Halo Therapies</h2>
           </div>
           
           {/* Date Navigation */}
@@ -240,9 +237,7 @@ export function EarningsHome({
         </div>
 
         <p className="text-slate-400 text-sm">
-          {currentLocation === 'soul-bridge'
-            ? 'Owner - Track all sessions and earnings'
-            : 'Independent Contractor - Document your sessions for contract records'}
+          Independent Contractor - Document your sessions for contract records
         </p>
         {closedOutMessage && (
           <p className="text-purple-300 text-sm mt-3 font-semibold">

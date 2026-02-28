@@ -15,20 +15,19 @@ export interface AddOn {
 
 export interface SessionData {
   id: string
-  location: 'soul-bridge' | 'halo'
+  location: 'halo'
   date: string
   services: ServiceEntry[]
   addOns: AddOn[]
   tips: number
   review?: string
-  rating?: number // 1-5 (for Soul Bridge only)
   hasClientReview?: boolean // For Halo - did client review? (+$5)
   haloPayoutAmount?: number // Calculated payout for Halo sessions
 }
 
 export interface BusinessLocation {
-  id: 'soul-bridge' | 'halo'
+  id: 'halo'
   name: string
-  type: 'owner' | 'contractor'
+  type: 'contractor'
   description: string
 }

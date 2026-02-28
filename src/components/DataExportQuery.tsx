@@ -23,7 +23,6 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
   // Filter state
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [location, setLocation] = useState<'all' | 'soul-bridge' | 'halo'>('all')
   const [serviceType, setServiceType] = useState<'all' | 'massage' | 'deep-tissue' | 'advanced-bodywork'>('all')
   const [sortBy, setSortBy] = useState<'date' | 'earnings' | 'duration'>('date')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
@@ -58,7 +57,6 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
         {
           startDate: startDate || undefined,
           endDate: endDate || undefined,
-          location,
           serviceType,
           sortBy,
           sortOrder,
@@ -171,18 +169,10 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
                 />
               </div>
 
-              {/* Location */}
+              {/* Halo Only Info */}
               <div>
                 <label className="block text-sm font-semibold text-white mb-2">Location</label>
-                <select
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value as any)}
-                  className="w-full bg-slate-600 border border-slate-500 rounded px-3 py-2 text-white"
-                >
-                  <option value="all">All Locations</option>
-                  <option value="soul-bridge">Soul Bridge Healing</option>
-                  <option value="halo">Halo Therapies</option>
-                </select>
+                <div className="w-full bg-slate-600 border border-slate-500 rounded px-3 py-2 text-white">Halo Therapies</div>
               </div>
 
               {/* Service Type */}
@@ -287,9 +277,7 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
                         return (
                           <tr key={session.id} className="border-t border-slate-600 hover:bg-slate-600">
                             <td className="px-4 py-2">{session.date}</td>
-                            <td className="px-4 py-2">
-                              {session.location === 'halo' ? 'Halo' : 'Soul Bridge'}
-                            </td>
+                            <td className="px-4 py-2">Halo Therapies</td>
                             <td className="px-4 py-2">{firstService?.type || 'Unknown'}</td>
                             <td className="px-4 py-2 text-center">{firstService?.duration || 0}m</td>
                             <td className="px-4 py-2 text-right font-semibold text-green-400">
