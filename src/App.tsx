@@ -4,21 +4,36 @@ import { EarningsHome } from './pages/EarningsHome'
 import { SessionsManagement } from './pages/SessionsManagement'
 import { Navigation } from './components/Navigation'
 import { Login } from './components/Login'
+import { AdminPanel } from './components/AdminPanel'
 import { SessionData } from './types'
 import { getLocalDateString } from './utils/haloPayroll'
 import { supabase, loadSessionsFromCloud, deleteSessionFromCloud, syncSessionsToCloud } from './utils/supabase'
+import { isCurrentUserAdmin } from './utils/auth'
 
 function App() {
   const [sessions, setSessions] = useState<SessionData[]>([])
   const [activeLocation, setActiveLocation] = useState<'soul-bridge' | 'halo'>('soul-bridge')
   const [currentPage, setCurrentPage] = useState<'earnings' | 'sessions'>('earnings')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [showAdminPanel, setShowAdminPanel] = useState(false)
 
   // Check if already logged in (session storage - resets on browser close)
   useEffect(() => {
     const authenticated = sessionStorage.getItem('earnings-tracker-auth') === 'true'
     setIsAuthenticated(authenticated)
   }, [])
+
+  // Check if user is admin
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (isAuthenticated) {
+        const admin = await isCurrentUserAdmin()
+        setIsAdmin(admin)
+      }
+    }
+    checkAdminStatus()
+  }, [isAuthenticated])
 
   // Load data from Supabase (with localStorage fallback)
   useEffect(() => {
@@ -153,6 +168,8 @@ function App() {
         currentPage={currentPage}
         onPageChange={setCurrentPage}
         onLogout={handleLogout}
+        isAdmin={isAdmin}
+        onAdminClick={() => setShowAdminPanel(true)}
       />
       <main className="container mx-auto px-4 py-8">
         {currentPage === 'earnings' ? (
@@ -174,6 +191,7 @@ function App() {
           />
         )}
       </main>
+      {showAdminPanel && <AdminPanel onClose={() => setShowAdminPanel(false)} />}
     </div>
   )
 }
