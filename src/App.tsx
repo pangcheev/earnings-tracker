@@ -4,7 +4,6 @@ import { EarningsHome } from './pages/EarningsHome'
 import { SessionsManagement } from './pages/SessionsManagement'
 import { Navigation } from './components/Navigation'
 import { Login } from './components/Login'
-import { SyncManager } from './components/SyncManager'
 import { SessionData } from './types'
 import { getLocalDateString } from './utils/haloPayroll'
 import { supabase, loadSessionsFromCloud, deleteSessionFromCloud, syncSessionsToCloud } from './utils/supabase'
@@ -87,10 +86,6 @@ function App() {
   const updateSession = (id: string, updates: Partial<SessionData>) => {
     console.log('✏️  Updating session', id, 'with:', updates)
     setSessions(sessions.map(s => s.id === id ? { ...s, ...updates } : s))
-  }
-
-  const mergeSessions = (newSessions: SessionData[]) => {
-    setSessions(newSessions)
   }
 
   const exportSessions = () => {
@@ -179,7 +174,6 @@ function App() {
           />
         )}
       </main>
-      <SyncManager sessions={sessions} onUpdateSessions={mergeSessions} />
     </div>
   )
 }
