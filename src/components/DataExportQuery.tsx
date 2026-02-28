@@ -46,7 +46,7 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
     }
   }
 
-  const handleExport = (format: 'csv' | 'json') => {
+  const handleExport = (exportFmt: 'csv' | 'json') => {
     if (results.length === 0) {
       alert('No results to export')
       return
@@ -60,9 +60,9 @@ export function DataExportQuery({ onClose }: DataExportQueryProps) {
       ? `until_${endDate}`
       : 'all'
 
-    const filename = `sessions-${dateRange}-${format(new Date(), 'yyyy-MM-dd')}.${format}`
+    const filename = `sessions-${dateRange}-${format(new Date(), 'yyyy-MM-dd')}.${exportFmt}`
 
-    if (format === 'csv') {
+    if (exportFmt === 'csv') {
       exportToCsv(results, filename)
     } else {
       exportToJson(results, filename)
