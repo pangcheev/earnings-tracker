@@ -1,5 +1,6 @@
 import { supabase } from './supabase'
 import { SessionData } from '../types'
+import { getCurrentUser } from './auth'
 
 export interface QueryFilters {
   startDate?: string
@@ -14,6 +15,7 @@ export interface QueryFilters {
 
 /**
  * Query sessions from Supabase with optional filters
+ * Automatically filters to current user's data only
  */
 export async function querySessionsFromCloud(filters: QueryFilters): Promise<SessionData[]> {
   if (!supabase) {
@@ -22,7 +24,14 @@ export async function querySessionsFromCloud(filters: QueryFilters): Promise<Ses
   }
 
   try {
-    let query = supabase.from('sessions').select('*')
+    // Get current user for filtering
+    const currentUser = await getCurrentUser()
+    if (!currentUser) {
+      console.warn('❌ Not authenticated - cannot query sessions')
+      return []
+    }
+
+    let query = supabase.from('sessions').select('*').eq('user_id', currentUser.id)
 
     // Apply date range filters
     if (filters.startDate) {
