@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { SessionData } from '../types'
 import { SessionTreeView } from '../components/SessionTreeView'
 import { EditSessionModal } from '../components/EditSessionModal'
+import { DataExportQuery } from '../components/DataExportQuery'
+import { Download } from 'lucide-react'
 
 interface SessionsManagementProps {
   sessions: SessionData[]
@@ -17,6 +19,7 @@ export function SessionsManagement({
   onUpdateSession,
 }: SessionsManagementProps) {
   const [editingSession, setEditingSession] = useState<SessionData | null>(null)
+  const [showDataQuery, setShowDataQuery] = useState(false)
 
   const handleEditSession = (session: SessionData) => {
     setEditingSession(session)
@@ -39,10 +42,20 @@ export function SessionsManagement({
 
   return (
     <div>
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">
-          {currentLocation === 'soul-bridge' ? 'Soul Bridge Healing' : 'Halo Therapies'} - Sessions
-        </h2>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <h2 className="text-3xl font-bold text-white mb-4">
+            {currentLocation === 'soul-bridge' ? 'Soul Bridge Healing' : 'Halo Therapies'} - Sessions
+          </h2>
+        </div>
+        <button
+          onClick={() => setShowDataQuery(true)}
+          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+          title="Query and export data from Supabase"
+        >
+          <Download className="w-5 h-5" />
+          Query & Export
+        </button>
       </div>
 
       {sessions.length === 0 ? (
@@ -67,6 +80,10 @@ export function SessionsManagement({
           onSave={handleSaveSession}
           location={currentLocation}
         />
+      )}
+
+      {showDataQuery && (
+        <DataExportQuery onClose={() => setShowDataQuery(false)} />
       )}
     </div>
   )
