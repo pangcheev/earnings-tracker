@@ -116,9 +116,9 @@ CREATE POLICY "Users can delete their own sessions or admins can delete any"
   );
 
 -- Create indexes
-CREATE INDEX profiles_is_admin_idx ON profiles(is_admin);
-CREATE INDEX profiles_is_active_idx ON profiles(is_active);
-CREATE INDEX sessions_user_id_idx ON sessions(user_id);
+CREATE INDEX IF NOT EXISTS profiles_is_admin_idx ON profiles(is_admin);
+CREATE INDEX IF NOT EXISTS profiles_is_active_idx ON profiles(is_active);
+CREATE INDEX IF NOT EXISTS sessions_user_id_idx ON sessions(user_id);
 
 -- Add comments
 COMMENT ON TABLE profiles IS 'User profiles and role management';
