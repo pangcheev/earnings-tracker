@@ -5,7 +5,8 @@ import { SessionCard } from '../components/SessionCard'
 import { EarningsSummary } from '../components/EarningsSummary'
 import { HaloPayrollSummary } from '../components/HaloPayrollSummary'
 import { EditSessionModal } from '../components/EditSessionModal'
-import { Calendar, TrendingUp, List, Download, Upload, Check, ChevronDown } from 'lucide-react'
+import { DataExportQuery } from '../components/DataExportQuery'
+import { Calendar, TrendingUp, List, Download, Upload, Check, ChevronDown, Filter } from 'lucide-react'
 import { calculateHaloTotalPayout, getLocalDateString, parseLocalDateString } from '../utils/haloPayroll'
 import { getClosedDatesFromCloud, setDateClosedInCloud, setDateOpenInCloud } from '../utils/supabase'
 import { format } from 'date-fns'
@@ -32,6 +33,7 @@ export function EarningsHome({
   const [editingSession, setEditingSession] = useState<SessionData | null>(null)
   const [showTreeView, setShowTreeView] = useState(true)
   const [closedOutMessage, setClosedOutMessage] = useState('')
+  const [showDataQuery, setShowDataQuery] = useState(false)
   
   // Track which date is being viewed and which dates are closed
   const getTodayOrMostRecentDate = (): string => {
@@ -196,6 +198,14 @@ export function EarningsHome({
               <span className="hidden sm:inline">{showTreeView ? 'Hide' : 'Show'} Sessions</span>
             </button>
             <button
+              onClick={() => setShowDataQuery(true)}
+              className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-amber-600 hover:bg-amber-700 text-white transition-colors text-sm lg:text-base"
+              title="Query and export data from Supabase"
+            >
+              <Filter className="w-4 lg:w-5 h-4 lg:h-5" />
+              <span className="hidden sm:inline">Query</span>
+            </button>
+            <button
               onClick={onExportSessions}
               className="flex items-center justify-center lg:justify-start gap-2 px-3 lg:px-4 py-2 rounded-lg font-semibold bg-green-700 hover:bg-green-600 text-white transition-colors text-sm lg:text-base"
               title="Download backup"
@@ -350,6 +360,10 @@ export function EarningsHome({
           onSave={handleSaveSession}
           location={currentLocation}
         />
+      )}
+
+      {showDataQuery && (
+        <DataExportQuery onClose={() => setShowDataQuery(false)} />
       )}
     </div>
   )
