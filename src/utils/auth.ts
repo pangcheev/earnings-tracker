@@ -118,16 +118,35 @@ export async function logoutUser(): Promise<boolean> {
  * Get the current authenticated user
  */
 export async function getCurrentUser(): Promise<User | null> {
-  if (!supabase) return null
+  if (!supabase) {
+    console.error('❌ Supabase not configured')
+    return null
+  }
 
   try {
+    // Try to get the user from the current session
     const { data, error } = await supabase.auth.getUser()
 
-    if (error || !data.user) {
-      console.log('ℹ️  No authenticated user')
+    if (error) {
+      console.error('❌ Error getting user:', error.message)
       return null
     }
 
+    if (!data.user) {
+      console.warn('⚠️  No user in session - trying to get session directly')
+      // Try alternative method
+      const { data: sessionData } = await supabase.auth.getSession()
+      if (sessionData.session?.user) {
+        console.log('✅ Found user via session:', sessionData.session.user.email)
+        return {
+          id: sessionData.session.user.id,
+          email: sessionData.session.user.email || '',
+        }
+      }
+      return null
+    }
+
+    console.log('✅ Got current user:', data.user.email)
     return {
       id: data.user.id,
       email: data.user.email || '',

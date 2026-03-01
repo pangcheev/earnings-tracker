@@ -8,7 +8,7 @@ import { AdminPanel } from './components/AdminPanel'
 import { SessionData } from './types'
 import { getLocalDateString } from './utils/haloPayroll'
 import { supabase, loadSessionsFromCloud, deleteSessionFromCloud, syncSessionsToCloud } from './utils/supabase'
-import { isCurrentUserAdmin } from './utils/auth'
+import { isCurrentUserAdmin, getCurrentUser } from './utils/auth'
 
 function App() {
   const [sessions, setSessions] = useState<SessionData[]>([])
@@ -18,10 +18,21 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false)
   const [showAdminPanel, setShowAdminPanel] = useState(false)
 
-  // Check if already logged in (session storage - resets on browser close)
+  // Check if already logged in (from Supabase session)
   useEffect(() => {
-    const authenticated = sessionStorage.getItem('earnings-tracker-auth') === 'true'
-    setIsAuthenticated(authenticated)
+    const checkAuthStatus = async () => {
+      const user = await getCurrentUser()
+      if (user) {
+        console.log('✅ Restored auth session for:', user.email)
+        setIsAuthenticated(true)
+        sessionStorage.setItem('earnings-tracker-auth', 'true')
+      } else {
+        console.log('ℹ️  No auth session found')
+        setIsAuthenticated(false)
+        sessionStorage.removeItem('earnings-tracker-auth')
+      }
+    }
+    checkAuthStatus()
   }, [])
 
   // Check if user is admin
@@ -143,15 +154,29 @@ function App() {
     input.click()
   }
 
-  const handleLogin = () => {
-    sessionStorage.setItem('earnings-tracker-auth', 'true')
-    setIsAuthenticated(true)
+  const handleLogin = async () => {
+    // Verify that we actually have a Supabase session
+    const user = await getCurrentUser()
+    if (user) {
+      console.log('✅ Login successful, authenticated as:', user.email)
+      sessionStorage.setItem('earnings-tracker-auth', 'true')
+      setIsAuthenticated(true)
+    } else {
+      console.error('❌ Login failed - no Supabase session found')
+      setIsAuthenticated(false)
+    }
   }
 
-  const handleLogout = () => {
-    // Only clear auth token, NOT sessions (they're in localStorage and should persist)
+  const handleLogout = async () => {
+    // Logout from Supabase
+    if (supabase) {
+      await supabase.auth.signOut()
+    }
+    
+    // Clear local storage
     sessionStorage.removeItem('earnings-tracker-auth')
     setIsAuthenticated(false)
+    setIsAdmin(false)
     setCurrentPage('earnings')
     // Sessions remain in localStorage - they'll reload when user logs back in
   }
