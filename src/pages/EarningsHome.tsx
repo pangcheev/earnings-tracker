@@ -338,11 +338,76 @@ export function EarningsHome({
               {currentLocation === 'halo' ? (
                 <HaloPayrollSummary sessions={sessions.filter(s => s.date === viewDate)} selectedDate={viewDate} />
               ) : (
-                <>
-                  <EarningsSummary sessions={sessions.filter(s => s.date === viewDate)} />
-                </>
+                <EarningsSummary sessions={sessions.filter(s => s.date === viewDate)} />
               )}
             </>
+          )}
+
+          {/* Session History - Collapsible Section (even when closed) */}
+          {sessions.filter(s => s.date === viewDate).length > 0 && (
+            <div className="mb-8 bg-slate-800 rounded-lg border border-slate-600 overflow-hidden">
+              {/* Collapsible Header */}
+              <button
+                onClick={() => setShowTreeView(!showTreeView)}
+                className="w-full flex items-center justify-between p-6 hover:bg-slate-700 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <h3 className="text-lg font-semibold text-white">Session History</h3>
+                  <span className="text-sm text-slate-400">({sessions.filter(s => s.date === viewDate).length})</span>
+                </div>
+                <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${showTreeView ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Collapsible Content */}
+              {showTreeView && (
+                <div className="border-t border-slate-600 p-6 space-y-6">
+                  {/* Stats Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-slate-700 rounded-lg p-4 border border-amber-700">
+                      <p className="text-slate-400 text-sm mb-1">Total Sessions</p>
+                      <p className="text-3xl font-bold text-white">{sessions.filter(s => s.date === viewDate).length}</p>
+                    </div>
+                    <div className={`rounded-lg p-4 border ${currentLocation === 'halo' ? 'bg-blue-900 border-amber-700' : 'bg-amber-900 border-amber-700'}`}>
+                      <p className={`text-sm mb-1 ${currentLocation === 'halo' ? 'text-blue-200' : 'text-amber-200'}`}>
+                        Total {currentLocation === 'halo' ? 'Payout' : 'Earnings'}
+                      </p>
+                      <p className={`text-3xl font-bold ${currentLocation === 'halo' ? 'text-white' : 'text-blue-200'}`}>
+                        ${sessions.filter(s => s.date === viewDate).reduce((sum, session) => {
+                          if (currentLocation === 'halo') {
+                            const breakdown = calculateHaloTotalPayout(session.services, session.addOns, session.tips, session.hasClientReview)
+                            return sum + breakdown.total
+                          } else {
+                            const serviceTotal = session.services.reduce((s, srv) => s + (srv.rate / 60) * srv.duration, 0)
+                            const addOnsTotal = session.addOns.reduce((a, addon) => a + addon.price, 0)
+                            return sum + serviceTotal + addOnsTotal + session.tips
+                          }
+                        }, 0).toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Session Cards Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {sessions.filter(s => s.date === viewDate).map((session) => (
+                      <SessionCard
+                        key={session.id}
+                        session={session}
+                        onDelete={onDeleteSession}
+                        onEdit={handleEditSession}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {sessions.filter(s => s.date === viewDate).length === 0 && (
+            <div className="text-center py-12">
+              <Calendar className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+              <p className="text-slate-400 text-lg">No sessions for this day</p>
+              <p className="text-slate-500 text-sm mt-2">This closed day has no recorded sessions</p>
+            </div>
           )}
         </div>
       )}
