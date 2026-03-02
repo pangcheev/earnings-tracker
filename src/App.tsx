@@ -55,7 +55,7 @@ function App() {
   useEffect(() => {
     const loadSessions = async () => {
       // Try to load from Supabase first
-      if (supabase) {
+      if (supabase && isAuthenticated) {
         console.log('🔄 Attempting to load from Supabase...')
         const cloudSessions = await loadSessionsFromCloud()
         if (cloudSessions && cloudSessions.length > 0) {
@@ -81,7 +81,7 @@ function App() {
     }
 
     loadSessions()
-  }, [])
+  }, [isAuthenticated])
 
   // Debug: Log sessions when they change
   useEffect(() => {
