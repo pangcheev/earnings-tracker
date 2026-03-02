@@ -37,8 +37,6 @@ export function SessionsManagement({
     setEditingSession(null)
   }
 
-  const isHalo = true
-
   return (
     <div>
       <div className="mb-8 flex justify-between items-start">
@@ -67,7 +65,7 @@ export function SessionsManagement({
           sessions={sessions}
           onEdit={handleEditSession}
           onDelete={onDeleteSession}
-          isHalo={isHalo}
+          isHalo={true}
         />
       )}
 

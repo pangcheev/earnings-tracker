@@ -205,7 +205,7 @@ function App() {
       <main className="container mx-auto px-4 py-8">
         {currentPage === 'earnings' ? (
           <EarningsHome 
-            sessions={sessions.filter(s => s.location === activeLocation)}
+            sessions={sessions}
             onAddSession={addSession}
             onDeleteSession={deleteSession}
             onUpdateSession={updateSession}
@@ -215,7 +215,7 @@ function App() {
           />
         ) : (
           <SessionsManagement
-            sessions={sessions.filter(s => s.location === activeLocation)}
+            sessions={sessions}
             currentLocation={activeLocation}
             onDeleteSession={deleteSession}
             onUpdateSession={updateSession}
