@@ -115,6 +115,40 @@ export async function logoutUser(): Promise<boolean> {
 }
 
 /**
+ * Change user password
+ */
+export async function changePassword(newPassword: string): Promise<{ success: boolean; error: string | null }> {
+  if (!supabase) {
+    return { success: false, error: 'Supabase not configured' }
+  }
+
+  try {
+    // Verify user is authenticated
+    const user = await getCurrentUser()
+    if (!user) {
+      return { success: false, error: 'Not authenticated' }
+    }
+
+    // Update password (Supabase handles auth via session)
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    })
+
+    if (error) {
+      console.warn('❌ Password change error:', error.message)
+      return { success: false, error: error.message }
+    }
+
+    console.log('✅ Password changed successfully')
+    return { success: true, error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unknown error'
+    console.error('❌ Password change exception:', err)
+    return { success: false, error: message }
+  }
+}
+
+/**
  * Get the current authenticated user
  */
 export async function getCurrentUser(): Promise<User | null> {

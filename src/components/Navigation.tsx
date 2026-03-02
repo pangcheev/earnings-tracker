@@ -1,4 +1,4 @@
-import { Building2, Home, LogOut, Shield } from 'lucide-react'
+import { Building2, Home, LogOut, Shield, Key } from 'lucide-react'
 
 interface NavigationProps {
   activeLocation: 'halo'
@@ -8,9 +8,10 @@ interface NavigationProps {
   isAdmin?: boolean
   onAdminClick?: () => void
   currentUserEmail?: string | null
+  onChangePasswordClick?: () => void
 }
 
-export function Navigation({ currentPage, onPageChange, onLogout, isAdmin, onAdminClick, currentUserEmail }: NavigationProps) {
+export function Navigation({ currentPage, onPageChange, onLogout, isAdmin, onAdminClick, currentUserEmail, onChangePasswordClick }: NavigationProps) {
   return (
     <nav className="bg-slate-950 border-b border-slate-600 sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
@@ -56,6 +57,14 @@ export function Navigation({ currentPage, onPageChange, onLogout, isAdmin, onAdm
               {currentUserEmail}
             </div>
           )}
+          <button
+            onClick={onChangePasswordClick}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold bg-blue-700 hover:bg-blue-600 text-white transition-colors"
+            title="Change Password"
+          >
+            <Key className="w-5 h-5" />
+            <span className="hidden sm:inline">Password</span>
+          </button>
           {isAdmin && (
             <button
               onClick={onAdminClick}

@@ -5,6 +5,7 @@ import { SessionsManagement } from './pages/SessionsManagement'
 import { Navigation } from './components/Navigation'
 import { Login } from './components/Login'
 import { AdminPanel } from './components/AdminPanel'
+import { ChangePasswordModal } from './components/ChangePasswordModal'
 import { SessionData } from './types'
 import { getLocalDateString } from './utils/haloPayroll'
 import { supabase, loadSessionsFromCloud, deleteSessionFromCloud, syncSessionsToCloud } from './utils/supabase'
@@ -17,6 +18,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const [showAdminPanel, setShowAdminPanel] = useState(false)
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false)
   const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null)
 
   // Check if already logged in (from Supabase session)
@@ -198,6 +200,7 @@ function App() {
         isAdmin={isAdmin}
         onAdminClick={() => setShowAdminPanel(true)}
         currentUserEmail={currentUserEmail}
+        onChangePasswordClick={() => setShowChangePasswordModal(true)}
       />
       <main className="container mx-auto px-4 py-8">
         {currentPage === 'earnings' ? (
@@ -220,6 +223,7 @@ function App() {
         )}
       </main>
       {showAdminPanel && <AdminPanel onClose={() => setShowAdminPanel(false)} />}
+      {showChangePasswordModal && <ChangePasswordModal onClose={() => setShowChangePasswordModal(false)} />}
     </div>
   )
 }
