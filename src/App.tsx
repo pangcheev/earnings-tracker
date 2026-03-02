@@ -92,6 +92,11 @@ function App() {
     }
   }, [sessions])
 
+  // Debug: Log page changes
+  useEffect(() => {
+    console.log('📄 Current page:', currentPage, '| Sessions passed to page:', sessions.filter(s => s.location === 'halo').length)
+  }, [currentPage, sessions])
+
   // Save data to localStorage (always) and Supabase (if configured)
   useEffect(() => {
     // Always save to localStorage
