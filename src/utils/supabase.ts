@@ -65,9 +65,12 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
         })
       }
       
+      const businessValue = row.business?.toLowerCase?.() || row.business
+      console.log(`📌 Session ${row.id}: business="${row.business}" -> location="${businessValue === 'halo' ? 'halo' : 'soul-bridge'}"`)
+      
       return {
         id: row.id,
-        location: row.business === 'halo' ? 'halo' : 'soul-bridge',
+        location: businessValue === 'halo' ? 'halo' : 'soul-bridge',
         date: row.date,
         services: [
           {

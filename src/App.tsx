@@ -83,6 +83,15 @@ function App() {
     loadSessions()
   }, [])
 
+  // Debug: Log sessions when they change
+  useEffect(() => {
+    console.log('🔍 Sessions loaded:', sessions.length, 'total')
+    if (sessions.length > 0) {
+      console.log('📋 Session locations:', sessions.map(s => s.location))
+      console.log('✅ Halo sessions:', sessions.filter(s => s.location === 'halo').length)
+    }
+  }, [sessions])
+
   // Save data to localStorage (always) and Supabase (if configured)
   useEffect(() => {
     // Always save to localStorage
