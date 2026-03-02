@@ -15,6 +15,7 @@ export interface AddOn {
 
 export interface SessionData {
   id: string
+  user_id?: string // User ID from Supabase auth
   location: 'halo'
   date: string
   services: ServiceEntry[]

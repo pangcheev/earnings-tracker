@@ -67,6 +67,7 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
       
       return {
         id: row.id,
+        user_id: row.user_id, // Preserve user_id from database
         location: 'halo',
         date: row.date,
         services: [
