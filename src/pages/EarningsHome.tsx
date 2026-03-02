@@ -72,6 +72,20 @@ export function EarningsHome({
     loadClosedDates()
   }, [])
 
+  // Update viewDate when sessions load
+  useEffect(() => {
+    if (sessions.length > 0 && viewDate === getLocalDateString()) {
+      // If viewDate is today but there are no sessions for today, switch to most recent session date
+      const sessionsForToday = sessions.filter(s => s.date === viewDate)
+      if (sessionsForToday.length === 0) {
+        const sessionDates = [...new Set(sessions.map(s => s.date))].sort().reverse()
+        const mostRecentDate = sessionDates[0]
+        console.log('📅 No sessions for today, switching to most recent date:', mostRecentDate)
+        setViewDate(mostRecentDate)
+      }
+    }
+  }, [sessions])
+
   const isDateClosed = (date: string): boolean => {
     return closedDatesMap[date] === true
   }
