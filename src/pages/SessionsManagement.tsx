@@ -27,6 +27,12 @@ export function SessionsManagement({
     console.log('📄 First session:', sessions[0].id, sessions[0].date, sessions[0].location)
   }
 
+  if (sessions.length === 0) {
+    console.log('⚠️  RENDERING: No sessions - showing empty state')
+  } else {
+    console.log('✅ RENDERING: SessionTreeView with', sessions.length, 'sessions')
+  }
+
   const handleEditSession = (session: SessionData) => {
     setEditingSession(session)
   }
