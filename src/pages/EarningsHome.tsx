@@ -37,16 +37,8 @@ export function EarningsHome({
   
   // Track which date is being viewed and which dates are closed
   const getTodayOrMostRecentDate = (): string => {
-    if (sessions.length === 0) {
-      return getLocalDateString()
-    }
-    // Get the most recent session date, or today if no sessions for today
-    const today = getLocalDateString()
-    const hasTodaySession = sessions.some(s => s.date === today)
-    if (hasTodaySession) return today
-    
-    const sessionDates = [...new Set(sessions.map(s => s.date))].sort().reverse()
-    return sessionDates[0] || today
+    // Always default to today's date
+    return getLocalDateString()
   }
   
   const [viewDate, setViewDate] = useState(getTodayOrMostRecentDate())
@@ -74,16 +66,7 @@ export function EarningsHome({
 
   // Update viewDate when sessions load
   useEffect(() => {
-    if (sessions.length > 0 && viewDate === getLocalDateString()) {
-      // If viewDate is today but there are no sessions for today, switch to most recent session date
-      const sessionsForToday = sessions.filter(s => s.date === viewDate)
-      if (sessionsForToday.length === 0) {
-        const sessionDates = [...new Set(sessions.map(s => s.date))].sort().reverse()
-        const mostRecentDate = sessionDates[0]
-        console.log('📅 No sessions for today, switching to most recent date:', mostRecentDate)
-        setViewDate(mostRecentDate)
-      }
-    }
+    // Just keep viewDate at today - don't switch to most recent session date
   }, [sessions])
 
   const isDateClosed = (date: string): boolean => {

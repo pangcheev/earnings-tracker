@@ -178,6 +178,7 @@ function App() {
       console.log('✅ Login successful, authenticated as:', user.email)
       sessionStorage.setItem('earnings-tracker-auth', 'true')
       setIsAuthenticated(true)
+      setCurrentUserEmail(user.email)
     } else {
       console.error('❌ Login failed - no Supabase session found')
       setIsAuthenticated(false)
