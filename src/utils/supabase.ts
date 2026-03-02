@@ -96,6 +96,15 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
   if (!supabase || sessions.length === 0) return false
 
   try {
+    // Get current user to set user_id
+    const { data: { session } } = await supabase.auth.getSession()
+    const userId = session?.user.id
+    
+    if (!userId) {
+      console.warn('❌ Cannot sync: No authenticated user')
+      return false
+    }
+
     const sessionsToSync = sessions.map((session) => {
       // Extract first service (since each session has only ONE service)
       const firstService = session.services[0]
@@ -139,6 +148,7 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
       
       return {
         id: session.id,
+        user_id: userId,
         date: session.date,
         business: session.location === 'halo' ? 'halo' : 'soul',
         service_type: serviceType,
