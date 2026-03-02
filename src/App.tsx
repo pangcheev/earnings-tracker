@@ -51,33 +51,27 @@ function App() {
     checkAdminStatus()
   }, [isAuthenticated])
 
-  // Load data from Supabase (with localStorage fallback)
+  // Load data from Supabase (with localStorage fallback for unauthenticated users)
   useEffect(() => {
     const loadSessions = async () => {
-      // Try to load from Supabase first
+      // When authenticated, ONLY load from Supabase to ensure data isolation
       if (supabase && isAuthenticated) {
         console.log('🔄 Attempting to load from Supabase...')
         const cloudSessions = await loadSessionsFromCloud()
         if (cloudSessions && cloudSessions.length > 0) {
           console.log('☁️  Successfully loaded', cloudSessions.length, 'sessions from cloud')
           setSessions(cloudSessions as SessionData[])
-          return
+        } else {
+          // No sessions for this user - start fresh
+          console.log('📂 No sessions found for this user in Supabase')
+          setSessions([])
         }
+        return
       }
       
-      // Fallback to localStorage
-      try {
-        const saved = localStorage.getItem('earnings-sessions')
-        if (saved) {
-          const parsed = JSON.parse(saved)
-          console.log('📂 Loaded sessions from localStorage:', parsed)
-          setSessions(parsed)
-        } else {
-          console.log('💾 No saved sessions found')
-        }
-      } catch (error) {
-        console.error('❌ Error loading from localStorage:', error)
-      }
+      // When NOT authenticated, don't load from localStorage (it may have other users' data)
+      // Sessions will be empty until user logs in
+      setSessions([])
     }
 
     loadSessions()

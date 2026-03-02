@@ -105,7 +105,11 @@ export async function syncSessionsToCloud(sessions: SessionData[]): Promise<bool
       return false
     }
 
-    const sessionsToSync = sessions.map((session) => {
+    // Only sync sessions that belong to current user or have no user_id (new sessions)
+    // This prevents overwriting other users' data
+    const sessionsToSync = sessions
+      .filter((s: any) => !s.user_id || s.user_id === userId)
+      .map((session) => {
       // Extract first service (since each session has only ONE service)
       const firstService = session.services[0]
       const serviceType = firstService?.type || 'massage'
