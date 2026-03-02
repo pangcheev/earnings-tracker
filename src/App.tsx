@@ -86,16 +86,14 @@ function App() {
   // Debug: Log sessions when they change
   useEffect(() => {
     if (sessions.length > 0) {
-      const haloSessions = sessions.filter(s => s.location === 'halo')
-      console.log(`🔍 Sessions loaded: ${sessions.length} total | Halo: ${haloSessions.length}`)
-      console.log('📋 First 3 sessions:', sessions.slice(0, 3).map(s => ({ id: s.id, date: s.date })))
+      console.log(`✅ Sessions loaded: ${sessions.length} total`)
     }
   }, [sessions])
 
   // Debug: Log page changes
   useEffect(() => {
-    console.log('📄 Current page:', currentPage, '| Sessions passed to page:', sessions.filter(s => s.location === 'halo').length)
-  }, [currentPage, sessions])
+    console.log('📄 Current page:', currentPage)
+  }, [currentPage])
 
   // Save data to localStorage (always) and Supabase (if configured)
   useEffect(() => {
