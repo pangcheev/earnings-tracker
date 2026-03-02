@@ -17,6 +17,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const [showAdminPanel, setShowAdminPanel] = useState(false)
+  const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null)
 
   // Check if already logged in (from Supabase session)
   useEffect(() => {
@@ -25,10 +26,12 @@ function App() {
       if (user) {
         console.log('✅ Restored auth session for:', user.email)
         setIsAuthenticated(true)
+        setCurrentUserEmail(user.email)
         sessionStorage.setItem('earnings-tracker-auth', 'true')
       } else {
         console.log('ℹ️  No auth session found')
         setIsAuthenticated(false)
+        setCurrentUserEmail(null)
         sessionStorage.removeItem('earnings-tracker-auth')
       }
     }
@@ -194,6 +197,7 @@ function App() {
         onLogout={handleLogout}
         isAdmin={isAdmin}
         onAdminClick={() => setShowAdminPanel(true)}
+        currentUserEmail={currentUserEmail}
       />
       <main className="container mx-auto px-4 py-8">
         {currentPage === 'earnings' ? (
