@@ -85,10 +85,10 @@ function App() {
 
   // Debug: Log sessions when they change
   useEffect(() => {
-    console.log('🔍 Sessions loaded:', sessions.length, 'total')
     if (sessions.length > 0) {
-      console.log('📋 Session locations:', sessions.map(s => s.location))
-      console.log('✅ Halo sessions:', sessions.filter(s => s.location === 'halo').length)
+      const haloSessions = sessions.filter(s => s.location === 'halo')
+      console.log(`🔍 Sessions loaded: ${sessions.length} total | Halo: ${haloSessions.length}`)
+      console.log('📋 First 3 sessions:', sessions.slice(0, 3).map(s => ({ id: s.id, date: s.date })))
     }
   }, [sessions])
 

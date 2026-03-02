@@ -38,6 +38,9 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
     
     // Convert database format to SessionData format
     const sessions = (data || []).map((row: any) => {
+      // Log business value and force location to 'halo'
+      console.log(`📌 Session ${row.id}: business="${row.business}" -> location="halo"`)
+      
       // Reconstruct add-ons array from database columns
       const addOnsArray: any[] = []
       
@@ -65,12 +68,9 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
         })
       }
       
-      const businessValue = row.business?.toLowerCase?.() || row.business
-      console.log(`📌 Session ${row.id}: business="${row.business}" -> location="${businessValue === 'halo' ? 'halo' : 'soul-bridge'}"`)
-      
       return {
         id: row.id,
-        location: businessValue === 'halo' ? 'halo' : 'soul-bridge',
+        location: 'halo',
         date: row.date,
         services: [
           {
@@ -86,6 +86,8 @@ export async function loadSessionsFromCloud(): Promise<SessionData[] | null> {
         haloPayoutAmount: row.total_payout,
       } as SessionData
     })
+    
+    console.log(`✅ Loaded ${sessions.length} total Halo sessions from Supabase`)
     
     return sessions
   } catch (err) {
