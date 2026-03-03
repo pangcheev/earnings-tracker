@@ -14,6 +14,8 @@ export function Login({ onLogin }: LoginProps) {
   const [error, setError] = useState('')
   const [isSignup, setIsSignup] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [signupSuccess, setSignupSuccess] = useState(false)
+  const [signupEmail, setSignupEmail] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,7 +38,8 @@ export function Login({ onLogin }: LoginProps) {
         
         await signupUser(email, password, firstName, lastName)
         setError('')
-        onLogin()
+        setSignupEmail(email)
+        setSignupSuccess(true)
       } else {
         // Login mode
         if (!email || !password) {
@@ -57,20 +60,73 @@ export function Login({ onLogin }: LoginProps) {
       setIsLoading(false)
     }
   }
+
+  const handleBackToLogin = () => {
+    setSignupSuccess(false)
+    setEmail('')
+    setPassword('')
+    setFirstName('')
+    setLastName('')
+    setError('')
+    setIsSignup(false)
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-stone-800 to-slate-900 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="bg-slate-800 rounded-lg p-8 border border-slate-600 shadow-2xl">
-          <div className="flex justify-center mb-6">
-            <div className="bg-yellow-500 p-4 rounded-full">
-              <Lock className="w-8 h-8 text-slate-900" />
-            </div>
-          </div>
+          {signupSuccess ? (
+            // Signup Success Message
+            <>
+              <div className="flex justify-center mb-6">
+                <div className="bg-green-500 p-4 rounded-full">
+                  <Mail className="w-8 h-8 text-white" />
+                </div>
+              </div>
 
-          <h1 className="text-3xl font-bold text-white text-center mb-2">Earnings Tracker</h1>
-          <p className="text-slate-400 text-center text-sm mb-8">
-            {isSignup ? 'Create your account' : 'Secure Access'}
-          </p>
+              <h1 className="text-2xl font-bold text-white text-center mb-4">
+                Signup Successful! 🎉
+              </h1>
+              
+              <div className="bg-green-500 bg-opacity-10 border border-green-500 border-opacity-30 text-green-200 px-4 py-4 rounded-lg text-sm mb-6">
+                <p className="mb-3 font-semibold">Please confirm your email address</p>
+                <p className="mb-3">
+                  We've sent a confirmation email to:
+                </p>
+                <p className="font-mono text-green-100 mb-3">{signupEmail}</p>
+                <p className="text-xs opacity-90">
+                  Check your email (including spam folder) and click the confirmation link to complete your signup. You'll then be able to login immediately.
+                </p>
+              </div>
+
+              <p className="text-slate-400 text-center text-sm mb-6">
+                ⏱️ The confirmation link will be valid for 24 hours
+              </p>
+
+              <button
+                type="button"
+                onClick={handleBackToLogin}
+                className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition-colors"
+              >
+                Back to Login
+              </button>
+
+              <p className="text-slate-500 text-xs text-center mt-6">
+                Once you confirm your email, you can login with your credentials
+              </p>
+            </>
+          ) : (
+            // Login/Signup Form
+            <>
+              <div className="flex justify-center mb-6">
+                <div className="bg-yellow-500 p-4 rounded-full">
+                  <Lock className="w-8 h-8 text-slate-900" />
+                </div>
+              </div>
+
+              <h1 className="text-3xl font-bold text-white text-center mb-2">Earnings Tracker</h1>
+              <p className="text-slate-400 text-center text-sm mb-8">
+                {isSignup ? 'Create your account' : 'Secure Access'}
+              </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -178,6 +234,8 @@ export function Login({ onLogin }: LoginProps) {
           <p className="text-slate-500 text-xs text-center mt-6">
             🔒 Your earnings data is private and protected
           </p>
+            </>
+          )}
         </div>
       </div>
     </div>
