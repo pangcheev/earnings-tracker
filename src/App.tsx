@@ -9,7 +9,7 @@ import { ChangePasswordModal } from './components/ChangePasswordModal'
 import { SessionData } from './types'
 import { getLocalDateString } from './utils/haloPayroll'
 import { supabase, loadSessionsFromCloud, deleteSessionFromCloud, syncSessionsToCloud } from './utils/supabase'
-import { isCurrentUserAdmin, getCurrentUser } from './utils/auth'
+import { isCurrentUserAdmin, getCurrentUser, getCurrentUserProfile } from './utils/auth'
 
 function App() {
   const [sessions, setSessions] = useState<SessionData[]>([])
@@ -20,6 +20,8 @@ function App() {
   const [showAdminPanel, setShowAdminPanel] = useState(false)
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false)
   const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null)
+  const [currentUserFirstName, setCurrentUserFirstName] = useState<string | null>(null)
+  const [currentUserLastName, setCurrentUserLastName] = useState<string | null>(null)
 
   // Check if already logged in (from Supabase session)
   useEffect(() => {
@@ -29,11 +31,21 @@ function App() {
         console.log('✅ Restored auth session for:', user.email)
         setIsAuthenticated(true)
         setCurrentUserEmail(user.email)
+        
+        // Fetch user profile to get first and last name
+        const profile = await getCurrentUserProfile()
+        if (profile) {
+          setCurrentUserFirstName(profile.firstName || null)
+          setCurrentUserLastName(profile.lastName || null)
+        }
+        
         sessionStorage.setItem('earnings-tracker-auth', 'true')
       } else {
         console.log('ℹ️  No auth session found')
         setIsAuthenticated(false)
         setCurrentUserEmail(null)
+        setCurrentUserFirstName(null)
+        setCurrentUserLastName(null)
         sessionStorage.removeItem('earnings-tracker-auth')
       }
     }
@@ -173,6 +185,13 @@ function App() {
       sessionStorage.setItem('earnings-tracker-auth', 'true')
       setIsAuthenticated(true)
       setCurrentUserEmail(user.email)
+      
+      // Fetch user profile to get first and last name
+      const profile = await getCurrentUserProfile()
+      if (profile) {
+        setCurrentUserFirstName(profile.firstName || null)
+        setCurrentUserLastName(profile.lastName || null)
+      }
     } else {
       console.error('❌ Login failed - no Supabase session found')
       setIsAuthenticated(false)
@@ -190,6 +209,9 @@ function App() {
     setIsAuthenticated(false)
     setIsAdmin(false)
     setCurrentPage('earnings')
+    setCurrentUserEmail(null)
+    setCurrentUserFirstName(null)
+    setCurrentUserLastName(null)
     // Sessions remain in localStorage - they'll reload when user logs back in
   }
 
@@ -207,6 +229,8 @@ function App() {
         isAdmin={isAdmin}
         onAdminClick={() => setShowAdminPanel(true)}
         currentUserEmail={currentUserEmail}
+        currentUserFirstName={currentUserFirstName}
+        currentUserLastName={currentUserLastName}
         onChangePasswordClick={() => setShowChangePasswordModal(true)}
       />
       <main className="container mx-auto px-4 py-8">

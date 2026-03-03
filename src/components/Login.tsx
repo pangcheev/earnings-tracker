@@ -9,6 +9,8 @@ interface LoginProps {
 export function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [error, setError] = useState('')
   const [isSignup, setIsSignup] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -21,8 +23,8 @@ export function Login({ onLogin }: LoginProps) {
     try {
       if (isSignup) {
         // Sign up mode
-        if (!email || !password) {
-          setError('Please enter both email and password')
+        if (!email || !password || !firstName || !lastName) {
+          setError('Please enter email, password, first name, and last name')
           setIsLoading(false)
           return
         }
@@ -32,7 +34,7 @@ export function Login({ onLogin }: LoginProps) {
           return
         }
         
-        await signupUser(email, password)
+        await signupUser(email, password, firstName, lastName)
         setError('')
         onLogin()
       } else {
@@ -103,6 +105,40 @@ export function Login({ onLogin }: LoginProps) {
               />
             </div>
 
+            {isSignup && (
+              <>
+                <div>
+                  <label className="block text-sm font-semibold text-white mb-2">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    onFocus={() => setError('')}
+                    placeholder="John"
+                    className="w-full bg-slate-700 border border-amber-700 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50"
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-white mb-2">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    onFocus={() => setError('')}
+                    placeholder="Doe"
+                    className="w-full bg-slate-700 border border-amber-700 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50"
+                    disabled={isLoading}
+                  />
+                </div>
+              </>
+            )}
+
             {error && (
               <div className="bg-red-500 bg-opacity-20 border border-red-500 text-red-200 px-3 py-2 rounded text-sm">
                 {error}
@@ -128,6 +164,8 @@ export function Login({ onLogin }: LoginProps) {
                   setError('')
                   setEmail('')
                   setPassword('')
+                  setFirstName('')
+                  setLastName('')
                 }}
                 disabled={isLoading}
                 className="ml-2 text-yellow-500 hover:text-yellow-400 font-semibold disabled:opacity-50"

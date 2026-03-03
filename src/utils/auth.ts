@@ -3,6 +3,8 @@ import { supabase } from './supabase'
 export interface User {
   id: string
   email: string
+  firstName?: string
+  lastName?: string
   isAdmin?: boolean
   isActive?: boolean
   fullName?: string
@@ -12,6 +14,8 @@ export interface UserProfile extends User {
   isAdmin: boolean
   isActive: boolean
   fullName: string
+  firstName?: string
+  lastName?: string
   createdAt: string
   updatedAt: string
 }
@@ -19,7 +23,7 @@ export interface UserProfile extends User {
 /**
  * Sign up a new user with email and password
  */
-export async function signupUser(email: string, password: string): Promise<{ user: User; error: string | null }> {
+export async function signupUser(email: string, password: string, firstName: string = '', lastName: string = ''): Promise<{ user: User; error: string | null }> {
   if (!supabase) {
     return { user: { id: '', email: '' }, error: 'Supabase not configured' }
   }
@@ -28,6 +32,12 @@ export async function signupUser(email: string, password: string): Promise<{ use
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+        }
+      }
     })
 
     if (error) {
@@ -236,6 +246,8 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
     return {
       id: data.id,
       email: data.email,
+      firstName: data.first_name || '',
+      lastName: data.last_name || '',
       isAdmin: data.is_admin,
       isActive: data.is_active,
       fullName: data.full_name || '',
@@ -283,6 +295,8 @@ export async function getAllUsers(): Promise<UserProfile[] | null> {
     return (data || []).map(user => ({
       id: user.id,
       email: user.email,
+      firstName: user.first_name || '',
+      lastName: user.last_name || '',
       isAdmin: user.is_admin,
       isActive: user.is_active,
       fullName: user.full_name || '',
