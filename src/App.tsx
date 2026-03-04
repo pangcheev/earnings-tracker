@@ -22,6 +22,7 @@ function App() {
   const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null)
   const [currentUserFirstName, setCurrentUserFirstName] = useState<string | null>(null)
   const [currentUserLastName, setCurrentUserLastName] = useState<string | null>(null)
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
 
   // Check if already logged in (from Supabase session)
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
         console.log('✅ Restored auth session for:', user.email)
         setIsAuthenticated(true)
         setCurrentUserEmail(user.email)
+        setCurrentUserId(user.id)
         
         // Fetch user profile to get first and last name
         const profile = await getCurrentUserProfile()
@@ -190,6 +192,7 @@ function App() {
       sessionStorage.setItem('earnings-tracker-auth', 'true')
       setIsAuthenticated(true)
       setCurrentUserEmail(user.email)
+      setCurrentUserId(user.id)
       
       // Fetch user profile to get first and last name
       const profile = await getCurrentUserProfile()
@@ -220,6 +223,7 @@ function App() {
     setIsAdmin(false)
     setCurrentPage('earnings')
     setCurrentUserEmail(null)
+    setCurrentUserId(null)
     setCurrentUserFirstName(null)
     setCurrentUserLastName(null)
     // Sessions remain in localStorage - they'll reload when user logs back in
@@ -256,6 +260,7 @@ function App() {
             currentUserFirstName={currentUserFirstName}
             currentUserLastName={currentUserLastName}
             currentUserEmail={currentUserEmail}
+            currentUserId={currentUserId}
           />
         ) : (
           <SessionsManagement

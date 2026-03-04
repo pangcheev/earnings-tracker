@@ -10,9 +10,10 @@ interface HaloPayrollSummaryProps {
   currentUserFirstName?: string | null
   currentUserLastName?: string | null
   currentUserEmail?: string | null
+  currentUserId?: string | null
 }
 
-export function HaloPayrollSummary({ sessions, selectedDate, currentUserFirstName, currentUserLastName, currentUserEmail }: HaloPayrollSummaryProps) {
+export function HaloPayrollSummary({ sessions, selectedDate, currentUserFirstName, currentUserLastName, currentUserEmail, currentUserId }: HaloPayrollSummaryProps) {
   const [copiedType, setCopiedType] = useState<'detailed' | 'totals' | null>(null)
 
   // Debug logging
@@ -97,17 +98,28 @@ TOTAL: $${totals.grandTotal.toFixed(2)}`
   // Build user name from firstName/lastName, or extract from email, or use placeholder
   let userName = 'THERAPIST'
   
-  if (currentUserFirstName || currentUserLastName) {
-    // Has first or last name
-    userName = `${currentUserFirstName || ''} ${currentUserLastName || ''}`.trim().toUpperCase()
-    console.log('✅ Using firstName/lastName:', userName)
-  } else if (currentUserEmail) {
-    // Extract from email (e.g., "pang@example.com" -> "PANG")
-    const emailName = currentUserEmail.split('@')[0].toUpperCase()
-    userName = emailName
-    console.log('⚠️  Using email fallback:', userName)
+  // Check if sessions belong to current user or someone else
+  const sessionOwnerId = sessions[0]?.user_id
+  const isCurrentUserSessions = !sessionOwnerId || sessionOwnerId === currentUserId
+  
+  if (isCurrentUserSessions) {
+    // Sessions belong to current user
+    if (currentUserFirstName || currentUserLastName) {
+      // Has first or last name
+      userName = `${currentUserFirstName || ''} ${currentUserLastName || ''}`.trim().toUpperCase()
+      console.log('✅ Using firstName/lastName:', userName)
+    } else if (currentUserEmail) {
+      // Extract from email (e.g., "pang@example.com" -> "PANG")
+      const emailName = currentUserEmail.split('@')[0].toUpperCase()
+      userName = emailName
+      console.log('⚠️  Using email fallback:', userName)
+    } else {
+      console.log('❌ Using default:', userName)
+    }
   } else {
-    console.log('❌ Using default:', userName)
+    // Sessions belong to a different user
+    console.log('ℹ️  Sessions belong to different user (ID:', sessionOwnerId, '). Cannot display name - would need to fetch user profile.')
+    userName = 'UNKNOWN USER'
   }
   
   const totalsOnlyText = `HALO THERAPIES - ${userName}
