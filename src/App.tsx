@@ -245,6 +245,7 @@ function App() {
             onImportSessions={importSessions}
             currentUserFirstName={currentUserFirstName}
             currentUserLastName={currentUserLastName}
+            currentUserEmail={currentUserEmail}
           />
         ) : (
           <SessionsManagement

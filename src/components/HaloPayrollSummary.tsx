@@ -9,9 +9,10 @@ interface HaloPayrollSummaryProps {
   selectedDate?: string
   currentUserFirstName?: string | null
   currentUserLastName?: string | null
+  currentUserEmail?: string | null
 }
 
-export function HaloPayrollSummary({ sessions, selectedDate, currentUserFirstName, currentUserLastName }: HaloPayrollSummaryProps) {
+export function HaloPayrollSummary({ sessions, selectedDate, currentUserFirstName, currentUserLastName, currentUserEmail }: HaloPayrollSummaryProps) {
   const [copiedType, setCopiedType] = useState<'detailed' | 'totals' | null>(null)
 
   if (sessions.length === 0) {
@@ -87,9 +88,18 @@ tips: $${totals.tips.toFixed(2)}
 TOTAL: $${totals.grandTotal.toFixed(2)}`
 
   // Format totals only for quick text - simple version
-  const userName = currentUserFirstName || currentUserLastName 
-    ? `${currentUserFirstName || ''} ${currentUserLastName || ''}`.trim().toUpperCase()
-    : 'PANG VANG'
+  // Build user name from firstName/lastName, or extract from email, or use placeholder
+  let userName = 'THERAPIST'
+  
+  if (currentUserFirstName || currentUserLastName) {
+    // Has first or last name
+    userName = `${currentUserFirstName || ''} ${currentUserLastName || ''}`.trim().toUpperCase()
+  } else if (currentUserEmail) {
+    // Extract from email (e.g., "pang@example.com" -> "PANG")
+    const emailName = currentUserEmail.split('@')[0].toUpperCase()
+    userName = emailName
+  }
+  
   const totalsOnlyText = `HALO THERAPIES - ${userName}
 DATE: ${dateToDisplay ? format(parseLocalDateString(dateToDisplay), 'MMMM d, yyyy') : format(new Date(), 'MMMM d, yyyy')}
 Sessions: ${sessions.length}

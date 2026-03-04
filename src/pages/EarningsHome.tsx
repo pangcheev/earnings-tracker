@@ -21,6 +21,7 @@ interface EarningsHomeProps {
   onImportSessions: () => void
   currentUserFirstName?: string | null
   currentUserLastName?: string | null
+  currentUserEmail?: string | null
 }
 
 export function EarningsHome({
@@ -33,6 +34,7 @@ export function EarningsHome({
   onImportSessions,
   currentUserFirstName,
   currentUserLastName,
+  currentUserEmail,
 }: EarningsHomeProps) {
   const [editingSession, setEditingSession] = useState<SessionData | null>(null)
   const [showTreeView, setShowTreeView] = useState(true)
@@ -257,6 +259,7 @@ export function EarningsHome({
                   selectedDate={viewDate}
                   currentUserFirstName={currentUserFirstName}
                   currentUserLastName={currentUserLastName}
+                  currentUserEmail={currentUserEmail}
                 />
               ) : (
                 <EarningsSummary sessions={sessions.filter(s => s.date === viewDate)} />
@@ -347,6 +350,7 @@ export function EarningsHome({
                   selectedDate={viewDate}
                   currentUserFirstName={currentUserFirstName}
                   currentUserLastName={currentUserLastName}
+                  currentUserEmail={currentUserEmail}
                 />
               ) : (
                 <EarningsSummary sessions={sessions.filter(s => s.date === viewDate)} />
