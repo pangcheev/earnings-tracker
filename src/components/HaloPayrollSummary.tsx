@@ -1,8 +1,9 @@
 import { SessionData } from '../types'
 import { calculateHaloTotalPayout, parseLocalDateString } from '../utils/haloPayroll'
 import { Copy, Download } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { format } from 'date-fns'
+import { getUserProfile } from '../utils/auth'
 
 interface HaloPayrollSummaryProps {
   sessions: SessionData[]
@@ -15,12 +16,37 @@ interface HaloPayrollSummaryProps {
 
 export function HaloPayrollSummary({ sessions, selectedDate, currentUserFirstName, currentUserLastName, currentUserEmail, currentUserId }: HaloPayrollSummaryProps) {
   const [copiedType, setCopiedType] = useState<'detailed' | 'totals' | null>(null)
+  const [sessionOwnerName, setSessionOwnerName] = useState<string | null>(null)
 
-  // Debug logging
-  console.log('🔍 HaloPayrollSummary received:')
-  console.log('   firstName:', currentUserFirstName)
-  console.log('   lastName:', currentUserLastName)
-  console.log('   email:', currentUserEmail)
+  // Fetch session owner's profile if sessions belong to a different user
+  useEffect(() => {
+    const fetchSessionOwnerName = async () => {
+      const sessionOwnerId = sessions[0]?.user_id
+      if (!sessionOwnerId || sessionOwnerId === currentUserId) {
+        setSessionOwnerName(null)
+        return
+      }
+
+      // Sessions belong to a different user - fetch their profile
+      const profile = await getUserProfile(sessionOwnerId)
+      if (profile && profile.firstName && profile.lastName) {
+        const ownerName = `${profile.firstName} ${profile.lastName}`.trim().toUpperCase()
+        console.log('✅ Session owner found:', ownerName)
+        setSessionOwnerName(ownerName)
+      } else if (profile && profile.email) {
+        const ownerName = profile.email.split('@')[0].toUpperCase()
+        console.log('⚠️  Using session owner email fallback:', ownerName)
+        setSessionOwnerName(ownerName)
+      } else {
+        console.warn('❌ Could not fetch session owner profile')
+        setSessionOwnerName('UNKNOWN USER')
+      }
+    }
+
+    if (sessions.length > 0) {
+      fetchSessionOwnerName()
+    }
+  }, [sessions, currentUserId])
 
   if (sessions.length === 0) {
     return null
@@ -117,9 +143,14 @@ TOTAL: $${totals.grandTotal.toFixed(2)}`
       console.log('❌ Using default:', userName)
     }
   } else {
-    // Sessions belong to a different user
-    console.log('ℹ️  Sessions belong to different user (ID:', sessionOwnerId, '). Cannot display name - would need to fetch user profile.')
-    userName = 'UNKNOWN USER'
+    // Sessions belong to a different user - use the fetched name
+    if (sessionOwnerName) {
+      userName = sessionOwnerName
+      console.log('✅ Using session owner name:', userName)
+    } else {
+      console.log('⏳ Still loading session owner name...')
+      userName = 'UNKNOWN USER' // Temporary while loading
+    }
   }
   
   const totalsOnlyText = `HALO THERAPIES - ${userName}
