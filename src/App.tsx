@@ -35,8 +35,13 @@ function App() {
         // Fetch user profile to get first and last name
         const profile = await getCurrentUserProfile()
         if (profile) {
+          console.log('✅ Profile fetched:', profile)
+          console.log('   firstName:', profile.firstName)
+          console.log('   lastName:', profile.lastName)
           setCurrentUserFirstName(profile.firstName || null)
           setCurrentUserLastName(profile.lastName || null)
+        } else {
+          console.warn('⚠️  Profile not fetched')
         }
         
         sessionStorage.setItem('earnings-tracker-auth', 'true')
@@ -189,8 +194,13 @@ function App() {
       // Fetch user profile to get first and last name
       const profile = await getCurrentUserProfile()
       if (profile) {
+        console.log('✅ Profile fetched on login:', profile)
+        console.log('   firstName:', profile.firstName)
+        console.log('   lastName:', profile.lastName)
         setCurrentUserFirstName(profile.firstName || null)
         setCurrentUserLastName(profile.lastName || null)
+      } else {
+        console.warn('⚠️  Profile not fetched on login')
       }
     } else {
       console.error('❌ Login failed - no Supabase session found')

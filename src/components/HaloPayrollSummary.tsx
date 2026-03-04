@@ -15,6 +15,12 @@ interface HaloPayrollSummaryProps {
 export function HaloPayrollSummary({ sessions, selectedDate, currentUserFirstName, currentUserLastName, currentUserEmail }: HaloPayrollSummaryProps) {
   const [copiedType, setCopiedType] = useState<'detailed' | 'totals' | null>(null)
 
+  // Debug logging
+  console.log('🔍 HaloPayrollSummary received:')
+  console.log('   firstName:', currentUserFirstName)
+  console.log('   lastName:', currentUserLastName)
+  console.log('   email:', currentUserEmail)
+
   if (sessions.length === 0) {
     return null
   }
@@ -94,10 +100,14 @@ TOTAL: $${totals.grandTotal.toFixed(2)}`
   if (currentUserFirstName || currentUserLastName) {
     // Has first or last name
     userName = `${currentUserFirstName || ''} ${currentUserLastName || ''}`.trim().toUpperCase()
+    console.log('✅ Using firstName/lastName:', userName)
   } else if (currentUserEmail) {
     // Extract from email (e.g., "pang@example.com" -> "PANG")
     const emailName = currentUserEmail.split('@')[0].toUpperCase()
     userName = emailName
+    console.log('⚠️  Using email fallback:', userName)
+  } else {
+    console.log('❌ Using default:', userName)
   }
   
   const totalsOnlyText = `HALO THERAPIES - ${userName}
