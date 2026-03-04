@@ -19,6 +19,8 @@ interface EarningsHomeProps {
   currentLocation: 'halo'
   onExportSessions: () => void
   onImportSessions: () => void
+  currentUserFirstName?: string | null
+  currentUserLastName?: string | null
 }
 
 export function EarningsHome({
@@ -29,6 +31,8 @@ export function EarningsHome({
   currentLocation,
   onExportSessions,
   onImportSessions,
+  currentUserFirstName,
+  currentUserLastName,
 }: EarningsHomeProps) {
   const [editingSession, setEditingSession] = useState<SessionData | null>(null)
   const [showTreeView, setShowTreeView] = useState(true)
@@ -248,7 +252,12 @@ export function EarningsHome({
           {sessions.filter(s => s.date === viewDate).length > 0 && (
             <>
               {currentLocation === 'halo' ? (
-                <HaloPayrollSummary sessions={sessions.filter(s => s.date === viewDate)} selectedDate={viewDate} />
+                <HaloPayrollSummary 
+                  sessions={sessions.filter(s => s.date === viewDate)} 
+                  selectedDate={viewDate}
+                  currentUserFirstName={currentUserFirstName}
+                  currentUserLastName={currentUserLastName}
+                />
               ) : (
                 <EarningsSummary sessions={sessions.filter(s => s.date === viewDate)} />
               )}
@@ -333,7 +342,12 @@ export function EarningsHome({
           {sessions.filter(s => s.date === viewDate).length > 0 && (
             <>
               {currentLocation === 'halo' ? (
-                <HaloPayrollSummary sessions={sessions.filter(s => s.date === viewDate)} selectedDate={viewDate} />
+                <HaloPayrollSummary 
+                  sessions={sessions.filter(s => s.date === viewDate)} 
+                  selectedDate={viewDate}
+                  currentUserFirstName={currentUserFirstName}
+                  currentUserLastName={currentUserLastName}
+                />
               ) : (
                 <EarningsSummary sessions={sessions.filter(s => s.date === viewDate)} />
               )}

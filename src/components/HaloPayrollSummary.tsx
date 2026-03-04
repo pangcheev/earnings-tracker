@@ -7,9 +7,11 @@ import { format } from 'date-fns'
 interface HaloPayrollSummaryProps {
   sessions: SessionData[]
   selectedDate?: string
+  currentUserFirstName?: string | null
+  currentUserLastName?: string | null
 }
 
-export function HaloPayrollSummary({ sessions, selectedDate }: HaloPayrollSummaryProps) {
+export function HaloPayrollSummary({ sessions, selectedDate, currentUserFirstName, currentUserLastName }: HaloPayrollSummaryProps) {
   const [copiedType, setCopiedType] = useState<'detailed' | 'totals' | null>(null)
 
   if (sessions.length === 0) {
@@ -85,7 +87,10 @@ tips: $${totals.tips.toFixed(2)}
 TOTAL: $${totals.grandTotal.toFixed(2)}`
 
   // Format totals only for quick text - simple version
-  const totalsOnlyText = `HALO THERAPIES - PANG VANG
+  const userName = currentUserFirstName || currentUserLastName 
+    ? `${currentUserFirstName || ''} ${currentUserLastName || ''}`.trim().toUpperCase()
+    : 'PANG VANG'
+  const totalsOnlyText = `HALO THERAPIES - ${userName}
 DATE: ${dateToDisplay ? format(parseLocalDateString(dateToDisplay), 'MMMM d, yyyy') : format(new Date(), 'MMMM d, yyyy')}
 Sessions: ${sessions.length}
 

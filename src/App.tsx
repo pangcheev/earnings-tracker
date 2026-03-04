@@ -243,6 +243,8 @@ function App() {
             currentLocation={activeLocation}
             onExportSessions={exportSessions}
             onImportSessions={importSessions}
+            currentUserFirstName={currentUserFirstName}
+            currentUserLastName={currentUserLastName}
           />
         ) : (
           <SessionsManagement
