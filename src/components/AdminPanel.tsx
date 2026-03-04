@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { X, Shield, ShieldOff, CheckCircle, XCircle } from 'lucide-react'
+import { X, Shield, ShieldOff, CheckCircle, XCircle, RefreshCw } from 'lucide-react'
 import { getAllUsers, makeUserAdmin, removeUserAdmin, toggleUserActive, UserProfile } from '../utils/auth'
 
 interface AdminPanelProps {
@@ -60,12 +60,22 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
             <Shield className="w-6 h-6 text-purple-400" />
             Admin Panel
           </h2>
-          <button
-            onClick={onClose}
-            className="text-slate-400 hover:text-white"
-          >
-            <X className="w-6 h-6" />
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={loadUsers}
+              disabled={loading}
+              className="text-slate-400 hover:text-white disabled:opacity-50 p-2"
+              title="Refresh users list"
+            >
+              <RefreshCw className="w-5 h-5" />
+            </button>
+            <button
+              onClick={onClose}
+              className="text-slate-400 hover:text-white"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         {message && (
@@ -94,7 +104,11 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
                 {users.map((user) => (
                   <tr key={user.id} className="border-t border-slate-600 hover:bg-slate-700">
                     <td className="px-4 py-3">{user.email}</td>
-                    <td className="px-4 py-3">{user.fullName || '-'}</td>
+                    <td className="px-4 py-3">
+                      {user.firstName || user.lastName 
+                        ? `${user.firstName || ''} ${user.lastName || ''}`.trim()
+                        : user.fullName || '-'}
+                    </td>
                     <td className="px-4 py-3 text-center">
                       {user.isAdmin ? (
                         <Shield className="w-5 h-5 text-purple-400 inline" />
